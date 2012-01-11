@@ -21,13 +21,11 @@ abstract class JHtmlUser
 	/**
 	 * Displays a list of user groups.
 	 *
-	 * @param   boolean  true to include super admin groups, false to exclude them
-	 *
 	 * @return  array  An array containing a list of user groups.
 	 *
 	 * @since   11.4
 	 */
-	public static function groups($includeSuperAdmin = false)
+	public static function groups()
 	{
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
@@ -39,31 +37,10 @@ abstract class JHtmlUser
 		$db->setQuery($query);
 		$options = $db->loadObjectList();
 
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			JError::raiseNotice(500, $db->getErrorMsg());
-			return null;
-		}
-
 		for ($i = 0, $n = count($options); $i < $n; $i++)
 		{
 			$options[$i]->text = str_repeat('- ', $options[$i]->level) . $options[$i]->text;
 			$groups[] = JHtml::_('select.option', $options[$i]->value, $options[$i]->text);
-		}
-
-		// Exclude super admin groups if requested
-		if (!$includeSuperAdmin)
-		{
-			$filteredGroups = array();
-			foreach ($groups as $group)
-			{
-				if (!JAccess::checkGroup($group->value, 'core.admin'))
-				{
-					$filteredGroups[] = $group;
-				}
-			}
-			$groups = $filteredGroups;
 		}
 
 		return $groups;
@@ -91,12 +68,6 @@ abstract class JHtmlUser
 		// Set the query and load the options.
 		$db->setQuery($query);
 		$items = $db->loadObjectList();
-
-		// Detect errors
-		if ($db->getErrorNum())
-		{
-			JError::raiseWarning(500, $db->getErrorMsg());
-		}
 
 		return $items;
 	}

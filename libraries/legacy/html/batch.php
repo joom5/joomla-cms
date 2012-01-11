@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla.Legacy
  * @subpackage  HTML
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ defined('JPATH_PLATFORM') or die;
 /**
  * Extended Utility class for batch processing widgets.
  *
- * @package     Joomla.Platform
+ * @package     Joomla.Legacy
  * @subpackage  HTML
  * @since       11.1
  */
@@ -80,7 +80,7 @@ abstract class JHtmlBatch
 	{
 		// Create the batch selector to change the language on a selection list.
 		$lines = array(
-			'<label id="batch-language-lbl" for="batch-language" class="hasTip"'
+			'<label id="batch-language-lbl" for="batch-language-id" class="hasTip"'
 			. ' title="' . JText::_('JLIB_HTML_BATCH_LANGUAGE_LABEL') . '::' . JText::_('JLIB_HTML_BATCH_LANGUAGE_LABEL_DESC') . '">',
 			JText::_('JLIB_HTML_BATCH_LANGUAGE_LABEL'),
 			'</label>',
