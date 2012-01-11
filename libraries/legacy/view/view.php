@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  View
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -14,8 +14,8 @@ defined('JPATH_PLATFORM') or die;
  *
  * Class holding methods for displaying presentation data.
  *
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  View
  * @since       11.1
  */
 class JView extends JObject
@@ -195,7 +195,7 @@ class JView extends JObject
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise a JError object.
+	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
 	 * @see     fetch()
 	 * @since   11.1
@@ -442,6 +442,7 @@ class JView extends JObject
 	 * @return  string  The name of the model
 	 *
 	 * @since   11.1
+	 * @throws  Exception
 	 */
 	public function getName()
 	{
@@ -450,11 +451,11 @@ class JView extends JObject
 			$r = null;
 			if (!preg_match('/View((view)*(.*(view)?.*))$/i', get_class($this), $r))
 			{
-				JError::raiseError(500, JText::_('JLIB_APPLICATION_ERROR_VIEW_GET_NAME'));
+				throw new Exception(JText::_('JLIB_APPLICATION_ERROR_VIEW_GET_NAME'), 500);
 			}
 			if (strpos($r[3], "view"))
 			{
-				JError::raiseWarning('SOME_ERROR_CODE', JText::_('JLIB_APPLICATION_ERROR_VIEW_GET_NAME_SUBSTRING'));
+				JLog::add(JText::_('JLIB_APPLICATION_ERROR_VIEW_GET_NAME_SUBSTRING'), JLog::WARNING, 'jerror');
 			}
 			$this->_name = strtolower($r[3]);
 		}
@@ -469,17 +470,17 @@ class JView extends JObject
 	 * referenced by the name without JModel, eg. JModelCategory is just
 	 * Category.
 	 *
-	 * @param   JModel   &$model   The model to add to the view.
+	 * @param   JModel   $model    The model to add to the view.
 	 * @param   boolean  $default  Is this the default model?
 	 *
 	 * @return  object   The added model.
 	 *
 	 * @since   11.1
 	 */
-	public function setModel(&$model, $default = false)
+	public function setModel($model, $default = false)
 	{
 		$name = strtolower($model->getName());
-		$this->_models[$name] = &$model;
+		$this->_models[$name] = $model;
 
 		if ($default)
 		{
@@ -587,6 +588,7 @@ class JView extends JObject
 	 * @return  string  The output of the the template script.
 	 *
 	 * @since   11.1
+	 * @throws  Exception
 	 */
 	public function loadTemplate($tpl = null)
 	{
@@ -657,7 +659,7 @@ class JView extends JObject
 		}
 		else
 		{
-			return JError::raiseError(500, JText::sprintf('JLIB_APPLICATION_ERROR_LAYOUTFILE_NOT_FOUND', $file));
+			throw new Exception(JText::sprintf('JLIB_APPLICATION_ERROR_LAYOUTFILE_NOT_FOUND', $file), 500);
 		}
 	}
 
@@ -740,7 +742,7 @@ class JView extends JObject
 		// Loop through the path directories
 		foreach ($path as $dir)
 		{
-			// no surrounding spaces allowed!
+			// No surrounding spaces allowed!
 			$dir = trim($dir);
 
 			// Add trailing separators as needed

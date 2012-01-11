@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Model
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -9,13 +9,11 @@
 
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.application.component.model');
-
 /**
  * Model class for handling lists of items.
  *
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Model
  * @since       11.1
  */
 class JModelList extends JModel
@@ -174,7 +172,6 @@ class JModelList extends JModel
 		}
 
 		// Create the pagination object.
-		jimport('joomla.html.pagination');
 		$limit = (int) $this->getState('list.limit') - (int) $this->getState('list.links');
 		$page = new JPagination($this->getTotal(), $this->getStart(), $limit);
 
@@ -297,7 +294,7 @@ class JModelList extends JModel
 		{
 			$app = JFactory::getApplication();
 
-			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'uint');
+			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
 			$limit = $value;
 			$this->setState('list.limit', $limit);
 
@@ -349,13 +346,14 @@ class JModelList extends JModel
 	public function getUserStateFromRequest($key, $request, $default = null, $type = 'none', $resetPage = true)
 	{
 		$app = JFactory::getApplication();
+		$input     = $app->input;
 		$old_state = $app->getUserState($key);
 		$cur_state = (!is_null($old_state)) ? $old_state : $default;
-		$new_state = JRequest::getVar($request, null, 'default', $type);
+		$new_state = $input->get($request, null, $type);
 
 		if (($cur_state != $new_state) && ($resetPage))
 		{
-			JRequest::setVar('limitstart', 0);
+			$input->set('limitstart', 0);
 		}
 
 		// Save the new value only if it is set in this request.

@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die();
+defined('JPATH_PLATFORM') or die;
 
 /**
  * HTTP transport class for using cURL.
@@ -27,12 +27,12 @@ class JHttpTransportCurl implements JHttpTransport
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  &$options  Client options object.
+	 * @param   JRegistry  $options  Client options object.
 	 *
 	 * @since   11.3
 	 * @throws  RuntimeException
 	 */
-	public function __construct(JRegistry &$options)
+	public function __construct(JRegistry $options)
 	{
 		if (!function_exists('curl_init') || !is_callable('curl_init'))
 		{
@@ -64,14 +64,17 @@ class JHttpTransportCurl implements JHttpTransport
 		// Set the request method.
 		$options[CURLOPT_CUSTOMREQUEST] = strtoupper($method);
 
+		// Don't wait for body when $method is HEAD
+		$options[CURLOPT_NOBODY] = ($method === 'HEAD');
+
 		// Initialize the certificate store
-		$options[CURLOPT_CAINFO] = dirname(__FILE__) . '/cacert.pem';
+		$options[CURLOPT_CAINFO] = __DIR__ . '/cacert.pem';
 
 		// If data exists let's encode it and make sure our Content-type header is set.
 		if (isset($data))
 		{
 			// If the data is a scalar value simply add it to the cURL post fields.
-			if (is_scalar($data))
+			if (is_scalar($data) || (isset($headers['Content-Type']) && strpos($headers['Content-Type'], 'multipart/form-data') === 0))
 			{
 				$options[CURLOPT_POSTFIELDS] = $data;
 			}
@@ -81,12 +84,16 @@ class JHttpTransportCurl implements JHttpTransport
 				$options[CURLOPT_POSTFIELDS] = http_build_query($data);
 			}
 
-			if (!isset($headers['Content-type']))
+			if (!isset($headers['Content-Type']))
 			{
-				$headers['Content-type'] = 'application/x-www-form-urlencoded';
+				$headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
 			}
 
-			$headers['Content-length'] = strlen($options[CURLOPT_POSTFIELDS]);
+			// Add the relevant headers.
+			if (is_scalar($options[CURLOPT_POSTFIELDS]))
+			{
+				$headers['Content-Length'] = strlen($options[CURLOPT_POSTFIELDS]);
+			}
 		}
 
 		// Build the headers string for the request.
@@ -179,5 +186,17 @@ class JHttpTransportCurl implements JHttpTransport
 		}
 
 		return $return;
+	}
+
+	/**
+	 * Method to check if HTTP transport cURL is available for use
+	 *
+	 * @return boolean true if available, else false
+	 *
+	 * @since   12.1
+	 */
+	static public function isSupported()
+	{
+		return function_exists('curl_version') && curl_version();
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Model
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -9,13 +9,11 @@
 
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.application.component.modelform');
-
 /**
  * Prototype admin model.
  *
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Model
  * @since       11.1
  */
 abstract class JModelAdmin extends JModelForm
@@ -638,7 +636,7 @@ abstract class JModelAdmin extends JModelForm
 	public function delete(&$pks)
 	{
 		// Initialise variables.
-		$dispatcher = JDispatcher::getInstance();
+		$dispatcher = JEventDispatcher::getInstance();
 		$pks = (array) $pks;
 		$table = $this->getTable();
 
@@ -683,12 +681,12 @@ abstract class JModelAdmin extends JModelForm
 					$error = $this->getError();
 					if ($error)
 					{
-						JError::raiseWarning(500, $error);
+						JLog::add($error, JLog::WARNING, 'jerror');
 						return false;
 					}
 					else
 					{
-						JError::raiseWarning(403, JText::_('JLIB_APPLICATION_ERROR_DELETE_NOT_PERMITTED'));
+						JLog::add(JText::_('JLIB_APPLICATION_ERROR_DELETE_NOT_PERMITTED'), JLog::WARNING, 'jerror');
 						return false;
 					}
 				}
@@ -801,7 +799,7 @@ abstract class JModelAdmin extends JModelForm
 		$key = $table->getKeyName();
 
 		// Get the pk of the record from the request.
-		$pk = JRequest::getInt($key);
+		$pk = JFactory::getApplication()->input->getInt($key);
 		$this->setState($this->getName() . '.id', $pk);
 
 		// Load the parameters.
@@ -812,13 +810,13 @@ abstract class JModelAdmin extends JModelForm
 	/**
 	 * Prepare and sanitise the table data prior to saving.
 	 *
-	 * @param   JTable  &$table  A reference to a JTable object.
+	 * @param   JTable  $table  A reference to a JTable object.
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
-	protected function prepareTable(&$table)
+	protected function prepareTable($table)
 	{
 		// Derived class will provide its own implementation if required.
 	}
@@ -836,7 +834,7 @@ abstract class JModelAdmin extends JModelForm
 	public function publish(&$pks, $value = 1)
 	{
 		// Initialise variables.
-		$dispatcher = JDispatcher::getInstance();
+		$dispatcher = JEventDispatcher::getInstance();
 		$user = JFactory::getUser();
 		$table = $this->getTable();
 		$pks = (array) $pks;
@@ -855,7 +853,7 @@ abstract class JModelAdmin extends JModelForm
 				{
 					// Prune items that you can't change.
 					unset($pks[$i]);
-					JError::raiseWarning(403, JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+					JLog::add(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'), JLog::WARNING, 'jerror');
 					return false;
 				}
 			}
@@ -919,7 +917,7 @@ abstract class JModelAdmin extends JModelForm
 					// Prune items that you can't change.
 					unset($pks[$i]);
 					$this->checkin($pk);
-					JError::raiseWarning(403, JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+					JLog::add(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'), JLog::WARNING, 'jerror');
 					$allowed = false;
 					continue;
 				}
@@ -970,7 +968,7 @@ abstract class JModelAdmin extends JModelForm
 	public function save($data)
 	{
 		// Initialise variables;
-		$dispatcher = JDispatcher::getInstance();
+		$dispatcher = JEventDispatcher::getInstance();
 		$table = $this->getTable();
 		$key = $table->getKeyName();
 		$pk = (!empty($data[$key])) ? $data[$key] : (int) $this->getState($this->getName() . '.id');
@@ -1007,7 +1005,7 @@ abstract class JModelAdmin extends JModelForm
 			}
 
 			// Trigger the onContentBeforeSave event.
-			$result = $dispatcher->trigger($this->event_before_save, array($this->option . '.' . $this->name, &$table, $isNew));
+			$result = $dispatcher->trigger($this->event_before_save, array($this->option . '.' . $this->name, $table, $isNew));
 			if (in_array(false, $result, true))
 			{
 				$this->setError($table->getError());
@@ -1025,7 +1023,7 @@ abstract class JModelAdmin extends JModelForm
 			$this->cleanCache();
 
 			// Trigger the onContentAfterSave event.
-			$dispatcher->trigger($this->event_after_save, array($this->option . '.' . $this->name, &$table, $isNew));
+			$dispatcher->trigger($this->event_after_save, array($this->option . '.' . $this->name, $table, $isNew));
 		}
 		catch (Exception $e)
 		{
@@ -1076,7 +1074,7 @@ abstract class JModelAdmin extends JModelForm
 			{
 				// Prune items that you can't change.
 				unset($pks[$i]);
-				JError::raiseWarning(403, JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
+				JLog::add(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'), JLog::WARNING, 'jerror');
 			}
 			elseif ($table->ordering != $order[$i])
 			{

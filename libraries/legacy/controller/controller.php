@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Controller
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -15,30 +15,12 @@ defined('JPATH_PLATFORM') or die;
  * Controller (Controllers are where you put all the actual code.) Provides basic
  * functionality, such as rendering views (aka displaying templates).
  *
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Controller
  * @since       11.1
  */
 class JController extends JObject
 {
-	/**
-	 * ACO Section for the controller.
-	 *
-	 * @var    string
-	 * @since  11.1
-	 * @deprecated    12.1
-	 */
-	protected $_acoSection;
-
-	/**
-	 * Default ACO Section value for the controller.
-	 *
-	 * @var    string
-	 * @since  11.1
-	 * @deprecated    12.1
-	 */
-	protected $_acoSectionValue;
-
 	/**
 	 * The base path of the controller
 	 *
@@ -161,7 +143,6 @@ class JController extends JObject
 	 */
 	public static function addModelPath($path, $prefix = '')
 	{
-		jimport('joomla.application.component.model');
 		JModel::addIncludePath($path, $prefix);
 	}
 
@@ -199,7 +180,7 @@ class JController extends JObject
 					$parts['format'] = '';
 				}
 
-				$filename = strtolower($parts['name']) . $parts['format'] . '.php';
+				$filename = strtolower($parts['name'] . $parts['format'] . '.php');
 				break;
 
 			case 'view':
@@ -207,8 +188,12 @@ class JController extends JObject
 				{
 					$parts['type'] = '.' . $parts['type'];
 				}
+				else
+				{
+					$parts['type'] = '';
+				}
 
-				$filename = strtolower($parts['name']) . '/view' . $parts['type'] . '.php';
+				$filename = strtolower($parts['name'] . '/view' . $parts['type'] . '.php');
 				break;
 		}
 
@@ -233,10 +218,12 @@ class JController extends JObject
 			return self::$instance;
 		}
 
+		$input = JFactory::getApplication()->input;
+
 		// Get the environment configuration.
 		$basePath = array_key_exists('base_path', $config) ? $config['base_path'] : JPATH_COMPONENT;
-		$format = JRequest::getWord('format');
-		$command = JRequest::getVar('task', 'display');
+		$format   = $input->getWord('format');
+		$command  = $input->get('task', 'display');
 
 		// Check for array format.
 		$filter = JFilterInput::getInstance();
@@ -261,7 +248,7 @@ class JController extends JObject
 			$path = $basePath . '/controllers/' . $file;
 
 			// Reset the task without the controller context.
-			JRequest::setVar('task', $task);
+			$input->set('task', $task);
 		}
 		else
 		{
@@ -487,24 +474,6 @@ class JController extends JObject
 	/**
 	 * Authorisation check
 	 *
-	 * @param   string  $task  The ACO Section Value to check access on
-	 *
-	 * @return  boolean  True if authorised
-	 *
-	 * @since   11.1
-	 *
-	 * @deprecated  12.1   Use JAuthorise
-	 */
-	public function authorize($task)
-	{
-		JLog::add('JController::authorize() is deprecated.', JLog::WARNING, 'deprecated');
-
-		$this->authorise($task);
-	}
-
-	/**
-	 * Authorisation check
-	 *
 	 * @param   string  $task  The ACO Section Value to check access on.
 	 *
 	 * @return  boolean  True if authorised
@@ -514,25 +483,7 @@ class JController extends JObject
 	 */
 	public function authorise($task)
 	{
-		// Only do access check if the aco section is set
-		if ($this->_acoSection)
-		{
-			// If we have a section value set that trumps the passed task.
-			if ($this->_acoSectionValue)
-			{
-				// We have one, so set it and lets do the check
-				$task = $this->_acoSectionValue;
-			}
-			// Get the JUser object for the current user and return the authorization boolean
-			$user = JFactory::getUser();
-
-			return $user->authorise($this->_acoSection, $task);
-		}
-		else
-		{
-			// Nothing set, nothing to check... so obviously it's ok :)
-			return true;
-		}
+		return true;
 	}
 
 	/**
@@ -618,6 +569,7 @@ class JController extends JObject
 	 *
 	 * @since   11.1
 	 * @note    Replaces _createView.
+	 * @throws  Exception
 	 */
 	protected function createView($name, $prefix = '', $type = '', $config = array())
 	{
@@ -640,9 +592,7 @@ class JController extends JObject
 
 				if (!class_exists($viewClass))
 				{
-					JError::raiseError(500, JText::sprintf('JLIB_APPLICATION_ERROR_VIEW_CLASS_NOT_FOUND', $viewClass, $path));
-
-					return null;
+					throw new Exception(JText::sprintf('JLIB_APPLICATION_ERROR_VIEW_CLASS_NOT_FOUND', $viewClass, $path), 500);
 				}
 			}
 			else
@@ -667,12 +617,13 @@ class JController extends JObject
 	 *
 	 * @since   11.1
 	 */
-	public function display($cachable = false, $urlparams = false)
+	public function display($cachable = false, $urlparams = array())
 	{
 		$document = JFactory::getDocument();
 		$viewType = $document->getType();
-		$viewName = JRequest::getCmd('view', $this->default_view);
-		$viewLayout = JRequest::getCmd('layout', 'default');
+		$input    = JFactory::getApplication()->input;
+		$viewName = $input->get('view', $this->default_view);
+		$viewLayout = $input->get('layout', 'default');
 
 		$view = $this->getView($viewName, $viewType, '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 
@@ -690,14 +641,14 @@ class JController extends JObject
 		// Display the view
 		if ($cachable && $viewType != 'feed' && $conf->get('caching') >= 1)
 		{
-			$option = JRequest::getCmd('option');
+			$option = $input->get('layout');
 			$cache = JFactory::getCache($option, 'view');
 
 			if (is_array($urlparams))
 			{
 				$app = JFactory::getApplication();
 
-				$registeredurlparams = $app->get('registeredurlparams');
+				$registeredurlparams = $app->registeredurlparams;
 
 				if (empty($registeredurlparams))
 				{
@@ -710,11 +661,10 @@ class JController extends JObject
 					$registeredurlparams->$key = $value;
 				}
 
-				$app->set('registeredurlparams', $registeredurlparams);
+				$app->registeredurlparams = $registeredurlparams;
 			}
 
 			$cache->get($view, 'display');
-
 		}
 		else
 		{
@@ -732,6 +682,7 @@ class JController extends JObject
 	 * @return  mixed   The value returned by the called method, false in error case.
 	 *
 	 * @since   11.1
+	 * @throws  Exception
 	 */
 	public function execute($task)
 	{
@@ -748,22 +699,13 @@ class JController extends JObject
 		}
 		else
 		{
-			return JError::raiseError(404, JText::sprintf('JLIB_APPLICATION_ERROR_TASK_NOT_FOUND', $task));
+			throw new Exception(JText::sprintf('JLIB_APPLICATION_ERROR_TASK_NOT_FOUND', $task), 404);
 		}
 
 		// Record the actual task being fired
 		$this->doTask = $doTask;
 
-		// Make sure we have access
-		if ($this->authorise($doTask))
-		{
-			$retval = $this->$doTask();
-			return $retval;
-		}
-		else
-		{
-			return JError::raiseError(403, JText::_('JLIB_APPLICATION_ERROR_ACCESS_FORBIDDEN'));
-		}
+		return $this->$doTask();
 	}
 
 	/**
@@ -803,6 +745,7 @@ class JController extends JObject
 				if ($item = $menu->getActive())
 				{
 					$params = $menu->getParams($item->id);
+
 					// Set default state data
 					$model->setState('parameters.menu', $params);
 				}
@@ -820,6 +763,7 @@ class JController extends JObject
 	 * @return  string  The name of the dispatcher
 	 *
 	 * @since   11.1
+	 * @throws  Exception
 	 */
 	public function getName()
 	{
@@ -828,7 +772,7 @@ class JController extends JObject
 			$r = null;
 			if (!preg_match('/(.*)Controller/i', get_class($this), $r))
 			{
-				JError::raiseError(500, JText::_('JLIB_APPLICATION_ERROR_CONTROLLER_GET_NAME'));
+				throw new Exception(JText::_('JLIB_APPLICATION_ERROR_CONTROLLER_GET_NAME'), 500);
 			}
 			$this->name = strtolower($r[1]);
 		}
@@ -871,6 +815,7 @@ class JController extends JObject
 	 * @return  object  Reference to the view or an error.
 	 *
 	 * @since   11.1
+	 * @throws  Exception
 	 */
 	public function getView($name = '', $type = '', $prefix = '', $config = array())
 	{
@@ -899,9 +844,7 @@ class JController extends JObject
 			}
 			else
 			{
-				$result = JError::raiseError(500, JText::sprintf('JLIB_APPLICATION_ERROR_VIEW_NOT_FOUND', $name, $type, $prefix));
-
-				return $result;
+				throw new Exception(JText::sprintf('JLIB_APPLICATION_ERROR_VIEW_NOT_FOUND', $name, $type, $prefix), 500);
 			}
 		}
 
@@ -1054,26 +997,6 @@ class JController extends JObject
 				);
 			}
 		}
-	}
-
-	/**
-	 * Sets the access control levels.
-	 *
-	 * @param   string  $section  The ACO section (eg, the component).
-	 * @param   string  $value    The ACO section value (if using a constant value).
-	 *
-	 * @return  void
-	 *
-	 * @deprecated  12.1  Use JAccess
-	 * @see     Jaccess
-	 * @since   11.1
-	 */
-	public function setAccessControl($section, $value = null)
-	{
-		// Deprecation warning.
-		JLog::add('JController::setAccessControl() is deprecated.', JLog::WARNING, 'deprecated');
-		$this->_acoSection = $section;
-		$this->_acoSectionValue = $value;
 	}
 
 	/**

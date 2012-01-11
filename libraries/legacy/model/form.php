@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Model
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -9,13 +9,11 @@
 
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.application.component.model');
-
 /**
  * Prototype form model.
  *
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Model
  * @see         JForm
  * @see         JFormField
  * @see         JformRule
@@ -224,7 +222,7 @@ abstract class JModelForm extends JModel
 		JPluginHelper::importPlugin($group);
 
 		// Get the dispatcher.
-		$dispatcher = JDispatcher::getInstance();
+		$dispatcher = JEventDispatcher::getInstance();
 
 		// Trigger the form preparation event.
 		$results = $dispatcher->trigger('onContentPrepareForm', array($form, $data));
