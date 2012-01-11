@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Model
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -9,16 +9,14 @@
 
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.application.component.model');
-
 /**
  * Model class for handling lists of items.
  *
- * @package     Joomla.Platform
- * @subpackage  Application
+ * @package     Joomla.Legacy
+ * @subpackage  Model
  * @since       11.1
  */
-class JModelList extends JModel
+class JModelList extends JModelLegacy
 {
 	/**
 	 * Internal memory based cache array of data.
@@ -58,7 +56,7 @@ class JModelList extends JModel
 	 *
 	 * @param   array  $config  An optional associative array of configuration settings.
 	 *
-	 * @see     JController
+	 * @see     JModelLegacy
 	 * @since   11.1
 	 */
 	public function __construct($config = array())
@@ -125,12 +123,14 @@ class JModelList extends JModel
 
 		// Load the list items.
 		$query = $this->_getListQuery();
-		$items = $this->_getList($query, $this->getStart(), $this->getState('list.limit'));
 
-		// Check for a database error.
-		if ($this->_db->getErrorNum())
+		try
 		{
-			$this->setError($this->_db->getErrorMsg());
+			$items = $this->_getList($query, $this->getStart(), $this->getState('list.limit'));
+		}
+		catch (RuntimeException $e)
+		{
+			$this->setError($e->getMessage());
 			return false;
 		}
 
@@ -174,7 +174,6 @@ class JModelList extends JModel
 		}
 
 		// Create the pagination object.
-		jimport('joomla.html.pagination');
 		$limit = (int) $this->getState('list.limit') - (int) $this->getState('list.links');
 		$page = new JPagination($this->getTotal(), $this->getStart(), $limit);
 
@@ -228,12 +227,13 @@ class JModelList extends JModel
 
 		// Load the total.
 		$query = $this->_getListQuery();
-		$total = (int) $this->_getListCount($query);
-
-		// Check for a database error.
-		if ($this->_db->getErrorNum())
+		try
 		{
-			$this->setError($this->_db->getErrorMsg());
+			$total = (int) $this->_getListCount($query);
+		}
+		catch (RuntimeException $e)
+		{
+			$this->setError($e->getMessage());
 			return false;
 		}
 
@@ -349,13 +349,14 @@ class JModelList extends JModel
 	public function getUserStateFromRequest($key, $request, $default = null, $type = 'none', $resetPage = true)
 	{
 		$app = JFactory::getApplication();
+		$input     = $app->input;
 		$old_state = $app->getUserState($key);
 		$cur_state = (!is_null($old_state)) ? $old_state : $default;
-		$new_state = JRequest::getVar($request, null, 'default', $type);
+		$new_state = $input->get($request, null, $type);
 
 		if (($cur_state != $new_state) && ($resetPage))
 		{
-			JRequest::setVar('limitstart', 0);
+			$input->set('limitstart', 0);
 		}
 
 		// Save the new value only if it is set in this request.
