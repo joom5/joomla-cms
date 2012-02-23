@@ -225,8 +225,8 @@ class JInstallationModelSetup extends JModelLegacy
 
 		// Check the PHP Version.
 		$option = new stdClass;
-		$option->label  = JText::_('INSTL_PHP_VERSION').' >= 5.2.4';
-		$option->state  = version_compare(PHP_VERSION, '5.2.4', '>=');
+		$option->label  = JText::_('INSTL_PHP_VERSION').' >= 5.3.1';
+		$option->state  = version_compare(PHP_VERSION, '5.3.1', '>=');
 		$option->notice = null;
 		$options[] = $option;
 
