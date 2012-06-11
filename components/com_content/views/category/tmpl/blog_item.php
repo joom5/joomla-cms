@@ -106,13 +106,13 @@ JHtml::_('behavior.tooltip');
 	<?php if (($params->get('show_modify_date')) or ($params->get('show_publish_date')) or ($params->get('show_hits'))) : ?>
 	<div class="btn-toolbar">
 		<?php if ($params->get('show_modify_date')) : ?>
-		<div class="btn-group modified"> <?php echo JText::sprintf('COM_CONTENT_LAST_UPDATED', JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC3'))); ?> </div>
+		<div class="btn-group modified"><i class="icon-calendar"></i> <?php echo JText::sprintf('COM_CONTENT_LAST_UPDATED', JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC3'))); ?> </div>
 		<?php endif; ?>
 		<?php if ($params->get('show_publish_date')) : ?>
-		<div class="btn-group published"> <?php echo JText::sprintf('COM_CONTENT_PUBLISHED_DATE_ON', JHtml::_('date', $this->item->publish_up, JText::_('DATE_FORMAT_LC3'))); ?> </div>
+		<div class="btn-group published"><i class="icon-calendar"></i> <?php echo JText::sprintf('COM_CONTENT_PUBLISHED_DATE_ON', JHtml::_('date', $this->item->publish_up, JText::_('DATE_FORMAT_LC3'))); ?> </div>
 		<?php endif; ?>
 		<?php if ($params->get('show_hits')) : ?>
-		<div class="btn-group hits"> <?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?> </div>
+		<div class="btn-group hits"><i class="icon-eye-open"></i> <?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?> </div>
 		<?php endif; ?>
 	</div>
 	<?php endif; ?>
@@ -148,5 +148,4 @@ JHtml::_('behavior.tooltip');
 	<?php if ($this->item->state == 0) : ?>
 </div>
 <?php endif; ?>
-<hr class="divider-vertical" />
 <?php echo $this->item->event->afterDisplayContent; ?> 
