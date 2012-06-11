@@ -82,7 +82,7 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 	<?php if (isset ($this->item->toc)) :
 		echo $this->item->toc;
 	endif; ?>
-	
+	<?php if (($params->get('show_category')) or ($params->get('show_create_date')) or ($params->get('show_parent_category'))) : ?>
 	<div class="btn-toolbar">
 		<?php if ($params->get('show_create_date')) : ?>
 			<div class="btn-group create"> <?php echo JText::sprintf('COM_CONTENT_CREATED_DATE_ON', JHtml::_('date', $this->item->created, JText::_('DATE_FORMAT_LC3'))); ?> </div>
@@ -110,7 +110,7 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 			</div>
 		<?php endif; ?>
 	</div>
-	
+	<?php endif; ?>
 	<?php  if (!$params->get('show_intro')) : echo $this->item->event->afterDisplayTitle; endif; ?>
 	<?php echo $this->item->event->beforeDisplayContent; ?>
 
