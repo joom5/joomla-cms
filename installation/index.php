@@ -40,7 +40,6 @@ define('JPATH_MANIFESTS',		JPATH_ADMINISTRATOR . '/manifests');
  */
 error_reporting(E_ALL);
 @ini_set('magic_quotes_runtime', 0);
-@ini_set('zend.ze1_compatibility_mode', '0');
 
 /*
  * Check for existing configuration file.
