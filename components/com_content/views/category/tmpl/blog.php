@@ -47,6 +47,7 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 				echo $this->loadTemplate('item');
 			?>
 		</div>
+		<hr class="divider-vertical" />
 		<?php
 			$leadingcount++;
 		?>
@@ -75,12 +76,17 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 		</div>
 		<?php $counter++; ?>
 		<?php if (($rowcount == $this->columns) or ($counter ==$introcount)): ?>
-		<span class="row-separator"></span> </div>
+		
+	</div>
+	<hr class="divider-vertical" />
 	<?php endif; ?>
 	<?php endforeach; ?>
 	<?php endif; ?>
 	<?php if (!empty($this->link_items)) : ?>
+	<div class="items-more">
 	<?php echo $this->loadTemplate('links'); ?>
+	</div>
+	<hr class="divider-vertical" />
 	<?php endif; ?>
 	<?php if (!empty($this->children[$this->category->id])&& $this->maxLevel != 0) : ?>
 	<div class="cat-children">
@@ -90,7 +96,7 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 	<?php if (($this->params->def('show_pagination', 1) == 1  || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
 	<div class="pagination">
 		<?php  if ($this->params->def('show_pagination_results', 1)) : ?>
-		<p class="counter"> <?php echo $this->pagination->getPagesCounter(); ?> </p>
+		<p class="counter pull-right"> <?php echo $this->pagination->getPagesCounter(); ?> </p>
 		<?php endif; ?>
 		<?php echo $this->pagination->getPagesLinks(); ?> </div>
 	<?php  endif; ?>
