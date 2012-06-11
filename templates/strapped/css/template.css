@@ -10,6 +10,9 @@ body.site{
 .accordion-group {
 	background:#fff;
 }
+.select[multiple], select[size] {
+	height:28px;
+}
 /* Header */
 .header {
 	background-color: #ffffff;
