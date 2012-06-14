@@ -87,7 +87,7 @@ $menuTypes = MenusHelper::getMenuLinks();
 								?>
 									<label class="checkbox small" for="link<?php echo (int) $link->value;?>">
 										<input type="checkbox" class="chk-menulink" name="jform[assigned][]" value="<?php echo (int) $link->value;?>" id="link<?php echo (int) $link->value;?>"<?php echo $checked;?>/> 
-										<?php echo $link->text; ?>
+										<?php echo $link->text; ?> <span class="label pull-right" rel="tooltip" title="Itemid"><?php echo (int) $link->value;?></span>
 									</label>
 								<?php if ($count > 20 && ++$i == ceil($count/2)) :?>
 									<hr />
