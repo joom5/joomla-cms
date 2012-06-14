@@ -258,3 +258,35 @@ a.disabled:hover {
 .width-50{
 	width: 50px;
 }
+
+/* Striped */
+.list-striped{
+	list-style: none;
+	line-height: 18px;
+	text-align: left;
+	vertical-align: top;
+	border-top: 1px solid #dddddd;
+	margin-left: 0;
+}
+
+.list-striped li,
+.list-striped dd,
+.row-striped .row,
+.row-striped .row-fluid {
+	border-bottom: 1px solid #dddddd;
+	padding: 8px;
+}
+
+.list-striped li:nth-child(odd),
+.list-striped dd:nth-child(odd),
+.row-striped .row:nth-child(odd),
+.row-striped .row-fluid:nth-child(odd) {
+	background-color: #f9f9f9;
+}
+
+.list-striped li:hover,
+.list-striped dd:hover,
+.row-striped .row:hover,
+.row-striped .row-fluid:hover {
+	background-color: #f5f5f5;
+}
