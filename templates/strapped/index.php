@@ -70,7 +70,11 @@ $user =& JFactory::getUser();
 				<a class="brand pull-left" href="<?php echo $this->baseurl; ?>">
 					<img src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/images/logo.png" alt="<?php echo $sitename; ?>" />
 				</a>
+				<div class="header-search pull-right">
+					<jdoc:include type="modules" name="smartsearchload" style="none" />
+				</div>
 				<jdoc:include type="modules" name="position-1" style="none" />
+				
 			</div>
 		</div>
 	</div>
