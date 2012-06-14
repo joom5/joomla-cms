@@ -31,6 +31,10 @@ body.site{
 .header .nav {
 	margin:10px 0;
 }
+.header .finder {
+	margin-top: 14px;
+}
+/* Hero Banner Unit */
 .hero-unit{
 	background-color: #08C;
 }
