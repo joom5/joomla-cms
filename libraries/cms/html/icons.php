@@ -72,18 +72,18 @@ abstract class JHtmlIcons
 			}
 		}
 		
-		$html[] = '<tr>';
-		$html[] = '<td>';
-		$html[] = '<i class="icon-'.$button['image'].'"></i> ';
+		$html[] = '<div class="row-fluid">';
+		$html[] = '<div class="span12">';
 		$html[] = '<a href="' . $button['link'] . '"';
 		$html[] = (empty($button['target']) ? '' : (' target="' . $button['target'] . '"'));
 		$html[] = (empty($button['onclick']) ? '' : (' onclick="' . $button['onclick'] . '"'));
 		$html[] = (empty($button['title']) ? '' : (' title="' . htmlspecialchars($button['title']) . '"'));
 		$html[] = '>';
+		$html[] = '<i class="icon-'.$button['image'].'"></i> ';
 		$html[] = (empty($button['text'])) ? '' : ('<span>' . $button['text'] . '</span>');
 		$html[] = '</a>';
-		$html[] = '</td>';
-		$html[] = '</tr>';
+		$html[] = '</div>';
+		$html[] = '</div>';
 		return implode($html);
 	}
 }
