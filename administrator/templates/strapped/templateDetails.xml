@@ -44,12 +44,9 @@
   <config>
 	  <fields name="params">
 	  	<fieldset name="layout" label="Layout">
-  			<field name="theme" type="list" default="theme1" label="TPL_STRAPPED_COLOR_LABEL" description="TPL_STRAPPED_COLOR_DESC">
-  				<option value="theme1">TPL_STRAPPED_COLOR_1</option>
-  				<option value="theme2">TPL_STRAPPED_COLOR_2</option>
-  				<option value="theme3">TPL_STRAPPED_COLOR_3</option>
-  				<option value="theme4">TPL_STRAPPED_COLOR_4</option>
-  			</field>
+  			<field name="loginColor"  class="" type="color" default="#FEFEFE"
+  				label="TPL_STRAPPED_COLOR_LABEL"
+  				description="TPL_STRAPPED_COLOR_DESC" />
 		</fieldset>
 	  </fields>
   </config>
