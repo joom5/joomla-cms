@@ -647,37 +647,18 @@ abstract class JHtmlBehavior
 			return;
 		}
 
-		// Include MooTools framework
-		self::framework(true);
-
-		JHtml::_('stylesheet', 'system/mooRainbow.css', array('media' => 'all'), true);
-		JHtml::_('script', 'system/mooRainbow.js', false, true);
+		JHtml::_('stylesheet', JURI::root() . 'templates/system/css/colorpicker.css', array('media' => 'all'), true);
+		JHtml::_('script', JURI::root() . 'templates/system/js/bootstrap-colorpicker.js', false, true);
 
 		JFactory::getDocument()
 			->addScriptDeclaration(
-			"window.addEvent('domready', function(){
-				var nativeColorUi = false;
-				if (Browser.opera && (Browser.version >= 11.5)) {
-					nativeColorUi = true;
-				}
-				var elems = $$('.input-colorpicker');
-				elems.each(function(item){
-					if (nativeColorUi) {
-						item.type = 'color';
-					} else {
-						new MooRainbow(item,
-						{
-							imgPath: '" . JURI::root(true)
-			. "/media/system/images/mooRainbow/',
-							onComplete: function(color) {
-								this.element.value = color.hex;
-							},
-							startColor: item.value.hexToRgb(true)
-						});
-					}
+			"
+			!function ($) {
+				$(function(){
+				$('.input-colorpicker').colorpicker()
 				});
-			});
-		"
+			}(window.jQuery)
+			"
 		);
 
 		self::$loaded[__METHOD__] = true;
