@@ -27,6 +27,14 @@ defined('_JEXEC') or die;
 /*
  * Module chrome for rendering the module in a submenu
  */
+function modChrome_title($module, &$params, &$attribs)
+{
+	if ($module->content) {
+		echo "<div class=\"module-title\"><h6>".$module->title."</h6></div>";
+		echo $module->content;
+	}
+} 
+
 function modChrome_no($module, &$params, &$attribs)
 {
 	if ($module->content) {
@@ -38,7 +46,7 @@ function modChrome_well($module, &$params, &$attribs)
 {
 	if ($module->content) {
 		echo "<div class=\"well\">";
-		echo "<div class=\"page-header\"><h4>".$module->title."</h4></div>";
+		echo "<div class=\"module-title\"><h6>".$module->title."</h6></div>";
 		echo $module->content;
 		echo "</div>";
 	}
