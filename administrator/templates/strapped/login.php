@@ -30,23 +30,7 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
     $task = JRequest::getCmd('task', '');
     $itemid = JRequest::getCmd('Itemid', '');
     $sitename = $app->getCfg('sitename');
-    if($task == "edit" || $layout == "form" ) :
-    $fullWidth = 1;
-    else:
-    $fullWidth = 0;
-    endif;
     $document =& JFactory::getDocument();
-    
-    // Adjusting content width
-    if ((!JRequest::getInt('hidemainmenu')) && $this->countModules('right')) :
-    	$span = "span6";
-    elseif ((!JRequest::getInt('hidemainmenu')) && !$this->countModules('right')) :
-    	$span = "span10";
-    elseif ((JRequest::getInt('hidemainmenu')) && $this->countModules('right')) :
-    	$span = "span8";
-    else :
-    	$span = "span12";
-    endif;
 	?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/js/jquery.js"></script>
@@ -61,6 +45,11 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 			document.getElementById('form-login').username.focus();
 		});
 	</script>
+	<style type="text/css">
+		body{
+			background: <?php echo $this->params->get('loginColor');?>;
+		}
+	</style>
 </head>
 
 <body class="site <?php echo $option . " view-" . $view . " layout-" . $layout . " task-" . $task . " itemid-" . $itemid . " ";?>">
@@ -92,7 +81,7 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 	</div>
 	<jdoc:include type="modules" name="debug" style="none" />
 	<script>
-		jQuery('.tip').tooltip()
+		jQuery('*[rel=tooltip]').tooltip()
 	</script>
 </body>
 </html>
