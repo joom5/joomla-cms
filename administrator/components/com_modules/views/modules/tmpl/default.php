@@ -52,29 +52,27 @@ $saveOrder	= $listOrder == 'ordering';
 					<select name="filter_client_id" class="span12 small" onchange="this.form.submit()">
 						<?php echo JHtml::_('select.options', ModulesHelper::getClientOptions(), 'value', 'text', $this->state->get('filter.client_id'));?>
 					</select>
+					<hr class="hr-condensed" />
 		             <select name="filter_state" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
 						<?php echo JHtml::_('select.options', ModulesHelper::getStateOptions(), 'value', 'text', $this->state->get('filter.state'));?>
 					</select>
-		
+					<hr class="hr-condensed" />
 					<select name="filter_position" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('COM_MODULES_OPTION_SELECT_POSITION');?></option>
 						<?php echo JHtml::_('select.options', ModulesHelper::getPositions($this->state->get('filter.client_id')), 'value', 'text', $this->state->get('filter.position'));?>
 					</select>
-		
+					<hr class="hr-condensed" />
 		            <select name="filter_module" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('COM_MODULES_OPTION_SELECT_MODULE');?></option>
 						<?php echo JHtml::_('select.options', ModulesHelper::getModules($this->state->get('filter.client_id')), 'value', 'text', $this->state->get('filter.module'));?>
 					</select>
-		
-		
-		
+					<hr class="hr-condensed" />
 					<select name="filter_access" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_ACCESS');?></option>
 						<?php echo JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'));?>
 					</select>
-		
-		
+					<hr class="hr-condensed" />
 					<select name="filter_language" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
 						<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
@@ -90,8 +88,8 @@ $saveOrder	= $listOrder == 'ordering';
 					<input type="text" name="filter_search" id="filter_search" placeholder="<?php echo JText::_('COM_MODULES_MODULES_FILTER_SEARCH_DESC'); ?>" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" title="<?php echo JText::_('COM_MODULES_MODULES_FILTER_SEARCH_DESC'); ?>" />
 				</div>
 				<div class="btn-group pull-left">
-					<button class="btn tip" type="submit" title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>"><i class="icon-search"></i></button>
-					<button class="btn tip" type="button" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>" onclick="document.id('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
+					<button class="btn" rel="tooltip" type="submit" title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>"><i class="icon-search"></i></button>
+					<button class="btn" rel="tooltip" type="button" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>" onclick="document.id('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
 				</div>
 			</div>
 			<div class="clearfix"> </div>
@@ -188,7 +186,7 @@ $saveOrder	= $listOrder == 'ordering';
 										<?php endif; ?>
 									<?php endif; ?>
 									<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-									<?php if(!$disabled = $saveOrder) : echo "<span class=\"add-on tip\" title=\"".JText::_('JDISABLED')."\"><i class=\"icon-ban-circle\"></i></span>"; endif;?><input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="width-20 text-area-order" />
+									<?php if(!$disabled = $saveOrder) : echo "<span class=\"add-on\" rel=\"tooltip\" title=\"".JText::_('JDISABLED')."\"><i class=\"icon-ban-circle\"></i></span>"; endif;?><input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="width-20 text-area-order" />
 								</div>
 							<?php else : ?>
 								<?php echo $item->ordering; ?>
