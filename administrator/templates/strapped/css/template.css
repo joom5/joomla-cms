@@ -2,7 +2,10 @@
 body{
 	padding-top: 30px;
 }
-
+/* Login */
+.view-login .container{
+	width: 300px;
+}
 /* Typography */
 .small{
 	font-size: 11px;

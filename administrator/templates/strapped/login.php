@@ -14,7 +14,7 @@ $app = JFactory::getApplication();
 $doc = JFactory::getDocument();
 
 // Add Stylesheets
-$doc->addStyleSheet('../templates/system/css/bootstrap.css');
+$doc->addStyleSheet('../templates/system/css/bootstrap.min.css');
 $doc->addStyleSheet('../templates/system/css/bootstrap-extended.css');
 $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 ?>
@@ -33,8 +33,8 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
     $document =& JFactory::getDocument();
 	?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/js/jquery.js"></script>
-	<script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/js/bootstrap.min.js"></script>
+	<script src="../templates/system/js/jquery.js"></script>
+	<script src="../templates/system/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 	  jQuery.noConflict();
 	</script>
@@ -49,34 +49,37 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 		body{
 			background: <?php echo $this->params->get('loginColor');?>;
 		}
+		/* Responsive Styles */
+		@media (max-width: 480px) {
+			.btn{
+				font-size: 13px;
+				padding: 4px 10px 4px;
+			}
+		}
 	</style>
 </head>
 
 <body class="site <?php echo $option . " view-" . $view . " layout-" . $layout . " task-" . $task . " itemid-" . $itemid . " ";?>">
 	<!-- Container -->
 	<div class="container">
-		<div class="row">
-			<div class="span4">&nbsp;</div>
-			<div id="content" class="span4">
-				<!-- Begin Content -->
-				<div id="element-box" class="login well">
-					<img src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/images/joomla.png" alt="Joomla!" />
-					<hr />
-					<jdoc:include type="message" />
-					<jdoc:include type="component" />
-				</div>
-				<noscript>
-					<?php echo JText::_('JGLOBAL_WARNJAVASCRIPT') ?>
-				</noscript>
-				<!-- End Content -->
-				<p class="small"><?php echo JText::_('COM_LOGIN_VALID') ?></p>
-				<p><a href="<?php echo JURI::root(); ?>" class="btn btn-mini"><i class="icon-share"></i> <?php echo JText::_('COM_LOGIN_RETURN_TO_SITE_HOME_PAGE') ?></a></p>
+		<div id="content">
+			<!-- Begin Content -->
+			<div id="element-box" class="login well">
+				<img src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/images/joomla.png" alt="Joomla!" />
 				<hr />
-				<div class="footer">
-					<p class="small">&copy; <?php echo $sitename; ?> <?php echo date('Y');?></p>
-				</div>
+				<jdoc:include type="message" />
+				<jdoc:include type="component" />
 			</div>
-			<div class="span4">&nbsp;</div>
+			<noscript>
+				<?php echo JText::_('JGLOBAL_WARNJAVASCRIPT') ?>
+			</noscript>
+			<!-- End Content -->
+			<p class="small"><?php echo JText::_('COM_LOGIN_VALID') ?></p>
+			<p><a href="<?php echo JURI::root(); ?>" class="btn btn-mini"><i class="icon-share"></i> <?php echo JText::_('COM_LOGIN_RETURN_TO_SITE_HOME_PAGE') ?></a></p>
+			<hr />
+			<div class="footer">
+				<p class="small">&copy; <?php echo $sitename; ?> <?php echo date('Y');?></p>
+			</div>
 		</div>
 	</div>
 	<jdoc:include type="modules" name="debug" style="none" />
