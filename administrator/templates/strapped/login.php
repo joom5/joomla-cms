@@ -46,9 +46,6 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 		});
 	</script>
 	<style type="text/css">
-		body{
-			background: <?php echo $this->params->get('loginColor');?>;
-		}
 		/* Responsive Styles */
 		@media (max-width: 480px) {
 			.view-login .container{
@@ -77,11 +74,18 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 				<?php echo JText::_('JGLOBAL_WARNJAVASCRIPT') ?>
 			</noscript>
 			<!-- End Content -->
-			<p class="small"><?php echo JText::_('COM_LOGIN_VALID') ?></p>
-			<p><a href="<?php echo JURI::root(); ?>" class="btn btn-mini"><i class="icon-share"></i> <?php echo JText::_('COM_LOGIN_RETURN_TO_SITE_HOME_PAGE') ?></a></p>
-			<hr />
-			<div class="footer">
-				<p class="small">&copy; <?php echo $sitename; ?> <?php echo date('Y');?></p>
+		</div>
+	</div>
+	<div class="navbar navbar-fixed-bottom hidden-phone">
+		<div class="btn-toolbar">
+			<div class="btn-group pull-right">
+				<p>&copy; <?php echo $sitename; ?> <?php echo date('Y');?></p>
+			</div>
+			<div class="btn-group">
+				<a class="login-joomla" href="http://www.joomla.org" rel="tooltip" title="<?php echo JText::_('TPL_STRAPPED_ISFREESOFTWARE');?>">Joomla!&#174;</a>
+			</div>
+			<div class="btn-group pull-left">
+				<a href="<?php echo JURI::root(); ?>"><i class="icon-share icon-white"></i> <?php echo JText::_('COM_LOGIN_RETURN_TO_SITE_HOME_PAGE') ?></a>
 			</div>
 		</div>
 	</div>
