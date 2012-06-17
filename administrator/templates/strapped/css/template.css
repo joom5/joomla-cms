@@ -219,6 +219,14 @@ body .navbar-fixed-top{
 	margin: 5px 0;
 }
 
+/* Module Assignment Tab */
+.view-module .tab-content{
+	overflow: visible;
+}
+#assignment.tab-pane{
+	min-height: 500px;
+}
+
 @media (max-width: 767px) {
 	.page-title{
 		text-align: center;
