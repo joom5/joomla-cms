@@ -5,6 +5,11 @@ body{
 /* Login */
 .view-login .container{
 	width: 300px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -206px;
+	margin-left: -150px;
 }
 /* Typography */
 .small{
@@ -245,6 +250,10 @@ body .navbar-fixed-top{
 		float: none;
 		text-align: center;
 	}
+	.subhead-fixed{
+		position: static;
+		width: auto;
+	}
 }
 
 /* Subhead (toolbar) Collapse Button */
@@ -278,5 +287,12 @@ body .navbar-fixed-top{
 	.btn-subhead{
 		display: block;
 		margin: 10px 0;
+	}
+	.chzn-container,
+	.chzn-container .chzn-results,
+	.chzn-container-single .chzn-drop,
+	.btn-toolbar > .btn-group,
+	.btn-toolbar > .btn-group > .btn{
+		width: 99% !important;
 	}
 }
