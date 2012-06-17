@@ -88,7 +88,7 @@ endif;
 				<div class="tab-pane active" id="general">
 					<fieldset class="adminform">
 						<div class="control-group form-inline">
-							<?php echo $this->form->getInput('title'); ?> <?php echo $this->form->getInput('catid'); ?>
+							<?php echo $this->form->getLabel('title'); ?> <?php echo $this->form->getInput('title'); ?> <?php echo $this->form->getLabel('catid'); ?> <?php echo $this->form->getInput('catid'); ?>
 						</div>
 						<?php echo $this->form->getInput('articletext'); ?>
 					</fieldset>
