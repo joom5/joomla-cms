@@ -13,10 +13,10 @@ $app = JFactory::getApplication();
 $doc = JFactory::getDocument();
 
 // Add Stylesheets
-$doc->addStyleSheet('../templates/system/css/bootstrap.css');
+$doc->addStyleSheet('../templates/system/css/bootstrap.min.css');
 $doc->addStyleSheet('../templates/system/css/bootstrap-extended.css');
 $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
-$doc->addStyleSheet('../templates/system/css/bootstrap-responsive.css');
+$doc->addStyleSheet('../templates/system/css/bootstrap-responsive.min.css');
 
 $doc->addStyleSheet('../templates/system/css/chosen.css');
 
@@ -27,7 +27,9 @@ $user = JFactory::getUser();
 <html>
 <head>
 	<?php 
-
+	// HTTP Cache 604800 = 1 week
+	header("Cache-Control: public, max-age=604800");
+	
     // Detecting Active Variables
     $option = JRequest::getCmd('option', '');
     $view = JRequest::getCmd('view', '');
