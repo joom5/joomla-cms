@@ -317,3 +317,6 @@ hr.hr-condensed{
 	-moz-border-radius-bottomleft: 4px;
 	-moz-border-radius-topleft: 4px;
 }
+fieldset.radio.btn-group{
+	padding-left: 0;
+}
