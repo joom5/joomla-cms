@@ -183,7 +183,7 @@ $user = JFactory::getUser();
 	</div>
 	<?php if ($this->countModules('status')): ?>
 	<!-- Begin Status Module -->
-	<div id="status" class="navbar navbar-fixed-bottom">
+	<div id="status" class="navbar navbar-fixed-bottom hidden-phone">
 		<div class="btn-toolbar">
 			<div class="btn-group pull-right">
 				<p>&copy; <?php echo $sitename; ?> <?php echo date('Y');?></p>
