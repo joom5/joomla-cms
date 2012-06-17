@@ -18,6 +18,8 @@ $doc->addStyleSheet('../templates/system/css/bootstrap-extended.css');
 $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 $doc->addStyleSheet('../templates/system/css/bootstrap-responsive.css');
 
+$doc->addStyleSheet('../templates/system/css/chosen.css');
+
 // Add current user information
 $user = JFactory::getUser();
 ?>
@@ -54,8 +56,9 @@ $user = JFactory::getUser();
     endif;
 	?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/js/jquery.js"></script>
-	<script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/js/bootstrap.min.js"></script>
+	<script src="../templates/system/js/jquery.js"></script>
+	<script src="../templates/system/js/bootstrap.min.js"></script>
+	<script src="../templates/system/js/chosen.jquery.min.js"></script>
 	<script type="text/javascript">
 	  jQuery.noConflict();
 	</script>
@@ -206,6 +209,25 @@ $user = JFactory::getUser();
 		        $nav.removeClass('subhead-fixed')
 		      }
 		    }
+		    
+		    // Chosen select boxes
+		    $("select").chosen({disable_search_threshold : 10 });
+		    
+		    // Turn radios into btn-group
+		    $('.radio.btn-group label').addClass('btn')
+		    $(".btn-group label:not(.active)").click(function(){
+		        var label = $(this);
+		        var input = $('#' + label.attr('for'));
+		        
+		        if (!input.prop('checked')){
+		            label.closest('.btn-group').find("label").removeClass('active');                        
+		            label.addClass('active'); 
+		            input.prop('checked', true);
+		        }
+		    });
+		    $(".btn-group input[checked=checked]").each(function(){
+		        $("label[for=" + $(this).attr('id') + "]").addClass('active');
+		    });
 	    })(jQuery);
 	</script>
 </body>
