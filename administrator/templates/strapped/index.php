@@ -174,8 +174,8 @@ $user = JFactory::getUser();
 			</div>
 			<?php endif; ?>
 		</div>
+		<hr />
 		<?php if (!$this->countModules('status')): ?>
-			<hr />
 			<div class="footer">
 				<p>&copy; <?php echo $sitename; ?> <?php echo date('Y');?></p>
 			</div>
@@ -236,13 +236,13 @@ $user = JFactory::getUser();
 		        var input = $('#' + label.attr('for'));
 		        
 		        if (!input.prop('checked')){
-		            label.closest('.btn-group').find("label").removeClass('active');                        
-		            label.addClass('active'); 
+		            label.closest('.btn-group').find("label").removeClass('active btn-primary');                        
+		            label.addClass('active btn-primary'); 
 		            input.prop('checked', true);
 		        }
 		    });
 		    $(".btn-group input[checked=checked]").each(function(){
-		        $("label[for=" + $(this).attr('id') + "]").addClass('active');
+		        $("label[for=" + $(this).attr('id') + "]").addClass('active btn-primary');
 		    });
 	    })(jQuery);
 	</script>
