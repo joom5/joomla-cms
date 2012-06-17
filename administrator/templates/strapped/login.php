@@ -51,6 +51,9 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 		}
 		/* Responsive Styles */
 		@media (max-width: 480px) {
+			.view-login .container{
+				margin-top: -170px;
+			}
 			.btn{
 				font-size: 13px;
 				padding: 4px 10px 4px;
