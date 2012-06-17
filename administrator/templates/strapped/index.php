@@ -174,11 +174,25 @@ $user = JFactory::getUser();
 			</div>
 			<?php endif; ?>
 		</div>
-		<hr />
-		<div class="footer">
-			<p>&copy; <?php echo $sitename; ?> <?php echo date('Y');?></p>
+		<?php if (!$this->countModules('status')): ?>
+			<hr />
+			<div class="footer">
+				<p>&copy; <?php echo $sitename; ?> <?php echo date('Y');?></p>
+			</div>
+		<?php endif; ?>
+	</div>
+	<?php if ($this->countModules('status')): ?>
+	<!-- Begin Status Module -->
+	<div id="status" class="navbar navbar-fixed-bottom">
+		<div class="btn-toolbar">
+			<div class="btn-group pull-right">
+				<p>&copy; <?php echo $sitename; ?> <?php echo date('Y');?></p>
+			</div>
+			<jdoc:include type="modules" name="status" style="no" />
 		</div>
 	</div>
+	<!-- End Status Module -->
+	<?php endif; ?>
 	<jdoc:include type="modules" name="debug" style="none" />
 	<script>
 		(function($){
