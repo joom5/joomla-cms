@@ -182,10 +182,11 @@ body .navbar-fixed-top{
 /* Status Module */
 #status{
 	background: #EDEDED;
+	border-top: 1px solid #DDDDDD;
 	padding: 1px 10px 0 10px;
-	-moz-box-shadow: 0px -2px 3px rgba(0, 0, 0, 0.1), 0px 1px 0px rgba(255, 255, 255, 0.8) inset;
-	-webkit-box-shadow: 0px -2px 3px rgba(0, 0, 0, 0.1), 0px 1px 0px rgba(255, 255, 255, 0.8) inset;
-	box-shadow: 0px -2px 3px rgba(0, 0, 0, 0.1), 0px 1px 0px rgba(255, 255, 255, 0.8) inset;
+	-moz-box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px -35px 35px rgba(255, 255, 255, 0.6);
+	-webkit-box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px -35px 35px rgba(255, 255, 255, 0.6);
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px -35px 35px rgba(255, 255, 255, 0.6);
 }
 #status i{
 	opacity: 0.65;
