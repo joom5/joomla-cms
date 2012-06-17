@@ -47,6 +47,16 @@ JFactory::getDocument()->addScriptDeclaration($script);
 		
 		<div class="tab-content">
 		  <div class="tab-pane active" id="details">
+		  	<?php if ((string) $this->item->xml->name != 'Login Form'): ?>
+		  	<div class="control-group">
+		  		<div class="control-label">
+		  			<?php echo $this->form->getLabel('published'); ?>
+		  		</div>
+		  		<div class="controls">
+		  			<?php echo $this->form->getInput('published'); ?>
+		  		</div>
+		  	</div>
+		  	<?php endif; ?>
 		  	<div class="control-group">
 		  		<div class="control-label">
 		  			<?php echo $this->form->getLabel('title'); ?>
@@ -70,18 +80,7 @@ JFactory::getDocument()->addScriptDeclaration($script);
 	  				<div class="controls">
 	  					<?php echo $this->form->getInput('position'); ?>
 	  				</div>
-	  		</div>
-  			<?php if ((string) $this->item->xml->name != 'Login Form'): ?>
-  			<div class="control-group">
-  				<div class="control-label">
-  					<?php echo $this->form->getLabel('published'); ?>
-  				</div>
-  				<div class="controls">
-  					<?php echo $this->form->getInput('published'); ?>
-  				</div>
-  			</div>
-  			<?php endif; ?>
-	  	
+	  		</div>	  	
 	  		<div class="control-group">
 	  			<div class="control-label">
 	  				<?php echo $this->form->getLabel('access'); ?>
