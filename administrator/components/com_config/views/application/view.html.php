@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+require_once dirname(dirname(__DIR__)) . '/helper/component.php';
+
 /**
  * View for the global configuration
  *
@@ -30,6 +32,7 @@ class ConfigViewApplication extends JViewLegacy
 	{
 		$form	= $this->get('Form');
 		$data	= $this->get('Data');
+		$user = JFactory::getUser();
 
 		// Check for model errors.
 		if ($errors = $this->get('Errors')) {
@@ -56,6 +59,11 @@ class ConfigViewApplication extends JViewLegacy
 		$this->ftp = &$ftp;
 		$this->usersParams = &$usersParams;
 		$this->mediaParams = &$mediaParams;
+
+		$this->components = ConfigHelperComponent::getComponentsWithConfig();
+		ConfigHelperComponent::loadLanguageForComponents($this->components);
+
+		$this->userIsSuperAdmin = $user->authorise('core.admin');
 
 		$this->addToolbar();
 		parent::display($tpl);
