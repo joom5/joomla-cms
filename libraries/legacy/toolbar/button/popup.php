@@ -47,15 +47,15 @@ class JToolbarButtonPopup extends JButton
 		JHtml::_('behavior.modal');
 
 		$text = JText::_($text);
-		$class = $this->fetchIconClass($name);
+		$class = 'cog';
 		$doTask = $this->_getCommand($name, $url, $width, $height, $top, $left);
 
-		$html = "<a class=\"modal\" href=\"$doTask\" rel=\"{handler: 'iframe', size: {x: $width, y: $height}, onClose: function() {" . $onClose
+		$html = "<button class=\"btn modal\" data-toggle=\"modal\" href=\"$doTask\" rel=\"{handler: 'iframe', size: {x: $width, y: $height}, onClose: function() {" . $onClose
 			. "}}\">\n";
-		$html .= "<span class=\"$class\">\n";
-		$html .= "</span>\n";
+		$html .= "<i class=\"icon-$class\">\n";
+		$html .= "</i>\n";
 		$html .= "$text\n";
-		$html .= "</a>\n";
+		$html .= "</button>\n";
 
 		return $html;
 	}

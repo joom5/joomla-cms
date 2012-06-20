@@ -7,39 +7,19 @@
 
 defined('_JEXEC') or die;
 ?>
-<div id="step">
-	<div class="far-right">
-<?php if ($this->document->direction == 'ltr') : ?>
-		<div class="button1-right"><div class="prev"><a href="index.php?view=license" onclick="return Install.goToPage('license');" rel="prev" title="<?php echo JText::_('JPrevious'); ?>"><?php echo JText::_('JPrevious'); ?></a></div></div>
-		<div class="button1-left"><div class="next"><a href="#" onclick="Install.submitform();" rel="next" title="<?php echo JText::_('JNext'); ?>"><?php echo JText::_('JNext'); ?></a></div></div>
-<?php elseif ($this->document->direction == 'rtl') : ?>
-		<div class="button1-right"><div class="prev"><a href="#" onclick="Install.submitform();" rel="next" title="<?php echo JText::_('JNext'); ?>"><?php echo JText::_('JNext'); ?></a></div></div>
-		<div class="button1-left"><div class="next"><a href="index.php?view=license" onclick="return Install.goToPage('license');" rel="prev" title="<?php echo JText::_('JPrevious'); ?>"><?php echo JText::_('JPrevious'); ?></a></div></div>
-<?php endif; ?>
-	</div>
-	<h2><?php echo JText::_('INSTL_DATABASE'); ?></h2>
-</div>
-<form action="index.php" method="post" id="adminForm" class="form-validate">
+<form action="index.php" method="post" id="adminForm" class="form-validate form-horizontal">
 	<div id="installer">
-		<div class="m">
-			<h3><?php echo JText::_('INSTL_DATABASE_TITLE'); ?></h3>
-			<div class="install-text">
-					<?php echo JText::_('INSTL_DATABASE_DESC'); ?>
-			</div>
-			<div class="install-body">
-				<div class="m">
-					<h4 class="title-smenu" title="<?php echo JText::_('Basic'); ?>">
+		<fieldset>
+			<legend><?php echo JText::_('INSTL_DATABASE'); ?></legend>
+			<div class="control-group">
+					<label for="" class="control-label">
 						<?php echo JText::_('INSTL_BASIC_SETTINGS'); ?>
-					</h4>
-					<div class="section-smenu">
-						<table class="content2 db-table">
+					</label>
+					<div class="controls">
+						<table class="table table-striped table-condensed">
+							<tbody>
 							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="2">
+								<td>
 									<?php echo $this->form->getLabel('db_type'); ?>
 									<br />
 									<?php echo $this->form->getInput('db_type'); ?>
@@ -51,7 +31,7 @@ defined('_JEXEC') or die;
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
+								<td>
 									<?php echo $this->form->getLabel('db_host'); ?>
 									<br />
 									<?php echo $this->form->getInput('db_host'); ?>
@@ -63,7 +43,7 @@ defined('_JEXEC') or die;
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
+								<td>
 									<?php echo $this->form->getLabel('db_user'); ?>
 									<br />
 									<?php echo $this->form->getInput('db_user'); ?>
@@ -75,7 +55,7 @@ defined('_JEXEC') or die;
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
+								<td>
 									<?php echo $this->form->getLabel('db_pass'); ?>
 									<br />
 									<?php echo $this->form->getInput('db_pass'); ?>
@@ -87,7 +67,7 @@ defined('_JEXEC') or die;
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
+								<td>
 									<?php echo $this->form->getLabel('db_name'); ?>
 									<br />
 									<?php echo $this->form->getInput('db_name'); ?>
@@ -99,7 +79,7 @@ defined('_JEXEC') or die;
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
+								<td>
 									<?php echo $this->form->getLabel('db_prefix'); ?>
 									<br />
 									<?php echo $this->form->getInput('db_prefix'); ?>
@@ -111,7 +91,7 @@ defined('_JEXEC') or die;
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
+								<td>
 									<?php echo $this->form->getLabel('db_old'); ?>
 									<br />
 									<?php echo $this->form->getInput('db_old'); ?>
@@ -122,12 +102,25 @@ defined('_JEXEC') or die;
 									</em>
 								</td>
 							</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="2"></td>
+								</tr>
+							</tfoot>
 						</table>
 					</div>
 				</div>
-			</div>
-			<div class="clr"></div>
-		</div>
+				<div class="form-actions">
+				<?php if ($this->document->direction == 'ltr') : ?>
+						<span class="prev"><a class="btn" href="index.php?view=license" onclick="return Install.goToPage('license');" rel="prev" title="<?php echo JText::_('JPrevious'); ?>"><?php echo JText::_('JPrevious'); ?></a></span> 
+						<span class="next"><a class="btn btn-primary" href="#" onclick="Install.submitform();" rel="next" title="<?php echo JText::_('JNext'); ?>"><?php echo JText::_('JNext'); ?></a></span>
+				<?php elseif ($this->document->direction == 'rtl') : ?>
+						<span class="prev"><a class="btn btn-primary" href="#" onclick="Install.submitform();" rel="next" title="<?php echo JText::_('JNext'); ?>"><?php echo JText::_('JNext'); ?></a></span> 
+						<span class="next"><a class="btn" href="index.php?view=license" onclick="return Install.goToPage('license');" rel="prev" title="<?php echo JText::_('JPrevious'); ?>"><?php echo JText::_('JPrevious'); ?></a></span>
+				<?php endif; ?>
+				</div>
+		</fieldset>
 	</div>
 	<input type="hidden" name="task" value="setup.database" />
 	<?php echo JHtml::_('form.token'); ?>
