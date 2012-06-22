@@ -33,11 +33,12 @@ class MediaViewMedia extends JView
 		JHtml::_('behavior.framework', true);
 
 		JHtml::_('script', 'media/mediamanager.js', true, true);
+		/*
 		JHtml::_('stylesheet', 'media/mediamanager.css', array(), true);
 		if ($lang->isRTL()) :
 			JHtml::_('stylesheet', 'media/mediamanager_rtl.css', array(), true);
 		endif;
-
+		*/
 		JHtml::_('behavior.modal');
 		$document->addScriptDeclaration("
 		window.addEvent('domready', function() {
