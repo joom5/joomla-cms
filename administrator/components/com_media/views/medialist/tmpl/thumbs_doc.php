@@ -13,7 +13,7 @@ $params = new JRegistry;
 $dispatcher	= JDispatcher::getInstance();
 $dispatcher->trigger('onContentBeforeDisplay', array('com_media.file', &$this->_tmp_doc, &$params));
 ?>
-		<div class="imgOutline">
+		<li class="imgOutline thumbnail height-50">
 			<div class="imgTotal">
 				<div align="center" class="imgBorder">
 					<a style="display: block; width: 100%; height: 100%" title="<?php echo $this->_tmp_doc->name; ?>" >
@@ -29,7 +29,7 @@ $dispatcher->trigger('onContentBeforeDisplay', array('com_media.file', &$this->_
 			<div class="imginfoBorder" title="<?php echo $this->_tmp_doc->name; ?>" >
 				<?php echo $this->_tmp_doc->title; ?>
 			</div>
-		</div>
+		</li>
 <?php
 $dispatcher->trigger('onContentAfterDisplay', array('com_media.file', &$this->_tmp_doc, &$params));
 ?>
