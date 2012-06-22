@@ -259,6 +259,23 @@ a.disabled:hover {
 	width: 50px;
 }
 
+/* Specific Heights */
+.height-10{
+	height: 10px;
+}
+.height-20{
+	height: 20px;
+}
+.height-30{
+	height: 30px;
+}
+.height-40{
+	height: 40px;
+}
+.height-50{
+	height: 50px;
+}
+
 /* Horizontal Row (hr) */
 hr.hr-condensed{
 	margin: 10px 0;
