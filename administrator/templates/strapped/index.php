@@ -27,9 +27,6 @@ $user = JFactory::getUser();
 <html>
 <head>
 	<?php 
-	// HTTP Cache 604800 = 1 week
-	header("Cache-Control: public, max-age=604800");
-	
     // Detecting Active Variables
     $option = JRequest::getCmd('option', '');
     $view = JRequest::getCmd('view', '');
@@ -115,7 +112,7 @@ $user = JFactory::getUser();
 					<a class="logo" href="<?php echo $this->baseurl; ?>"><img src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/images/logo.png" alt="<?php echo $sitename; ?>" /></a>
 				</div>
 				<div class="span7">
-					<h1 class="page-title"><?php echo JHtml::_('string.truncate', $app->get('JComponentTitle'), 40, false, false);?></h1>
+					<h1 class="page-title"><?php echo JHtml::_('string.truncate', $app->JComponentTitle, 40, false, false);?></h1>
 				</div>
 				<div class="span3">
 					<jdoc:include type="modules" name="searchload" style="none" />
