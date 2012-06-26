@@ -44,6 +44,11 @@ a.disabled:hover {
 	border:0;
 }
 
+/* Modal */
+body.modal{
+	padding-top: 0;
+}
+
 /* Alternating Rows */
 .row-even,.row-odd{
 	padding: 5px;
@@ -258,6 +263,21 @@ a.disabled:hover {
 .width-50{
 	width: 50px;
 }
+.width-60{
+	width: 60px;
+}
+.width-70{
+	width: 70px;
+}
+.width-80{
+	width: 80px;
+}
+.width-90{
+	width: 90px;
+}
+.width-100{
+	width: 100px;
+}
 
 /* Specific Heights */
 .height-10{
@@ -274,6 +294,21 @@ a.disabled:hover {
 }
 .height-50{
 	height: 50px;
+}
+.height-60{
+	height: 60px;
+}
+.height-70{
+	height: 70px;
+}
+.height-80{
+	height: 80px;
+}
+.height-90{
+	height: 90px;
+}
+.height-100{
+	height: 100px;
 }
 
 /* Horizontal Row (hr) */
