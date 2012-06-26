@@ -17,7 +17,7 @@ $user = JFactory::getUser();
 		<tr>
 			<th width="1%"><?php echo JText::_('JGLOBAL_PREVIEW'); ?></th>
 			<th><?php echo JText::_('COM_MEDIA_NAME'); ?></th>
-			<th width="8%"><?php echo JText::_('COM_MEDIA_PIXEL_DIMENSIONS'); ?></th>
+			<th width="15%"><?php echo JText::_('COM_MEDIA_PIXEL_DIMENSIONS'); ?></th>
 			<th width="8%"><?php echo JText::_('COM_MEDIA_FILESIZE'); ?></th>
 		<?php if ($user->authorise('core.delete', 'com_media')):?>
 			<th width="8%"><?php echo JText::_('JACTION_DELETE'); ?></th>
