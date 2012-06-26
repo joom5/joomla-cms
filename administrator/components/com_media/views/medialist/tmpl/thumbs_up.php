@@ -9,7 +9,7 @@
 // No direct access.
 defined('_JEXEC') or die;
 ?>
-		<li class="imgOutline thumbnail height-50">
+		<li class="imgOutline thumbnail height-80">
 			<div class="imgTotal">
 				<div align="center" class="imgBorder">
 					<a class="btn" href="index.php?option=com_media&amp;view=mediaList&amp;tmpl=component&amp;folder=<?php echo $this->state->parent; ?>" target="folderframe">
