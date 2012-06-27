@@ -74,5 +74,11 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 				echo JText::sprintf('JGLOBAL_ISFREESOFTWARE', $joomla) ?></p>
 			</div>
 		</div>
+		<script>
+			(function($){
+				$('*[rel=tooltip]').tooltip()
+				$('*[rel=popover]').popover()
+		    })(jQuery);
+		</script>
 	</body>
 </html>
