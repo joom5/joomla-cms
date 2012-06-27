@@ -41,8 +41,8 @@ class BannersModelBanners extends JModelList
 		$id	.= ':'.$this->getState('filter.search');
 		$id	.= ':'.$this->getState('filter.tag_search');
 		$id	.= ':'.$this->getState('filter.client_id');
-		$id	.= ':'.$this->getState('filter.category_id');
-		$id	.= ':'.$this->getState('filter.keywords');
+		$id	.= ':'.implode(':', $this->getState('filter.category_id'));
+		$id	.= ':'.implode(':', $this->getState('filter.keywords'));
 
 		return parent::getStoreId($id);
 	}
