@@ -15,9 +15,6 @@ defined('_JEXEC') or die;
 				
 			</div>
 			<div class="btn-group">
-				<a  class="btn"  href="#" onclick="Install.submitform();" rel="next" title="<?php echo JText::_('JNext'); ?>"><i class="icon-step-forward"></i> <?php echo JText::_('JSKIP'); ?></a>
-			</div>
-			<div class="btn-group">
 				<a  class="btn btn-primary"  href="#" onclick="Install.submitform();" rel="next" title="<?php echo JText::_('JNext'); ?>"><i class="icon-arrow-right icon-white"></i> <?php echo JText::_('JNext'); ?></a>
 			</div>
 		</div>
