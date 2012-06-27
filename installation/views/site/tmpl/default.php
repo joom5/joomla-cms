@@ -13,20 +13,23 @@ defined('_JEXEC') or die;
 				<h3>
 					<?php echo JText::_('INSTL_SITE_SAMPLE_LABEL'); ?>
 				</h3>
+				<hr class="hr-condensed" />
 				<?php echo $this->form->getInput('sample_file'); ?> 
+				<hr class="hr-condensed" />
 				 <div class="message inlineError" id="theDefaultError" style="display: none">
 				 	<dl>
 				 		<dt class="error"><?php echo JText::_('JERROR'); ?></dt>
 				 		<dd id="theDefaultErrorMessage"></dd>
 				 	</dl>
 				 </div>
-
-				<p class="help-block">
-					<?php echo JText::_('INSTL_SITE_LOAD_SAMPLE_DESC1'); ?>
-				</p>
-				<span id="theDefault">
-					<button class="btn btn-success" name="instDefault" onclick="Install.sampleData(this, <?php echo $this->form->getField('sample_file')->id;?>);"><i class="icon-upload icon-white"></i> <?php echo JText::_('INSTL_SITE_INSTALL_SAMPLE_LABEL'); ?></button>
-				</span>
+				<div class="alert">
+					<h4 class="alert-heading"><?php echo JText::_('INSTL_SITE_INSTALL_SAMPLE_LABEL'); ?></h4>
+					<p><?php echo JText::_('INSTL_SITE_LOAD_SAMPLE_DESC1'); ?>
+					</p>
+					<span id="theDefault">
+						<button class="btn btn-warning" name="instDefault" onclick="Install.sampleData(this, <?php echo $this->form->getField('sample_file')->id;?>);"><i class="icon-upload icon-white"></i> <?php echo JText::_('INSTL_SITE_INSTALL_SAMPLE_LABEL'); ?></button>
+					</span>
+				</div>
 				<?php echo $this->form->getInput('type'); ?>
 				<?php echo JHtml::_('form.token'); ?>
 			</form>
