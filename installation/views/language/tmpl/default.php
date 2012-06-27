@@ -29,14 +29,6 @@ defined('_JEXEC') or die;
 	<?php echo JHtml::_('form.token'); ?>
 </form>
 
-<link rel="stylesheet" href="<?php echo JURI::root();?>templates/system/css/chosen.css" type="text/css" />
-<script src="<?php echo JURI::root();?>templates/system/js/chosen.jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript"> 
-!function ($) {
-$("select").chosen({allow_single_deselect:true}); 
-}(window.jQuery)
-</script>
-
 <div id="licenseModal" class="modal fade">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
