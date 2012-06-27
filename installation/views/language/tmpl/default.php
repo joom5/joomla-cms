@@ -9,18 +9,21 @@ defined('_JEXEC') or die;
 ?>
 <form action="index.php" method="post" id="adminForm" class="form-validate form-horizontal">
 	<div id="installer">
-		<fieldset>
-			<legend><?php echo JText::_('INSTL_LANGUAGE_TITLE'); ?></legend>
-			<div class="control-group">
-				<label for="jform_language" class="control-label"><?php echo JText::_('INSTL_SELECT_LANGUAGE_TITLE'); ?></label>
-				<div class="controls">
-					<?php echo $this->form->getInput('language'); ?>
-				</div>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<a class="btn" data-toggle="modal" href="#licenseModal"><i class="icon-eye-open"></i> <?php echo JText::_('INSTL_LICENSE'); ?></a>
 			</div>
-			<div class="form-actions">
-				<a href="#" class="btn btn-primary" onclick="Install.submitform();" rel="next" title="<?php echo JText::_('JNext'); ?>"><?php echo JText::_('JNext'); ?></a>
+			<div class="btn-group">
+				<a href="#" class="btn btn-primary" onclick="Install.submitform();" rel="next" title="<?php echo JText::_('JNext'); ?>"><i class="icon-arrow-right icon-white"></i> <?php echo JText::_('JNext'); ?></a>
 			</div>
-		</fieldset>
+		</div>
+		<h3><?php echo JText::_('INSTL_LANGUAGE_TITLE'); ?></h3>
+		<div class="control-group">
+			<label for="jform_language" class="control-label"><?php echo JText::_('INSTL_SELECT_LANGUAGE_TITLE'); ?></label>
+			<div class="controls">
+				<?php echo $this->form->getInput('language'); ?>
+			</div>
+		</div>
 	</div>
 	<input type="hidden" name="task" value="setup.setlanguage" />
 	<?php echo JHtml::_('form.token'); ?>
@@ -30,6 +33,16 @@ defined('_JEXEC') or die;
 <script src="<?php echo JURI::root();?>templates/system/js/chosen.jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript"> 
 !function ($) {
-$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+$("select").chosen({allow_single_deselect:true}); 
 }(window.jQuery)
 </script>
+
+<div id="licenseModal" class="modal fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+	    <h3><?php echo JText::_('INSTL_GNU_GPL_LICENSE'); ?></h3>
+	</div>
+	<div class="modal-body">
+		<iframe src="gpl.html" class="thumbnail span6 license" height="250" marginwidth="25" scrolling="auto"></iframe>
+	</div>
+</div>
