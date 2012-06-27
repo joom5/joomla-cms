@@ -21,7 +21,7 @@ JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . '/tables');
  * @subpackage	com_banners
  * @since		1.6
  */
-class BannersModelBanners extends JModelList
+class BannersModelBanners extends JModelList implements J
 {
 	/**
 	 * Method to get a store id based on model configuration state.
@@ -38,11 +38,11 @@ class BannersModelBanners extends JModelList
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
-		$id	.= ':'.$this->getState('filter.search');
-		$id	.= ':'.$this->getState('filter.tag_search');
-		$id	.= ':'.$this->getState('filter.client_id');
-		$id	.= ':'.$this->getState('filter.category_id');
-		$id	.= ':'.$this->getState('filter.keywords');
+		$id	.= ':' . $this->getState('filter.search');
+		$id	.= ':' . $this->getState('filter.tag_search');
+		$id	.= ':' . $this->getState('filter.client_id');
+		$id	.= ':' . serialize($this->getState('filter.category_id'));
+		$id	.= ':' . serialize($this->getState('filter.keywords'));
 
 		return parent::getStoreId($id);
 	}

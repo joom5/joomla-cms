@@ -591,7 +591,12 @@ class JCache
 				// Only store what this module has added
 				foreach ($headnow as $now => $value)
 				{
-					$newvalue = array_diff_assoc($headnow[$now], isset($options['headerbefore'][$now]) ? $options['headerbefore'][$now] : array());
+					// We have to serialize the content of the arrays because the may contain other arrays which is a notice in PHP 5.4 and newer
+					$nowvalue = array_map('serialize', $headnow[$now]);
+					$beforevalue = isset($options['headerbefore'][$now]) ? array_map('serialize', $options['headerbefore'][$now]) : array();
+					$newvalue = array_diff_assoc($nowvalue, $beforevalue);
+					$newvalue = array_map('unserialize', $newvalue);
+
 					if (!empty($newvalue))
 					{
 						$cached['head'][$now] = $newvalue;
