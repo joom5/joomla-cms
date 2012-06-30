@@ -17,38 +17,48 @@ defined('_JEXEC') or die;
  */
 class plgSystemLog extends JPlugin
 {
-	function onUserLoginFailure($response)
+	/**
+	 * Constructor
+	 *
+	 * @param   object  &$subject  The object to observe
+	 * @param   array   $config    An optional associative array of configuration settings.
+	 *                             Recognized key values include 'name', 'group', 'params', 'language'
+	 *                             (this list is not meant to be comprehensive).
+	 */
+	public function __construct(&$subject, $config = array())
 	{
-		$log = JLog::getInstance();
+		parent::__construct($subject, $config);
+		JLog::addLogger(array());
+	}
+
+	public function onUserLoginFailure($response)
+	{
 		$errorlog = array();
 
 		switch($response['status'])
 		{
-			case JAuthentication::STATUS_SUCCESS :
-			{
+			case JAuthentication::STATUS_SUCCESS:
 				$errorlog['status']  = $response['type'] . " CANCELED: ";
 				$errorlog['comment'] = $response['error_message'];
-				$log->addEntry($errorlog);
-			} break;
+				break;
 
-			case JAuthentication::STATUS_FAILURE :
-			{
+			case JAuthentication::STATUS_FAILURE:
 				$errorlog['status']  = $response['type'] . " FAILURE: ";
-				if ($this->params->get('log_username', 0)) {
+				if ($this->params->get('log_username', 0))
+				{
 					$errorlog['comment'] = $response['error_message'] . ' ("' . $response['username'] . '")';
 				}
-				else {
+				else
+				{
 					$errorlog['comment'] = $response['error_message'];
 				}
-				$log->addEntry($errorlog);
-			}	break;
+				break;
 
-			default :
-			{
+			default:
 				$errorlog['status']  = $response['type'] . " UNKNOWN ERROR: ";
 				$errorlog['comment'] = $response['error_message'];
-				$log->addEntry($errorlog);
-			}	break;
+				break;
 		}
+		JLog::add($errorlog['comment'], JLog::INFO, $errorlog['status']);
 	}
 }
