@@ -372,3 +372,8 @@ hr.hr-condensed{
 fieldset.radio.btn-group{
 	padding-left: 0;
 }
+
+/* iFrames */
+.iframe{
+	border: 0;
+}
