@@ -20,7 +20,7 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 $doc->addStyleSheet('templates/system/css/bootstrap-responsive.css');
 
 // Add current user information
-$user =& JFactory::getUser();
+$user = JFactory::getUser();
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@ $user =& JFactory::getUser();
     else:
     $fullWidth = 0;
     endif;
-    $document =& JFactory::getDocument();
+    $document = JFactory::getDocument();
     
     // Adjusting content width
     if ($this->countModules('position-7') && $this->countModules('position-8')) :
