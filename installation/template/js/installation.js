@@ -21,7 +21,7 @@ var Installation = new Class({
     	this.addToggler();
 		// Attach the validator
 		$$('form.form-validate').each(function(form){ this.attachToForm(form); }, document.formvalidator);
-		
+
 		if (this.view == 'site' && this.sampleDataLoaded) {
 			var select = document.id('jform_sample_file');
 			var button = document.id('theDefault').children[0];
@@ -30,10 +30,10 @@ var Installation = new Class({
 			button.setAttribute('value', Joomla.JText._('INSTL_SITE_SAMPLE_LOADED', 'Sample Data Installed Successfully.'));
 		}
     },
-    
+
     submitform: function() {
 		var form = document.id('adminForm');
-	
+
 		if (this.busy) {
 			alert(Joomla.JText._('INSTL_PROCESS_BUSY', 'Process is in progress. Please wait...'));
 			return false;
@@ -73,7 +73,7 @@ var Installation = new Class({
 
 		return false;
 	},
-	
+
 	goToPage: function(page, fromSubmit) {
 		var url = this.baseUrl+'?tmpl=body&view='+page;
 		var req = new Request.HTML({
@@ -129,7 +129,7 @@ var Installation = new Class({
 					Joomla.replaceTokens(r.token);
 					this.sampleDataLoaded = r.data.sampleDataLoaded;
 					if (r.error == false) {
-						el.set('value', Joomla.JText._('INSTL_SITE_SAMPLE_LOADED', 'Sample Data Installed Successfully.'));
+						el.set('text', Joomla.JText._('INSTL_SITE_SAMPLE_LOADED', 'Sample Data Installed Successfully.'));
 						el.set('onclick','');
 						el.set('disabled', 'disabled');
 						filename.set('disabled', 'disabled');
