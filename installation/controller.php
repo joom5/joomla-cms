@@ -74,6 +74,9 @@ class InstallationController extends JControllerLegacy
 			// Push document object into the view.
 			$view->document = $document;
 
+			// Include the component HTML helpers.
+			JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
 			$view->display();
 		}
 
