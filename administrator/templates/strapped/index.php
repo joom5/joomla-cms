@@ -88,7 +88,13 @@ endif;
 	<!-- Top Navigation -->
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container-fluid"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> <a class="brand" href="<?php echo $this->baseurl; ?>"><?php echo $sitename; ?></a>
+			<div class="container-fluid"> 
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+				</a> 
+				<a class="brand" href="<?php echo JURI::root(); ?>" title="<?php echo JText::_('JGLOBAL_PREVIEW');?> <?php echo $sitename; ?>" target="_blank"><?php echo JHtml::_('string.truncate', $sitename, 14, false, false);?> <i class="icon-out-2 small"></i></a>
 				<div class="nav-collapse">
 					<jdoc:include type="modules" name="menu" style="none" />
 					<ul class="nav pull-right">
@@ -217,6 +223,7 @@ endif;
 	<jdoc:include type="modules" name="debug" style="none" />
 	<script>
 		(function($){
+			$('*[rel=tooltip]').tooltip()
 			$('*[rel=popover]').popover()
 
 			// fix sub nav on scroll
