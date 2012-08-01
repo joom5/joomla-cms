@@ -46,6 +46,19 @@ endif;
 <?php endif; ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_content&a_id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-vertical">
+	<div class="btn-toolbar">
+		<div class="btn-group">
+			<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('article.save')">
+				<i class="icon-ok"></i> <?php echo JText::_('JSAVE') ?>
+			</button>
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn" onclick="Joomla.submitbutton('article.cancel')">
+				<i class="icon-cancel"></i> <?php echo JText::_('JCANCEL') ?>
+			</button>
+		</div>
+	</div>
+	<hr class="hr-condensed" />
 	<fieldset>
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#editor" data-toggle="tab"><?php echo JText::_('JEDITOR') ?></a></li>
@@ -311,14 +324,6 @@ endif;
 				<input type="hidden" name="jform[catid]" value="<?php echo $this->params->get('catid', 1);?>"/>
 				<?php endif;?>
 			</div>
-		</div>
-		<div class="form-actions">
-			<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('article.save')">
-				<?php echo JText::_('JSAVE') ?>
-			</button>
-			<button type="button" class="btn" onclick="Joomla.submitbutton('article.cancel')">
-				<?php echo JText::_('JCANCEL') ?>
-			</button>
 		</div>
 		<?php echo JHtml::_( 'form.token' ); ?>
 	</fieldset>
