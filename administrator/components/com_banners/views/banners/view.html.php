@@ -125,4 +125,25 @@ class BannersViewBanners extends JViewLegacy
 		}
 		JToolBarHelper::help('JHELP_COMPONENTS_BANNERS_BANNERS');
 	}
+	
+	/**
+	 * Returns an array of fields the table can be sorted by
+	 *
+	 * @return  array  Array containing the field name to sort by as the key and display text as value
+	 *
+	 * @since   3.0
+	 */
+	protected function getSortFields()
+	{
+		return array(
+			'ordering' => JText::_('JGRID_HEADING_ORDERING'),
+			'a.name' => JText::_('COM_BANNERS_HEADING_NAME'),
+			'a.sticky' => JText::_('COM_BANNERS_HEADING_STICKY'),
+			'client_name' => JText::_('COM_BANNERS_HEADING_CLIENT'),
+			'impmade' => JText::_('COM_BANNERS_HEADING_IMPRESSIONS'),
+			'clicks' => JText::_('COM_BANNERS_HEADING_CLICKS'),
+			'a.language' => JText::_('JGRID_HEADING_LANGUAGE'),
+			'a.id' => JText::_('JGRID_HEADING_ID')
+		);
+	}
 }
