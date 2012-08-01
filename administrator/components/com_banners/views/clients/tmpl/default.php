@@ -105,19 +105,19 @@ $sortFields = $this->getSortFields();
 							<?php echo JText::_('JSTATUS'); ?>
 						</th>
 						<th>
-							<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_CLIENT', 'a.name', $listDirn, $listOrder); ?>
+							<?php echo JText::_('COM_BANNERS_HEADING_CLIENT'); ?>
 						</th>
-						<th width="30%" class="hidden-phone">
-							<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_CONTACT', 'contact', $listDirn, $listOrder); ?>
+						<th width="20%" class="hidden-phone">
+							<?php echo JText::_('COM_BANNERS_HEADING_CONTACT'); ?>
 						</th>
 						<th width="5%" class="hidden-phone">
-							<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_ACTIVE', 'nbanners', $listDirn, $listOrder); ?>
+							<?php echo JText::_('COM_BANNERS_HEADING_ACTIVE'); ?>
 						</th>
 						<th width="10%" class="hidden-phone">
 							<?php echo JText::_('COM_BANNERS_HEADING_PURCHASETYPE'); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
+							<?php echo JText::_('JGRID_HEADING_ID'); ?>
 						</th>
 					</tr>
 				</thead>
