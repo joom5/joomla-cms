@@ -4885,6 +4885,17 @@ fieldset.radio.btn-group {
   width: 1px;
   overflow: hidden;
 }
+/* Form Vertical Overrides Form Horizontal */
+.form-vertical .control-label {
+  float: none;
+  width: auto;
+  padding-right: 0;
+  padding-top: 0;
+  text-align: left;
+}
+.form-vertical .controls {
+  margin-left: 0;
+}
 @font-face {
   font-family: 'IcoMoon';
   src: url('../../../media/jui/fonts/IcoMoon.eot');
