@@ -19,6 +19,8 @@ $userId		= $user->get('id');
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
 $canOrder	= $user->authorise('core.edit.state', 'com_banners.category');
+$archived	= $this->state->get('filter.published') == 2 ? true : false;
+$trashed	= $this->state->get('filter.published') == -2 ? true : false;
 $params		= (isset($this->state->params)) ? $this->state->params : new JObject;
 $saveOrder	= $listOrder == 'ordering';
 if ($saveOrder)
@@ -133,22 +135,22 @@ $sortFields = $this->getSortFields();
 						<th>
 							<?php echo JText::_('COM_BANNERS_HEADING_NAME'); ?>
 						</th>
-						<th class="hidden-phone">
+						<th width="1%" class="hidden-phone">
 							<?php echo JText::_('COM_BANNERS_HEADING_STICKY'); ?>
 						</th>
-						<th class="hidden-phone">
+						<th width="10%" class="hidden-phone">
 							<?php echo JText::_('COM_BANNERS_HEADING_CLIENT'); ?>
 						</th>
-						<th class="hidden-phone">
+						<th width="10%" class="hidden-phone">
 							<?php echo JText::_('COM_BANNERS_HEADING_IMPRESSIONS'); ?>
 						</th>
-						<th class="hidden-phone">
+						<th width="10%" class="hidden-phone">
 							<?php echo JText::_('COM_BANNERS_HEADING_CLICKS'); ?>
 						</th>
-						<th class="hidden-phone">
+						<th width="10%" class="hidden-phone">
 							<?php echo JText::_('JGRID_HEADING_LANGUAGE'); ?>
 						</th>
-						<th class="hidden-phone">
+						<th width="1%" class="hidden-phone">
 							<?php echo JText::_('JGRID_HEADING_ID'); ?>
 						</th>
 					</tr>
@@ -195,21 +197,53 @@ $sortFields = $this->getSortFields();
 						<td class="center">
 							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'banners.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 						</td>
-						<td class="nowrap">
-							<?php if ($item->checked_out) : ?>
-								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'banners.', $canCheckin); ?>
-							<?php endif; ?>
-							<?php if ($canEdit) : ?>
-								<a href="<?php echo JRoute::_('index.php?option=com_banners&task=banner.edit&id='.(int) $item->id); ?>">
-									<?php echo $this->escape($item->name); ?></a>
-							<?php else : ?>
-									<?php echo $this->escape($item->name); ?>
-							<?php endif; ?>
-							<span class="small">
-								<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
-							</span>
-							<div class="small">
-								<?php echo $this->escape($item->category_title); ?>
+						<td class="nowrap has-context">
+							<div class="pull-left">
+								<?php if ($item->checked_out) : ?>
+									<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'banners.', $canCheckin); ?>
+								<?php endif; ?>
+								<?php if ($canEdit) : ?>
+									<a href="<?php echo JRoute::_('index.php?option=com_banners&task=banner.edit&id='.(int) $item->id); ?>">
+										<?php echo $this->escape($item->name); ?></a>
+								<?php else : ?>
+										<?php echo $this->escape($item->name); ?>
+								<?php endif; ?>
+								<div class="small">
+									<?php echo $this->escape($item->category_title); ?>
+								</div>
+							</div>
+							<div class="pull-left">
+								<?php
+									// Create dropdown items
+				 					JHtml::_('dropdown.edit', $item->id, 'banner.');
+				 					JHtml::_('dropdown.divider');
+				 					if ($item->state) :
+				 						JHtml::_('dropdown.unpublish', 'cb' . $i, 'banners.');
+				 					else :
+				 						JHtml::_('dropdown.publish', 'cb' . $i, 'banners.');
+				 					endif;
+
+				 					JHtml::_('dropdown.divider');
+
+				 					if ($archived) :
+				 						JHtml::_('dropdown.unarchive', 'cb' . $i, 'banners.');
+				 					else :
+				 						JHtml::_('dropdown.archive', 'cb' . $i, 'banners.');
+				 					endif;
+
+				 					if ($item->checked_out) :
+				 						JHtml::_('dropdown.checkin', 'cb' . $i, 'banners.');
+				 					endif;
+
+				 					if ($trashed) :
+				 						JHtml::_('dropdown.untrash', 'cb' . $i, 'banners.');
+				 					else :
+				 						JHtml::_('dropdown.trash', 'cb' . $i, 'banners.');
+				 					endif;
+
+				 					// render dropdown list
+				 					echo JHtml::_('dropdown.render');
+				 					?>
 							</div>
 						</td>
 						<td class="center hidden-phone">
