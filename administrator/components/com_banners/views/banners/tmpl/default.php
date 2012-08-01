@@ -33,7 +33,7 @@ $sortFields = $this->getSortFields();
 		table = document.getElementById("sortTable");
 		direction = document.getElementById("directionTable");
 		order = table.options[table.selectedIndex].value;
-		if (direction != '<?php echo $listOrder; ?>') {
+		if (order != '<?php echo $listOrder; ?>') {
 			dirn = 'asc';
 		} else {
 			dirn = direction.options[direction.selectedIndex].value;
@@ -59,22 +59,26 @@ $sortFields = $this->getSortFields();
 				<hr />
 				<div class="filter-select">
 					<h4 class="page-header"><?php echo JText::_('JSEARCH_FILTER_LABEL');?></h4>
-					<select name="filter_state" class="span12 small" onchange="this.form.submit()">
+					<label for="filter_state" class="element-invisible"><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></label>
+					<select name="filter_state" id="filter_state" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
 						<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true);?>
 					</select>
 					<hr class="hr-condensed" />
-					<select name="filter_client_id" class="span12 small" onchange="this.form.submit()">
+					<label for="filter_client_id" class="element-invisible"><?php echo JText::_('COM_BANNERS_SELECT_CLIENT');?></label>
+					<select name="filter_client_id" id="filter_client_id" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('COM_BANNERS_SELECT_CLIENT');?></option>
 						<?php echo JHtml::_('select.options', BannersHelper::getClientOptions(), 'value', 'text', $this->state->get('filter.client_id'));?>
 					</select>
 					<hr class="hr-condensed" />
-					<select name="filter_category_id" class="span12 small" onchange="this.form.submit()">
+					<label for="filter_category_id" class="element-invisible"><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></label>
+					<select name="filter_category_id" id="filter_category_id" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></option>
 						<?php echo JHtml::_('select.options', JHtml::_('category.options', 'com_banners'), 'value', 'text', $this->state->get('filter.category_id'));?>
 					</select>
 					<hr class="hr-condensed" />
-					<select name="filter_language" class="span12 small" onchange="this.form.submit()">
+					<label for="filter_language" class="element-invisible"><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></label>
+					<select name="filter_language" id="filter_language" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
 						<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
 					</select>
@@ -86,6 +90,7 @@ $sortFields = $this->getSortFields();
 		<div class="span10">
 			<div id="filter-bar" class="btn-toolbar">
 				<div class="filter-search btn-group pull-left">
+					<label for="filter_search" class="element-invisible"><?php echo JText::_('COM_BANNERS_SEARCH_IN_TITLE');?></label>
 					<input type="text" name="filter_search" id="filter_search" placeholder="<?php echo JText::_('COM_BANNERS_SEARCH_IN_TITLE'); ?>" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" title="<?php echo JText::_('COM_BANNERS_SEARCH_IN_TITLE'); ?>" />
 				</div>
 				<div class="btn-group pull-left">
@@ -119,35 +124,32 @@ $sortFields = $this->getSortFields();
 						<th width="1%" class="center hidden-phone" nowrap="nowrap">
 							<i class="icon-menu-2 hasTip" title="<?php echo JText::_('JGRID_HEADING_ORDERING'); ?>"></i>
 						</th>
-						<th width="1%">
+						<th width="1%" class="hidden-phone">
 							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 						</th>
-						<th>
-							<?php echo JHtml::_('grid.sort',  'COM_BANNERS_HEADING_NAME', 'a.name', $listDirn, $listOrder); ?>
+						<th width="5%" class="center">
+							<?php echo JText::_('JSTATUS'); ?>
 						</th>
 						<th>
-							<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_STICKY', 'a.sticky', $listDirn, $listOrder); ?>
+							<?php echo JText::_('COM_BANNERS_HEADING_NAME'); ?>
 						</th>
-						<th>
-							<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_CLIENT', 'client_name', $listDirn, $listOrder); ?>
+						<th class="hidden-phone">
+							<?php echo JText::_('COM_BANNERS_HEADING_STICKY'); ?>
 						</th>
-						<th>
-							<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_IMPRESSIONS', 'impmade', $listDirn, $listOrder); ?>
+						<th class="hidden-phone">
+							<?php echo JText::_('COM_BANNERS_HEADING_CLIENT'); ?>
 						</th>
-						<th>
-							<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_CLICKS', 'clicks', $listDirn, $listOrder); ?>
+						<th class="hidden-phone">
+							<?php echo JText::_('COM_BANNERS_HEADING_IMPRESSIONS'); ?>
 						</th>
-						<th>
-							<?php echo JText::_('COM_BANNERS_HEADING_METAKEYWORDS'); ?>
+						<th class="hidden-phone">
+							<?php echo JText::_('COM_BANNERS_HEADING_CLICKS'); ?>
 						</th>
-						<th>
-							<?php echo JText::_('COM_BANNERS_HEADING_PURCHASETYPE'); ?>
+						<th class="hidden-phone">
+							<?php echo JText::_('JGRID_HEADING_LANGUAGE'); ?>
 						</th>
-						<th>
-							<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'a.language', $this->state->get('list.direction'), $this->state->get('list.ordering')); ?>
-						</th>
-						<th>
-							<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
+						<th class="hidden-phone">
+							<?php echo JText::_('JGRID_HEADING_ID'); ?>
 						</th>
 					</tr>
 				</thead>
@@ -187,11 +189,13 @@ $sortFields = $this->getSortFields();
 							</span>
 						<?php endif; ?>
 						</td>
-						<td class="center">
+						<td class="center hidden-phone">
 							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 						</td>
-						<td class="nowrap">
+						<td class="center">
 							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'banners.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+						</td>
+						<td class="nowrap">
 							<?php if ($item->checked_out) : ?>
 								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'banners.', $canCheckin); ?>
 							<?php endif; ?>
@@ -208,44 +212,35 @@ $sortFields = $this->getSortFields();
 								<?php echo $this->escape($item->category_title); ?>
 							</div>
 						</td>
-						<td class="center">
+						<td class="center hidden-phone">
 							<?php echo JHtml::_('banner.pinned', $item->sticky, $i, $canChange); ?>
 						</td>
-						<td class="small">
+						<td class="small hidden-phone">
 							<?php echo $item->client_name;?>
 						</td>
-						<td class="small">
+						<td class="small hidden-phone">
 							<?php echo JText::sprintf('COM_BANNERS_IMPRESSIONS', $item->impmade, $item->imptotal ? $item->imptotal : JText::_('COM_BANNERS_UNLIMITED'));?>
 						</td>
-						<td class="center small">
+						<td class="center small hidden-phone">
 							<?php echo $item->clicks;?> -
 							<?php echo sprintf('%.2f%%', $item->impmade ? 100 * $item->clicks/$item->impmade : 0);?>
 						</td>
-						<td>
-							<?php echo $item->metakey; ?>
-						</td>
-						<td class="small">
-							<?php if ($item->purchase_type < 0):?>
-								<?php echo JText::sprintf('COM_BANNERS_DEFAULT', ($item->client_purchase_type > 0) ? JText::_('COM_BANNERS_FIELD_VALUE_'.$item->client_purchase_type) : JText::_('COM_BANNERS_FIELD_VALUE_'.$params->get('purchase_type')));?>
-							<?php else:?>
-								<?php echo JText::_('COM_BANNERS_FIELD_VALUE_'.$item->purchase_type);?>
-							<?php endif;?>
-						</td>
-						<td class="small nowrap">
+
+						<td class="small nowrap hidden-phone">
 							<?php if ($item->language=='*'):?>
 								<?php echo JText::alt('JALL', 'language'); ?>
 							<?php else:?>
 								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
 							<?php endif;?>
 						</td>
-						<td class="center">
+						<td class="center hidden-phone">
 							<?php echo $item->id; ?>
 						</td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
 			</table>
-		
+			<?php echo $this->pagination->getListFooter(); ?>
 			<?php //Load the batch processing form. ?>
 			<?php echo $this->loadTemplate('batch'); ?>
 		
