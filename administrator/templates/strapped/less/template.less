@@ -450,11 +450,14 @@ body .navbar-fixed-top{
 	filter: alpha(opacity=30);
 }
 
-/*normalise ltr labels*/
- .form-horizontal .control-label {
-	float: left;
-	width: auto;
-	padding-top: 5px;
-	padding-right: 5px;
-	text-align: left;
- }
+// Normalize LTR Label (JBS request)
+// --------------------------
+
+.form-horizontal {
+	// Float the labels left
+	.control-label {
+		width: auto;
+		padding-right: 5px;
+		text-align: left;
+	}
+}
