@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		Joomla.Administrator
- * @subpackage	Templates.strapped
+ * @subpackage	Templates.isis
  * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  * @since		3.0
@@ -98,29 +98,29 @@ endif;
 				<div class="nav-collapse">
 					<jdoc:include type="modules" name="menu" style="none" />
 					<ul class="nav pull-right">
-						<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo JText::_('TPL_STRAPPED_SETTINGS');?> <b class="caret"></b></a>
+						<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo JText::_('TPL_ISIS_SETTINGS');?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<?php if($user->authorise('core.admin')):?>
-									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_config"><?php echo JText::_('TPL_STRAPPED_GLOBAL_CONFIGURATION');?></a></li>
+									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_config"><?php echo JText::_('TPL_ISIS_GLOBAL_CONFIGURATION');?></a></li>
 									<li class="divider"></li>
-									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_admin&view=sysinfo"><?php echo JText::_('TPL_STRAPPED_SYSTEM_INFORMATION');?></a></li>
+									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_admin&view=sysinfo"><?php echo JText::_('TPL_ISIS_SYSTEM_INFORMATION');?></a></li>
 								<?php endif;?>
 								<?php if($user->authorise('core.manage', 'com_cache')):?>
-									 <li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_cache"><?php echo JText::_('TPL_STRAPPED_CLEAR_CACHE');?></a></li>
+									 <li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_cache"><?php echo JText::_('TPL_ISIS_CLEAR_CACHE');?></a></li>
 									 <li>
-									 <li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_cache&view=purge"><?php echo JText::_('TPL_STRAPPED_PURGE_EXPIRED_CACHE');?></a></li>
+									 <li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_cache&view=purge"><?php echo JText::_('TPL_ISIS_PURGE_EXPIRED_CACHE');?></a></li>
 									 <li>
 								<?php endif;?>
 								<?php if($user->authorise('core.admin', 'com_checkin')):?>
-									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_checkin"><?php echo JText::_('TPL_STRAPPED_GLOBAL_CHECK_IN');?></a></li>
+									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_checkin"><?php echo JText::_('TPL_ISIS_GLOBAL_CHECK_IN');?></a></li>
 								<?php endif;?>
 							</ul>
 						</li>
 						<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $user->username; ?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li class=""><a href="index.php?option=com_admin&task=profile.edit&id=<?php echo $user->id;?>"><?php echo JText::_('TPL_STRAPPED_EDIT_ACCOUNT');?></a></li>
+								<li class=""><a href="index.php?option=com_admin&task=profile.edit&id=<?php echo $user->id;?>"><?php echo JText::_('TPL_ISIS_EDIT_ACCOUNT');?></a></li>
 								<li class="divider"></li>
-								<li class=""><a href="<?php echo JRoute::_('index.php?option=com_login&task=logout&'. JSession::getFormToken() .'=1');?>"><?php echo JText::_('TPL_STRAPPED_LOGOUT');?></a></li>
+								<li class=""><a href="<?php echo JRoute::_('index.php?option=com_login&task=logout&'. JSession::getFormToken() .'=1');?>"><?php echo JText::_('TPL_ISIS_LOGOUT');?></a></li>
 							</ul>
 						</li>
 					</ul>
@@ -155,7 +155,7 @@ endif;
 		</div>
 	</div>
 	<!-- Subheader -->
-	<a class="btn btn-subhead" data-toggle="collapse" data-target=".subhead-collapse"><?php echo JText::_('TPL_STRAPPED_TOOLBAR');?> <i class="icon-wrench"></i></a>
+	<a class="btn btn-subhead" data-toggle="collapse" data-target=".subhead-collapse"><?php echo JText::_('TPL_ISIS_TOOLBAR');?> <i class="icon-wrench"></i></a>
 	<div class="subhead-collapse">
 		<div class="subhead">
 			<div class="container-fluid">
