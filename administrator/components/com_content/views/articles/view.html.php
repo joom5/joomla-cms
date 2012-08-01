@@ -128,7 +128,9 @@ class ContentViewArticles extends JViewLegacy
 	{
 		return array(
 			'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
+			'a.state' => JText::_('JSTATUS'),
 			'a.title' => JText::_('JGLOBAL_TITLE'),
+			'category_title' => JText::_('JCATEGORY'),
 			'access_level' => JText::_('JGRID_HEADING_ACCESS'),
 			'a.created_by' => JText::_('JAUTHOR'),
 			'language' => JText::_('JGRID_HEADING_LANGUAGE'),
