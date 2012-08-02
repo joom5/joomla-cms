@@ -18,7 +18,8 @@ $doc->addStyleSheet('template/css/template.css');
 
 $doc->addStyleSheet('../media/jui/css/chosen.css');
 
-if ($this->direction == 'rtl') {
+if ($this->direction === 'rtl')
+{
 	$doc->addStyleSheet('../media/jui/css/bootstrap-rtl.css');
 }
 
@@ -41,7 +42,7 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 		<script src="<?php echo JURI::root();?>media/jui/js/bootstrap.min.js"></script>
 		<script src="<?php echo JURI::root();?>media/jui/js/chosen.jquery.min.js"></script>
 		<script type="text/javascript">
-		  jQuery.noConflict();
+			jQuery.noConflict();
 		</script>
 		<jdoc:include type="head" />
 
@@ -52,7 +53,7 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 			window.addEvent('domready', function() {
 				window.Install = new Installation('container-installation', '<?php echo JURI::current(); ?>');
 			});
- 		</script>
+		</script>
 	</head>
 	<body>
 		<!-- Header -->
@@ -97,7 +98,7 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 
 					// Turn radios into btn-group
 					$('.radio.btn-group label').addClass('btn')
-					$(".btn-group label:not(.active)").click(function(){
+					$(".btn-group label:not(.active)").click(function() {
 						var label = $(this);
 						var input = $('#' + label.attr('for'));
 
@@ -111,7 +112,7 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 							input.prop('checked', true);
 						}
 					});
-					$(".btn-group input[checked=checked]").each(function(){
+					$(".btn-group input[checked=checked]").each(function() {
 						var label = $("label[for=" + $(this).attr('id') + "]");
 						if ($(this).val() === 0) {
 							label.addClass('active btn-danger');

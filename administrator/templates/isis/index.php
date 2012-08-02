@@ -1,10 +1,10 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	Templates.isis
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- * @since		3.0
+ * @package     Joomla.Administrator
+ * @subpackage  Templates.isis
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @since       3.0
  */
 
 defined('_JEXEC') or die;
@@ -18,56 +18,63 @@ $input = $app->input;
 $user  = JFactory::getUser();
 
 // Add Stylesheets
-$doc->addStyleSheet('templates/' .$this->template. '/css/template.css');
+$doc->addStyleSheet('templates/' . $this->template . '/css/template.css');
 
 // If Right-to-Left
-if ($this->direction == 'rtl') :
+if ($this->direction === 'rtl')
+{
 	$doc->addStyleSheet('../media/jui/css/bootstrap-rtl.css');
-endif;
+}
 
 // Load specific language related CSS
 $file = 'language/' . $lang->getTag() . '/' . $lang->getTag() . '.css';
-if (JFile::exists($file)) :
+if (JFile::exists($file))
+{
 	$doc->addStyleSheet($file);
-endif;
+}
 
 $doc->addStyleSheet('../media/jui/css/chosen.css');
 
 // Detecting Active Variables
-$option = $input->get('option', '');
-$view = $input->get('view', '');
-$layout = $input->get('layout', '');
-$task = $input->get('task', '');
-$itemid = $input->get('Itemid', '');
+$option   = $input->get('option', '');
+$view     = $input->get('view', '');
+$layout   = $input->get('layout', '');
+$task     = $input->get('task', '');
+$itemid   = $input->get('Itemid', '');
 $sitename = $app->getCfg('sitename');
 
-if($task == "edit" || $layout == "form" )
+if ($task === "edit" || $layout === "form" )
 {
-    $fullWidth = 1;
+	$fullWidth = 1;
 }
 else
 {
-    $fullWidth = 0;
+	$fullWidth = 0;
 }
 
-$cpanel = false;
-if ($option == "com_cpanel")
-{
-	$cpanel = true;
-}
+$cpanel = $option === "com_cpanel";
 
 // Adjusting content width
-if ($cpanel) :
+if ($cpanel)
+{
 	$span = "span8";
-elseif ($this->countModules('left') && $this->countModules('right')) :
+}
+elseif ($this->countModules('left') && $this->countModules('right'))
+{
 	$span = "span6";
-elseif ($this->countModules('left') && !$this->countModules('right')) :
+}
+elseif ($this->countModules('left') && !$this->countModules('right'))
+{
 	$span = "span10";
-elseif (!$this->countModules('left') && $this->countModules('right')) :
+}
+elseif (!$this->countModules('left') && $this->countModules('right'))
+{
 	$span = "span8";
-else :
+}
+else
+{
 	$span = "span12";
-endif;
+}
 
 ?>
 <!DOCTYPE html>
@@ -79,7 +86,7 @@ endif;
 	<script src="../media/jui/js/chosen.jquery.min.js"></script>
 	<script src="../media/jui/js/jquery-ui.js"></script>
 	<script type="text/javascript">
-	  jQuery.noConflict();
+		jQuery.noConflict();
 	</script>
 	<jdoc:include type="head" />
 </head>
@@ -88,12 +95,12 @@ endif;
 	<!-- Top Navigation -->
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container-fluid"> 
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span> 
-				</a> 
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
 				<a class="brand" href="<?php echo JURI::root(); ?>" title="<?php echo JText::_('JGLOBAL_PREVIEW');?> <?php echo $sitename; ?>" target="_blank"><?php echo JHtml::_('string.truncate', $sitename, 14, false, false);?> <i class="icon-out-2 small"></i></a>
 				<div class="nav-collapse">
 					<jdoc:include type="modules" name="menu" style="none" />
@@ -141,15 +148,15 @@ endif;
 				</div>
 				<div class="span3">
 					<jdoc:include type="modules" name="searchload" style="none" />
-					<?php 
+					<?php
 					/* // no search for now
 					<!-- placeholder search, remove once we have an admin search -->
 					<form class="navbar-search pull-right">
-		      			<input type="text" class="search-query" placeholder="Search" style="margin: 0 auto;" data-provide="typeahead" data-items="10" data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;,&quot;Arizona&quot;,&quot;Arkansas&quot;,&quot;California&quot;,&quot;Colorado&quot;,&quot;Connecticut&quot;,&quot;Delaware&quot;,&quot;Florida&quot;,&quot;Georgia&quot;,&quot;Hawaii&quot;,&quot;Idaho&quot;,&quot;Illinois&quot;,&quot;Indiana&quot;,&quot;Iowa&quot;,&quot;Kansas&quot;,&quot;Kentucky&quot;,&quot;Louisiana&quot;,&quot;Maine&quot;,&quot;Maryland&quot;,&quot;Massachusetts&quot;,&quot;Michigan&quot;,&quot;Minnesota&quot;,&quot;Mississippi&quot;,&quot;Missouri&quot;,&quot;Montana&quot;,&quot;Nebraska&quot;,&quot;Nevada&quot;,&quot;New Hampshire&quot;,&quot;New Jersey&quot;,&quot;New Mexico&quot;,&quot;New York&quot;,&quot;North Dakota&quot;,&quot;North Carolina&quot;,&quot;Ohio&quot;,&quot;Oklahoma&quot;,&quot;Oregon&quot;,&quot;Pennsylvania&quot;,&quot;Rhode Island&quot;,&quot;South Carolina&quot;,&quot;South Dakota&quot;,&quot;Tennessee&quot;,&quot;Texas&quot;,&quot;Utah&quot;,&quot;Vermont&quot;,&quot;Virginia&quot;,&quot;Washington&quot;,&quot;West Virginia&quot;,&quot;Wisconsin&quot;,&quot;Wyoming&quot;]">
-		      		</form>
-		      		<!-- placeholder search, remove once we have an admin search -->
-		      		*/
-		      		?>
+						<input type="text" class="search-query" placeholder="Search" style="margin: 0 auto;" data-provide="typeahead" data-items="10" data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;,&quot;Arizona&quot;,&quot;Arkansas&quot;,&quot;California&quot;,&quot;Colorado&quot;,&quot;Connecticut&quot;,&quot;Delaware&quot;,&quot;Florida&quot;,&quot;Georgia&quot;,&quot;Hawaii&quot;,&quot;Idaho&quot;,&quot;Illinois&quot;,&quot;Indiana&quot;,&quot;Iowa&quot;,&quot;Kansas&quot;,&quot;Kentucky&quot;,&quot;Louisiana&quot;,&quot;Maine&quot;,&quot;Maryland&quot;,&quot;Massachusetts&quot;,&quot;Michigan&quot;,&quot;Minnesota&quot;,&quot;Mississippi&quot;,&quot;Missouri&quot;,&quot;Montana&quot;,&quot;Nebraska&quot;,&quot;Nevada&quot;,&quot;New Hampshire&quot;,&quot;New Jersey&quot;,&quot;New Mexico&quot;,&quot;New York&quot;,&quot;North Dakota&quot;,&quot;North Carolina&quot;,&quot;Ohio&quot;,&quot;Oklahoma&quot;,&quot;Oregon&quot;,&quot;Pennsylvania&quot;,&quot;Rhode Island&quot;,&quot;South Carolina&quot;,&quot;South Dakota&quot;,&quot;Tennessee&quot;,&quot;Texas&quot;,&quot;Utah&quot;,&quot;Vermont&quot;,&quot;Virginia&quot;,&quot;Washington&quot;,&quot;West Virginia&quot;,&quot;Wisconsin&quot;,&quot;Wyoming&quot;]">
+					</form>
+					<!-- placeholder search, remove once we have an admin search -->
+					*/
+					?>
 				</div>
 			</div>
 		</div>
@@ -227,30 +234,30 @@ endif;
 			$('*[rel=popover]').popover()
 
 			// fix sub nav on scroll
-		    var $win = $(window)
-		      , $nav = $('.subhead')
-		      , navTop = $('.subhead').length && $('.subhead').offset().top - 40
-		      , isFixed = 0
+			var $win = $(window)
+			  , $nav = $('.subhead')
+			  , navTop = $('.subhead').length && $('.subhead').offset().top - 40
+			  , isFixed = 0
 
-		    processScroll()
+			processScroll()
 
-		    // hack sad times - holdover until rewrite for 2.1
-		    $nav.on('click', function () {
-		      if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 47) }, 10)
-		    })
+			// hack sad times - holdover until rewrite for 2.1
+			$nav.on('click', function () {
+				if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 47) }, 10)
+			})
 
-		    $win.on('scroll', processScroll)
+			$win.on('scroll', processScroll)
 
-		    function processScroll() {
-		      var i, scrollTop = $win.scrollTop()
-		      if (scrollTop >= navTop && !isFixed) {
-		        isFixed = 1
-		        $nav.addClass('subhead-fixed')
-		      } else if (scrollTop <= navTop && isFixed) {
-		        isFixed = 0
-		        $nav.removeClass('subhead-fixed')
-		      }
-		    }
+			function processScroll() {
+				var i, scrollTop = $win.scrollTop()
+				if (scrollTop >= navTop && !isFixed) {
+					isFixed = 1
+					$nav.addClass('subhead-fixed')
+				} else if (scrollTop <= navTop && isFixed) {
+					isFixed = 0
+					$nav.removeClass('subhead-fixed')
+				}
+			}
 
 			// Chosen select boxes
 			$("select").chosen({
@@ -258,22 +265,22 @@ endif;
 				allow_single_deselect : true
 			});
 
-		    // Turn radios into btn-group
-		    $('.radio.btn-group label').addClass('btn')
-		    $(".btn-group label:not(.active)").click(function(){
-		        var label = $(this);
-		        var input = $('#' + label.attr('for'));
+			// Turn radios into btn-group
+			$('.radio.btn-group label').addClass('btn')
+			$(".btn-group label:not(.active)").click(function(){
+				var label = $(this);
+				var input = $('#' + label.attr('for'));
 
-		        if (!input.prop('checked')){
-		            label.closest('.btn-group').find("label").removeClass('active btn-primary');
-		            label.addClass('active btn-primary');
-		            input.prop('checked', true);
-		        }
-		    });
-		    $(".btn-group input[checked=checked]").each(function(){
-		        $("label[for=" + $(this).attr('id') + "]").addClass('active btn-primary');
-		    });
-	    })(jQuery);
+				if (!input.prop('checked')){
+					label.closest('.btn-group').find("label").removeClass('active btn-primary');
+					label.addClass('active btn-primary');
+					input.prop('checked', true);
+				}
+			});
+			$(".btn-group input[checked=checked]").each(function(){
+				$("label[for=" + $(this).attr('id') + "]").addClass('active btn-primary');
+			});
+		})(jQuery);
 	</script>
 </body>
 </html>

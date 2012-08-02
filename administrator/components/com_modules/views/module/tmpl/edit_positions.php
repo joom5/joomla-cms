@@ -34,7 +34,7 @@ foreach ($templates as $template)
 {
 	$group = array();
 	$group['value'] = $template;
-	$group['text'] = $template;
+	$group['text']  = $template;
 	$group['items'] = array();
 
 	$positions = TemplatesHelper::getPositions($clientId, $template);
