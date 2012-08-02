@@ -180,13 +180,11 @@ $sortFields = $this->getSortFields();
 					$canCreate	= $user->authorise('core.create',		'com_content.category.'.$item->catid);
 					$canEdit	= $user->authorise('core.edit',			'com_content.article.'.$item->id);
 					$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
-					$canEditOwn	= $user->authorise('core.edit.own',		'com_content.article.'.$item->id) && $item->created_by == $userId;
 					$canChange	= $user->authorise('core.edit.state',	'com_content.article.'.$item->id) && $canCheckin;
 					?>
 					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid?>">
 						<td class="order nowrap center hidden-phone">
-							<?php
-								if ($canChange) :
+							<?php if ($canChange) :
 								$disableClassName = '';
 								$disabledLabel	  = '';
 								if (!$saveOrder) :
@@ -194,13 +192,13 @@ $sortFields = $this->getSortFields();
 									$disableClassName = 'inactive tip-top';
 								endif; ?>
 								<span class="sortable-handler <?php echo $disableClassName?>" title="<?php echo $disabledLabel?>" rel="tooltip">
-										<i class="icon-menu"></i>
-									</span>
+									<i class="icon-menu"></i>
+								</span>
 								<input type="text" style="display:none"  name="order[]" size="5"
-									   value="<?php echo $item->ordering;?>" class="width-20 text-area-order " />
-								<?php else : ?>
+								value="<?php echo $item->ordering;?>" class="width-20 text-area-order " />
+							<?php else : ?>
 								<span class="sortable-handler inactive" >
-										<i class="icon-menu"></i>
+									<i class="icon-menu"></i>
 								</span>
 							<?php endif; ?>
 						</td>
@@ -220,7 +218,7 @@ $sortFields = $this->getSortFields();
 								<?php else:?>
 									<?php $language = $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
 								<?php endif;?>
-								<?php if ($canEdit || $canEditOwn) : ?>
+								<?php if ($canEdit) : ?>
 									<a href="<?php echo JRoute::_('index.php?option=com_content&task=article.edit&return=featured&id=' . $item->id);?>" title="<?php echo JText::_('JACTION_EDIT');?>">
 										<?php echo $this->escape($item->title); ?></a>
 								<?php else : ?>
