@@ -87,7 +87,7 @@ class ContentViewFeatured extends JViewLegacy
 	protected function getSortFields()
 	{
 		return array(
-			'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
+			'fp.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 			'a.state' => JText::_('JSTATUS'),
 			'a.title' => JText::_('JGLOBAL_TITLE'),
 			'category_title' => JText::_('JCATEGORY'),
