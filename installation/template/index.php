@@ -90,7 +90,10 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 					$('*[rel=popover]').popover()
 
 					// Chosen select boxes
-					$("select").chosen({disable_search_threshold : 10 });
+					$("select").chosen({
+						disable_search_threshold : 10,
+						allow_single_deselect : true
+					});
 
 					// Turn radios into btn-group
 					$('.radio.btn-group label').addClass('btn')
