@@ -210,9 +210,6 @@ $sortFields = $this->getSortFields();
 						<td class="center">
 								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 						</td>
-
-
-
 						<td class="nowrap has-context">
 							<div class="pull-left">
 								<?php if ($item->checked_out) : ?>
