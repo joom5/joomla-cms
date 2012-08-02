@@ -83,25 +83,52 @@ class ModulesViewModules extends JViewLegacy
 		}
 
 		if ($canDo->get('core.edit.state')) {
-			JToolBarHelper::divider();
 			JToolBarHelper::publish('modules.publish', 'JTOOLBAR_PUBLISH', true);
 			JToolBarHelper::unpublish('modules.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-			JToolBarHelper::divider();
 			JToolBarHelper::checkin('modules.checkin');
 		}
 
 		if ($state->get('filter.state') == -2 && $canDo->get('core.delete')) {
 			JToolBarHelper::deleteList('', 'modules.delete', 'JTOOLBAR_EMPTY_TRASH');
-			JToolBarHelper::divider();
 		} elseif ($canDo->get('core.edit.state')) {
 			JToolBarHelper::trash('modules.trash');
-			JToolBarHelper::divider();
+		}
+		
+		// Add a batch button
+		if ($canDo->get('core.edit'))
+		{
+			$title = JText::_('JTOOLBAR_BATCH');
+			$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn\">
+						<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
+						$title</button>";
+			$bar->appendButton('Custom', $dhtml, 'batch');
 		}
 
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_modules');
-			JToolBarHelper::divider();
 		}
 		JToolBarHelper::help('JHELP_EXTENSIONS_MODULE_MANAGER');
+	}
+	
+	/**
+	 * Returns an array of fields the table can be sorted by
+	 *
+	 * @return  array  Array containing the field name to sort by as the key and display text as value
+	 *
+	 * @since   3.0
+	 */
+	protected function getSortFields()
+	{
+		return array(
+			'ordering' => JText::_('JGRID_HEADING_ORDERING'),
+			'a.published' => JText::_('JSTATUS'),
+			'a.title' => JText::_('JGLOBAL_TITLE'),
+			'position' => JText::_('COM_MODULES_HEADING_POSITION'),
+			'name' => JText::_('COM_MODULES_HEADING_MODULE'),
+			'a.access' => JText::_('JGRID_HEADING_ACCESS'),
+			'a.created_by' => JText::_('JAUTHOR'),
+			'language_title' => JText::_('JGRID_HEADING_LANGUAGE'),
+			'a.id' => JText::_('JGRID_HEADING_ID')
+		);
 	}
 }
