@@ -8,22 +8,27 @@
 
 defined('_JEXEC') or die;
 ?>
-<?php echo JHtml::_('installation.stepbar'); ?>
-<form action="index.php" method="post" id="adminForm" class="form-validate form-horizontal">
-	<div class="btn-toolbar">
-		<div class="btn-group">
-			<a class="btn" href="index.php?view=preinstall" onclick="return Install.goToPage('preinstall');" title="<?php echo JText::_('JCheck_Again'); ?>"><i class="icon-refresh"></i> <?php echo JText::_('JCheck_Again'); ?></a>
-		</div>
-		<div class="btn-group pull-right">
-			<a class="btn" href="index.php?view=language" onclick="return Install.goToPage('language');" rel="prev" title="<?php echo JText::_('JPrevious'); ?>"><i class="icon-arrow-left"></i> <?php echo JText::_('JPrevious'); ?></a>
-			<a  class="btn btn-primary" href="index.php?view=license" onclick="return Install.goToPage('database');" rel="next" title="<?php echo JText::_('JNext'); ?>"><i class="icon-arrow-right icon-white"></i> <?php echo JText::_('JNext'); ?></a>
+<div class="btn-toolbar">
+	<div class="btn-group pull-right">
+		<a href="#" class="btn btn-primary" onclick="Install.submitform();" title="<?php echo JText::_('JCheck_Again'); ?>"><i class="icon-refresh"></i> <?php echo JText::_('JCheck_Again'); ?></a>
+	</div>
+</div>
+<form action="index.php" method="post" id="languageForm" class="form-horizontal">
+	<div class="control-group">
+		<label for="jform_language" class="control-label"><?php echo JText::_('INSTL_SELECT_LANGUAGE_TITLE'); ?></label>
+		<div class="controls">
+			<?php echo $this->form->getInput('language'); ?>
 		</div>
 	</div>
+	<input type="hidden" name="view" value="preinstall" />
+	<input type="hidden" name="task" value="setup.setlanguage" />
+	<?php echo JHtml::_('form.token'); ?>
+</form>
+<form action="index.php" method="post" id="adminForm" class="form-horizontal">
 	<div class="row-fluid">
 		<div class="span6">
-			<h3>
-				<?php echo JText::_('INSTL_PRECHECK_TITLE'); ?>
-			</h3>
+			<h3><?php echo JText::_('INSTL_PRECHECK_TITLE'); ?></h3>
+			<hr class="hr-condensed" />
 			<p class="install-text">
 				<?php echo JText::_('INSTL_PRECHECK_DESC'); ?>
 			</p>
@@ -53,9 +58,8 @@ defined('_JEXEC') or die;
 			</table>
 		</div>
 		<div class="span6">
-			<h3>
-				<?php echo JText::_('INSTL_PRECHECK_RECOMMENDED_SETTINGS_TITLE'); ?>
-			</h3>
+			<h3><?php echo JText::_('INSTL_PRECHECK_RECOMMENDED_SETTINGS_TITLE'); ?></h3>
+			<hr class="hr-condensed" />
 			<p class="install-text">
 				<?php echo JText::_('INSTL_PRECHECK_RECOMMENDED_SETTINGS_DESC'); ?>
 			</p>
@@ -80,12 +84,12 @@ defined('_JEXEC') or die;
 							<?php echo $setting->label; ?>
 						</td>
 						<td>
-							<span class="label label-<?php echo ($setting->state === $setting->recommended) ? 'success' : 'important'; ?> disabled">
+							<span class="label label-success disabled">
 								<?php echo JText::_(($setting->recommended) ? 'JON' : 'JOFF'); ?>
 							</span>
 						</td>
 						<td>
-							<span class="label label-<?php echo ($setting->state === $setting->recommended) ? 'success' : 'important'; ?>">
+							<span class="label label-<?php echo ($setting->state === $setting->recommended) ? 'success' : 'warning'; ?>">
 								<?php echo JText::_(($setting->state) ? 'JON' : 'JOFF'); ?>
 							</span>
 						</td>
@@ -100,6 +104,7 @@ defined('_JEXEC') or die;
 			</table>
 		</div>
 	</div>
-	<input type="hidden" name="task" value="" />
+
+	<input type="hidden" name="task" value="setup.preinstall" />
 	<?php echo JHtml::_('form.token'); ?>
 </form>

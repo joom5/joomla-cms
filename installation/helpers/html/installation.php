@@ -16,14 +16,18 @@ class JHtmlInstallation
 {
 	public static function stepbar()
 	{
-		$tabs = array(
-			'language',
-			'preinstall',
-			'database',
-			'filesystem',
-			'site',
-			'complete'
-		);
+		// Determine if the configuration file path is writable.
+		$path = JPATH_CONFIGURATION . '/configuration.php';
+		$useftp = (file_exists($path)) ? !is_writable($path) : !is_writable(JPATH_CONFIGURATION . '/');
+
+		$tabs = array();
+		$tabs[] = 'site';
+		$tabs[] = 'database';
+		if ($useftp) {
+			$tabs[] = 'ftp';
+		}
+		$tabs[] = 'summary';
+
 		$html = array();
 		$html[] = '<ul class="nav nav-tabs">';
 		foreach($tabs as $tab) {
@@ -42,7 +46,7 @@ class JHtmlInstallation
 		} else if ($view < $num) {
 			$tab = '<span>'.$tab.'</span>';
 		} else  {
-			$tab = '<a href="index.php?view='.$id.'">'.$tab.'</a>';
+			$tab = '<a href="#" onclick="return Install.goToPage(\''.$id.'\')">'.$tab.'</a>';
 		}
 		return '<li class="step'.($num == $view ? ' active' : '').'" id="'.$id.'">'.$tab.'</li>';
 	}

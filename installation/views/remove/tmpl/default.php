@@ -8,26 +8,19 @@
 
 defined('_JEXEC') or die;
 ?>
-<?php echo JHtml::_('installation.stepbar'); ?>
-<fieldset>
-	<legend><?php echo JText::_('INSTL_COMPLETE_REMOVE_FOLDER'); ?></legend>
-	<div class="control-group">
-		<label for="" class="control-label">
+<div class="alert alert-success">
+	<h3><?php echo JText::_('INSTL_COMPLETE_TITLE'); ?></h3>
+</div>
+<div class="alert">
+	<p><?php echo JText::_('INSTL_COMPLETE_REMOVE_INSTALLATION'); ?></p>
+	<button class="btn btn-warning" name="instDefault" onclick="Install.removeFolder(this);"><i class="icon-ban-circle icon-white"></i> <?php echo JText::_('INSTL_COMPLETE_REMOVE_FOLDER'); ?></button>
+</div>
 
-		</label>
-		<div class="controls" id="installer">
-			<div class="alert alert-info">
-				<?php echo JText::_('INSTL_COMPLETE_REMOVE_INSTALLATION'); ?>
-			</div>
-		</div>
+<div class="btn-toolbar">
+	<div class="btn-group">
+		<a class="btn" href="<?php echo JURI::root(); ?>" title="<?php echo JText::_('JSITE'); ?>"><i class="icon-eye-open"></i> <?php echo JText::_('JSITE'); ?></a>
 	</div>
-	<div class="control-group">
-		<label for="" class="control-label">
-
-		</label>
-		<div class="controls">
-			<a class="btn" href="<?php echo JURI::root(); ?>" title="<?php echo JText::_('JSITE'); ?>"><i class="icon-eye-open"></i> <?php echo JText::_('JSITE'); ?></a>
-			<a class="btn btn-primary" href="<?php echo JURI::root(); ?>administrator/" title="<?php echo JText::_('JADMINISTRATOR'); ?>"><i class="icon-lock icon-white"></i> <?php echo JText::_('JADMINISTRATOR'); ?></a>
-		</div>
+	<div class="btn-group">
+		<a class="btn btn-primary" href="<?php echo JURI::root(); ?>administrator/" title="<?php echo JText::_('JADMINISTRATOR'); ?>"><i class="icon-lock icon-white"></i> <?php echo JText::_('JADMINISTRATOR'); ?></a>
 	</div>
-</fieldset>
+</div>

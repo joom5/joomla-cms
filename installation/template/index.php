@@ -68,7 +68,6 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 			</div>
 			<hr />
 			<div class="footer">
-				<p class="pull-right"><a href="#top" id="back-top">Back to top</a></p>
 				<p><?php
 				$joomla = '<a href="http://www.joomla.org">Joomla!&#174;</a>';
 				$license = '<a data-toggle="modal" href="#licenseModal">' . JText::_('INSTL_GNU_GPL_LICENSE') . '</a>';

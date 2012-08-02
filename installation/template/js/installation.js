@@ -31,7 +31,7 @@ var Installation = new Class({
 		}
     },
 
-    submitform: function() {
+	submitform: function() {
 		var form = document.id('adminForm');
 
 		if (this.busy) {
@@ -74,6 +74,49 @@ var Installation = new Class({
 		return false;
 	},
 
+	setlanguage: function() {
+		var form = document.id('languageForm');
+
+		if (this.busy) {
+			alert(Joomla.JText._('INSTL_PROCESS_BUSY', 'Process is in progress. Please wait...'));
+			return false;
+		}
+
+		var req = new Request.JSON({
+			method: 'post',
+			url: this.baseUrl,
+			onRequest: function() {
+				this.spinner.show(true);
+				this.busy = true;
+				Joomla.removeMessages();
+			}.bind(this),
+			onSuccess: function(r) {
+				Joomla.replaceTokens(r.token);
+				if (r.messages) {
+					Joomla.renderMessages(r.messages);
+				}
+				var lang = $$('html').getProperty('lang')[0];
+				if (lang.toLowerCase() === r.lang.toLowerCase()) {
+					Install.goToPage(r.data.view, true);
+				} else {
+					window.location = this.baseUrl+'?view='+r.data.view;
+				}
+			}.bind(this),
+			onFailure: function(xhr) {
+				this.spinner.hide(true);
+				this.busy = false;
+				var r = JSON.decode(xhr.responseText);
+				if (r) {
+					Joomla.replaceTokens(r.token);
+					alert(r.message);
+				}
+			}.bind(this)
+		});
+		req.post(form.toQueryString()+'&task=setup.setlanguage&format=json');
+
+		return false;
+	},
+
 	goToPage: function(page, fromSubmit) {
 		var url = this.baseUrl+'?tmpl=body&view='+page;
 		var req = new Request.HTML({
@@ -95,16 +138,65 @@ var Installation = new Class({
 				this.spinner.hide(true);
 				this.busy = false;
 
-				//Take care of the sidebar
-				var active = $$('.active');
-				active.removeClass('active');
-				var nextStep = document.id(page);
-				nextStep.addClass('active');
 				initElements();
 			}.bind(this)
 		}).send();
 
 		return false;
+	},
+
+
+	install: function(tasks, step_width) {
+		var progress = document.id('install_progress').getElement('div.bar');
+
+		if (!tasks.length) {
+			progress.setStyle('width',(progress.getStyle('width').toFloat()+(step_width*3))+'%');
+			this.goToPage('complete');
+		}
+
+		if (!step_width) {
+			var step_width = (100 / tasks.length) / 11;
+		}
+
+		var task = tasks.shift();
+		var form = document.id('adminForm');
+		var tr = document.id('install_'+task);
+		var spinner = tr.getElement('div.spinner');
+
+		var req = new Request.JSON({
+			method: 'post',
+			url: 'index.php?'+form.toQueryString(),
+			data: {'task':'setup.install_'+task, 'format':'json'},
+			onRequest: function() {
+				progress.setStyle('width',(progress.getStyle('width').toFloat()+step_width)+'%');
+				tr.addClass('active');
+				spinner.setStyle('visibility','visible');
+			},
+			onSuccess: function(r) {
+				Joomla.replaceTokens(r.token);
+				if (r.messages) {
+					Joomla.renderMessages(r.messages);
+					Install.goToPage(r.data.view, true);
+				} else {
+					progress.setStyle('width',(progress.getStyle('width').toFloat()+(step_width*10))+'%');
+					tr.removeClass('active');
+					spinner.setStyle('visibility','hidden');
+
+					this.install(tasks, step_width);
+				}
+			}.bind(this),
+			onError: function(text, error) {
+				Joomla.renderMessages([['',Joomla.JText._('JLIB_DATABASE_ERROR_DATABASE', 'A Database error occurred.')]]);
+				Install.goToPage('summary');
+			}.bind(this),
+			onFailure: function(xhr) {
+				var r = JSON.decode(xhr.responseText);
+				if (r) {
+					Joomla.replaceTokens(r.token);
+					alert(r.message);
+				}
+			}.bind(this)
+		}).send();
 	},
 
 	/**
@@ -134,7 +226,6 @@ var Installation = new Class({
 						el.set('onclick','');
 						el.set('disabled', 'disabled');
 						filename.set('disabled', 'disabled');
-						document.id('jform_sample_installed').set('value','1');
 					} else {
 						document.id('theDefaultError').setStyle('display','block');
 						document.id('theDefaultErrorMessage').set('html', r.message);
@@ -291,5 +382,14 @@ var Installation = new Class({
 			alwaysHide:true,
 			show: 1
 		});
+    },
+
+	toggle: function(id, el, value) {
+		var val = document.getElement('input[name=jform['+el+']]:checked').value;
+		if(val == value) {
+			document.id(id).setStyle('display', '');
+		} else {
+			document.id(id).setStyle('display', 'none');
+		}
     }
 });
