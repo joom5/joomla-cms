@@ -8,14 +8,15 @@
 
 defined('_JEXEC') or die;
 ?>
-<?php echo JHtml::_('installation.stepbar'); ?>
 <form action="index.php" method="post" id="adminForm" class="form-validate form-horizontal">
 	<div class="alert alert-error inlineError" id="theDefaultError" style="display: none">
 		<h4 class="alert-heading"><?php echo JText::_('JERROR'); ?></h4>
 		<p id="theDefaultErrorMessage"></p>
 	</div>
+	<div class="alert alert-success">
+		<h3><?php echo JText::_('INSTL_COMPLETE_TITLE'); ?></h3>
+	</div>
 	<div class="alert">
-		<h4 class="alert-heading"><?php echo JText::_('INSTL_COMPLETE_TITLE'); ?></h4>
 		<p><?php echo JText::_('INSTL_COMPLETE_REMOVE_INSTALLATION'); ?></p>
 		<button class="btn btn-warning" name="instDefault" onclick="Install.removeFolder(this);"><i class="icon-ban-circle icon-white"></i> <?php echo JText::_('INSTL_COMPLETE_REMOVE_FOLDER'); ?></button>
 	</div>
@@ -27,36 +28,53 @@ defined('_JEXEC') or die;
 			<a class="btn btn-primary" href="<?php echo JURI::root(); ?>administrator/" title="<?php echo JText::_('JADMINISTRATOR'); ?>"><i class="icon-lock icon-white"></i> <?php echo JText::_('JADMINISTRATOR'); ?></a>
 		</div>
 	</div>
-	<div class="control-group">
-		<div class="control-label">
-			<?php echo JText::_('INSTL_COMPLETE_ADMINISTRATION_LOGIN_DETAILS'); ?>
+	<div class="row-fluid">
+		<div class="span6">
+			<h3><?php echo JText::_('INSTL_COMPLETE_ADMINISTRATION_LOGIN_DETAILS'); ?></h3>
+			<hr class="hr-condensed" />
+			<table class="table table-striped table-condensed">
+				<tbody>
+				<tr>
+					<td class="item">
+						<?php echo JText::_('JEMAIL'); ?>
+					</td>
+					<td>
+						<span class="label"><?php echo $this->options['admin_email']; ?></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="item">
+						<?php echo JText::_('JUSERNAME'); ?>
+					</td>
+					<td>
+						<span class="label"><?php echo $this->options['admin_user']; ?></span>
+					</td>
+				</tr>
+				</tbody>
+				<tfoot>
+				<tr>
+					<td colspan="2"></td>
+				</tr>
+				</tfoot>
+			</table>
 		</div>
-		<div class="controls">
-			<?php echo JText::_('JUSERNAME'); ?> : <span class="label"><?php echo $this->options['admin_user']; ?></span>
-		</div>
-	</div>
-	<div class="control-group">
-		<div class="control-label">
-			<?php echo JText::_('INSTL_COMPLETE_LANGUAGE_1'); ?>
-		</div>
-		<div class="controls">
+		<div class="span6">
+			<h3><?php echo JText::_('INSTL_COMPLETE_LANGUAGE_1'); ?></h3>
+			<hr class="hr-condensed" />
 			<a href="http://community.joomla.org/translations/joomla-16-translations.html" target="_blank">
 				<?php echo JText::_('INSTL_COMPLETE_LANGUAGE_2'); ?>
 			</a>
 		</div>
 	</div>
+
 	<?php if ($this->config) : ?>
-	<div class="control-group">
-		<div class="control-label">
-			<?php echo JText::_('INSTL_CONFPROBLEM'); ?>
-		</div>
-		<div class="controls">
-			<div class="alert alert-error">
-				<textarea rows="5" cols="49" name="configcode" onclick="this.form.configcode.focus();this.form.configcode.select();"><?php echo $this->config; ?></textarea>
-			</div>
-		</div>
+	<div class="alert alert-error">
+		<h3 class="alert-heading"><?php echo JText::_('JNOTICE'); ?></h3>
+		<p><?php echo JText::_('INSTL_CONFPROBLEM'); ?></p>
+		<textarea rows="10" cols="80" style="width: 100%;" name="configcode" onclick="this.form.configcode.focus();this.form.configcode.select();"><?php echo $this->config; ?></textarea>
 	</div>
 	<?php endif; ?>
+
 	<input type="hidden" name="task" value="" />
 	<?php echo JHtml::_('form.token'); ?>
 </form>

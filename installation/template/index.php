@@ -19,7 +19,7 @@ $doc->addStyleSheet('template/css/template.css');
 $doc->addStyleSheet('../media/jui/css/chosen.css');
 
 if ($this->direction == 'rtl') {
-	$doc->addStyleSheet('../media/jui/css/bootstrap-rtl.css');
+	$doc->addStyleSheet('template/css/template_rtl.css');
 }
 
 // Load the JavaScript behaviors
@@ -67,7 +67,6 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 			</div>
 			<hr />
 			<div class="footer">
-				<p class="pull-right"><a href="#top" id="back-top">Back to top</a></p>
 				<p><?php
 				$joomla = '<a href="http://www.joomla.org">Joomla!&#174;</a>';
 				$license = '<a data-toggle="modal" href="#licenseModal">' . JText::_('INSTL_GNU_GPL_LICENSE') . '</a>';

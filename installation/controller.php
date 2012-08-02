@@ -43,7 +43,7 @@ class InstallationController extends JControllerLegacy
 		}
 		else
 		{
-			$default_view	= 'language';
+			$default_view	= 'site';
 		}
 
 		$vName		= JRequest::getWord('view', $default_view);
@@ -57,12 +57,27 @@ class InstallationController extends JControllerLegacy
 
 		if ($view = $this->getView($vName, $vFormat))
 		{
+			$model = $this->getModel('Setup', 'InstallationModel', array('dbo' => null));
+			$sufficient = $model->getPhpOptionsSufficient();
 
 			switch ($vName)
 			{
-				default:
-					$model = $this->getModel('Setup', 'InstallationModel', array('dbo' => null));
+				case 'preinstall':
+					if ($sufficient) {
+						$this->setRedirect('index.php');
+					}
 					break;
+				default:
+					if (!$sufficient) {
+						$this->setRedirect('index.php?view=preinstall');
+					}
+					break;
+			}
+
+			$options = $model->getOptions();
+			if ($vName != $default_view && empty($options))
+			{
+				$this->setRedirect('index.php');
 			}
 
 			// Push the model into the view (as default).
