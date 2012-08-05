@@ -17,7 +17,6 @@ $user  = JFactory::getUser();
 
 // Add Stylesheets
 $doc->addStyleSheet('templates/' .$this->template. '/css/template.css');
-$doc->addStyleSheet('templates/' .$this->template. '/css/icomoon.css');
 
 // If Right-to-Left
 if ($this->direction == 'rtl') :
