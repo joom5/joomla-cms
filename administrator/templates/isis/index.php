@@ -132,7 +132,7 @@ else
 				<a class="brand" href="<?php echo JURI::root(); ?>" title="<?php echo JText::_('JGLOBAL_PREVIEW');?> <?php echo $sitename; ?>" target="_blank"><?php echo JHtml::_('string.truncate', $sitename, 14, false, false);?> <i class="icon-out-2 small"></i></a>
 				<div class="nav-collapse">
 					<jdoc:include type="modules" name="menu" style="none" />
-					<ul class="nav pull-right">
+					<ul class="<?php if ($this->direction == 'rtl') : ?>nav<?php else : ?>nav pull-right<?php endif; ?>">
 						<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo JText::_('TPL_ISIS_SETTINGS');?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<?php if($user->authorise('core.admin')):?>
