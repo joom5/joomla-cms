@@ -22,6 +22,11 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 $ordering 	= ($listOrder == 'a.lft');
 $canOrder	= $user->authorise('core.edit.state',	'com_menus');
 $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
+if ($saveOrder)
+{
+	$saveOrderingUrl = 'index.php?option=com_menus&task=items.saveOrderAjax&tmpl=component';
+	JHtml::_('sortablelist.sortable', 'itemList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+}
 $sortFields = $this->getSortFields();
 ?>
 <script type="text/javascript">
@@ -121,9 +126,12 @@ $sortFields = $this->getSortFields();
 			</div>
 			<div class="clearfix"> </div>
 		<?php //Set up the grid heading. ?>
-			<table class="table table-striped">
+			<table class="table table-striped" id="itemList">
 				<thead>
 					<tr>
+						<th width="1%" class="hidden-phone">
+							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
+						</th>
 						<th width="1%" class="hidden-phone">
 							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 						</th>
@@ -136,12 +144,6 @@ $sortFields = $this->getSortFields();
 						<th width="5%" class="hidden-phone">
 							<?php echo JHtml::_('grid.sort', 'COM_MENUS_HEADING_HOME', 'a.home', $listDirn, $listOrder); ?>
 						</th>
-						<th width="13%" nowrap="nowrap" class="hidden-phone">
-							<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'a.lft', $listDirn, $listOrder); ?>
-							<?php if ($canOrder && $saveOrder) :?>
-								<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'items.saveorder'); ?>
-							<?php endif; ?>
-						</th>
 						<th width="10%" class="hidden-phone">
 							<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ACCESS', 'a.access', $listDirn, $listOrder); ?>
 						</th>
@@ -150,8 +152,8 @@ $sortFields = $this->getSortFields();
 							<?php echo JHtml::_('grid.sort', 'COM_MENUS_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
 						</th>
 						<?php endif;?>
-						<th width="5%" class="hidden-phone">
-							<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+						<th width="5%" class="nowrap hidden-phone">
+							<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'language', $this->state->get('list.direction'), $this->state->get('list.ordering')); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
 							<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
@@ -175,8 +177,46 @@ $sortFields = $this->getSortFields();
 					$canEdit	= $user->authorise('core.edit',			'com_menus');
 					$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out==$user->get('id')|| $item->checked_out==0;
 					$canChange	= $user->authorise('core.edit.state',	'com_menus') && $canCheckin;
+					//get the parents of item for sorting
+					if($item->level > 1){
+						$parentsStr = "";
+						$_currentParentId = $item->parent_id;
+						$parentsStr = " ".$_currentParentId;
+						for ($i = 0; $i < $item->level; $i++){
+								foreach ($this->ordering as $k=>$v){
+									$v = implode("-", $v);
+									$v = "-".$v."-";
+									if(strpos($v,"-".$_currentParentId."-") !== false){
+										$parentsStr .= " ".$k;
+										$_currentParentId = $k;
+										break;
+									}
+								}
+						}
+					}else{
+						$parentsStr = "";
+					}
 					?>
-					<tr class="row<?php echo $i % 2; ?>">
+					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->parent_id;?>" item-id="<?php echo $item->id?>" parents="<?php echo $parentsStr?>"  level="<?php echo $item->level?>">
+						<td class="order nowrap center hidden-phone">
+						<?php if ($canChange) :
+							$disableClassName = '';
+							$disabledLabel	  = '';
+							if (!$saveOrder) :
+								$disabledLabel    = JText::_('JORDERINGDISABLED');
+								$disableClassName = 'inactive tip-top';
+							endif; ?>
+							<span class="sortable-handler <?php echo $disableClassName?>" title="<?php echo $disabledLabel?>" rel="tooltip">
+								<i class="icon-menu"></i>
+							</span>
+						<?php else : ?>
+							<span class="sortable-handler inactive" >
+								<i class="icon-menu"></i>
+							</span>
+						<?php endif; ?>
+						<input type="text" style="display:none"  name="order[]" size="5"
+							value="<?php echo $orderkey + 1;?>" />
+						</td>
 						<td class="center hidden-phone">
 							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 						</td>
@@ -222,21 +262,6 @@ $sortFields = $this->getSortFields();
 								<?php else:?>
 									<?php echo JHtml::_('image', 'mod_languages/'.$item->image.'.gif', $item->language_title, array('title'=>$item->language_title), true);?>
 								<?php endif;?>
-							<?php endif; ?>
-						</td>
-						<td class="order hidden-phone">
-							<?php if ($canChange) :
-							?>
-								<div class="btn-group pull-left">
-									<?php if ($saveOrder) : ?>
-										<?php echo $this->pagination->orderUpIcon($i, isset($this->ordering[$item->parent_id][$orderkey - 1]), 'items.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, isset($this->ordering[$item->parent_id][$orderkey + 1]), 'items.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?>
-									<?php endif; ?>
-								</div>
-									<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-									<?php if(!$disabled = $saveOrder) : echo "<span class=\"btn btn-micro disabled\" rel=\"tooltip\" title=\"".JText::_('JORDERINGDISABLED')."\"><i class=\"icon-ban-circle\"></i></span>"; endif;?><input type="text" name="order[]" class="width-20 pull-right" size="5" value="<?php echo $orderkey + 1;?>" <?php echo $disabled ?> class="text-area-order" />
-									<?php $originalOrders[] = $orderkey + 1; ?>
-							<?php else : ?>
-								<?php echo $orderkey + 1;?>
 							<?php endif; ?>
 						</td>
 						<td class="small hidden-phone">
