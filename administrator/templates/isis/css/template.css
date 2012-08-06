@@ -107,7 +107,7 @@ textarea {
   clear: both;
 }
 .hide-text {
-  font: 0/0 a;
+  font: a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -1556,7 +1556,7 @@ table .span24 {
 .open {
   *z-index: 1000;
 }
-.open  > .dropdown-menu {
+.open > .dropdown-menu {
   display: block;
 }
 .pull-right > .dropdown-menu {
@@ -5621,14 +5621,18 @@ body .navbar-fixed-top {
 .sidebar-nav .nav-list > li.active > a {
   color: #fff;
 }
+/* Main Container */
+.container-main {
+  padding-bottom: 50px;
+}
 /* Status Module */
 #status {
   background: #EDEDED;
   border-top: 1px solid #DDDDDD;
   padding: 2px 10px;
-  -moz-box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px -35px 35px rgba(255, 255, 255, 0.6);
-  -webkit-box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px -35px 35px rgba(255, 255, 255, 0.6);
-  box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px -35px 35px rgba(255, 255, 255, 0.6);
+  -moz-box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px -15px 15px rgba(255, 255, 255, 0.6);
+  -webkit-box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px -15px 15px rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8) inset, 0px -15px 15px rgba(255, 255, 255, 0.6);
 }
 #status .btn-toolbar,
 #status p {
