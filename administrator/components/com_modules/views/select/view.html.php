@@ -39,6 +39,7 @@ class ModulesViewSelect extends JViewLegacy
 		$this->state = &$state;
 		$this->items = &$items;
 
+		$this->addToolbar();
 		parent::display($tpl);
 	}
 
