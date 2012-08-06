@@ -195,7 +195,7 @@ else
 		</div>
 	</div>
 	<!-- container-fluid -->
-	<div class="container-fluid">
+	<div class="container-fluid container-main">
 		<div class="row-fluid">
 			<?php if (($this->countModules('left')) && $cpanel): ?>
 			<!-- Begin Sidebar -->
