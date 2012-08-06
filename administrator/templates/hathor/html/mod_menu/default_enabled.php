@@ -288,5 +288,5 @@ $cim = $user->authorise('core.manage', 'com_checkin');
 		$menu->addChild(
 		new JMenuNode(JText::_('MOD_MENU_LOGOUT'), 'index.php?option=com_login&task=logout&'. JSession::getFormToken() .'=1')
 		);
-	
+
 	$menu->getParent();

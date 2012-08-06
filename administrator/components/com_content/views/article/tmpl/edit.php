@@ -280,7 +280,7 @@ endif;
 						// We need to make a separate space for the configuration
 						// so that those fields always show to those wih permissions
 
-					    if ($this->canDo->get('core.admin')):  ?>
+						if ($this->canDo->get('core.admin')):  ?>
 						<div class="tab-pane" id="editor">
 							<?php foreach ($this->form->getFieldset('editorConfig') as $field) : ?>
 								<div class="control-group">
