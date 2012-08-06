@@ -21,6 +21,11 @@ $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
 $ordering 	= ($listOrder == 'a.lft');
 $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
+if ($saveOrder)
+{
+	$saveOrderingUrl = 'index.php?option=com_categories&task=categories.saveOrderAjax&tmpl=component';
+	JHtml::_('sortablelist.sortable', 'categoryList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+}
 $sortFields = $this->getSortFields();
 ?>
 <script type="text/javascript">
@@ -114,9 +119,12 @@ $sortFields = $this->getSortFields();
 			<div class="clearfix"> </div>
 		</div>
 
-		<table class="table table-striped">
+		<table class="table table-striped" id="categoryList">
 			<thead>
 				<tr>
+					<th width="1%" class="center hidden-phone" nowrap="nowrap">
+						<i class="icon-menu-2 hasTip" title="<?php echo JText::_('JGRID_HEADING_ORDERING'); ?>"></i>
+					</th>
 					<th width="1%" class="hidden-phone">
 						<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 					</th>
@@ -126,12 +134,7 @@ $sortFields = $this->getSortFields();
 					<th>
 						<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'a.title', $listDirn, $listOrder); ?>
 					</th>
-					<th width="13%" class="hidden-phone">
-						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'a.lft', $listDirn, $listOrder); ?>
-						<?php if ($saveOrder) :?>
-							<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'categories.saveorder'); ?>
-						<?php endif; ?>
-					</th>
+					
 					<th width="10%" class="hidden-phone">
 						<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ACCESS', 'a.access', $listDirn, $listOrder); ?>
 					</th>
@@ -152,15 +155,57 @@ $sortFields = $this->getSortFields();
 			</tfoot>
 			<tbody>
 				<?php
-				$originalOrders = array();
-				foreach ($this->items as $i => $item) :
+				$originalOrders = array();		
+				foreach ($this->items as $i => $item) :					
 					$orderkey	= array_search($item->id, $this->ordering[$item->parent_id]);
 					$canEdit	= $user->authorise('core.edit',			$extension.'.category.'.$item->id);
 					$canCheckin	= $user->authorise('core.admin', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 					$canEditOwn	= $user->authorise('core.edit.own',		$extension.'.category.'.$item->id) && $item->created_user_id == $userId;
-					$canChange	= $user->authorise('core.edit.state',	$extension.'.category.'.$item->id) && $canCheckin;
+					$canChange	= $user->authorise('core.edit.state',	$extension.'.category.'.$item->id) && $canCheckin;		
+
+					//get the parents of item for sorting
+					if($item->level > 1){
+						$parentsStr = "";
+						$_currentParentId = $item->parent_id;
+						$parentsStr = " ".$_currentParentId;
+						for ($i = 0; $i < $item->level; $i++){															
+								foreach ($this->ordering as $k=>$v){	
+									$v = implode("-", $v);
+									$v = "-".$v."-";
+									if(strpos($v,"-".$_currentParentId."-") !== false){								
+										$parentsStr .= " ".$k;
+										$_currentParentId = $k;
+										break;
+									}
+								}							
+						}
+					}else{
+						$parentsStr = "";
+					}
+										
+					
 				?>
-					<tr class="row<?php echo $i % 2; ?>">
+					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->parent_id;?>" item-id="<?php echo $item->id?>" parents="<?php echo $parentsStr?>"  level="<?php echo $item->level?>">
+						<td class="order nowrap center hidden-phone">
+						<?php if ($canChange) :
+							$disableClassName = '';
+							$disabledLabel	  = '';
+							if (!$saveOrder) :
+								$disabledLabel    = JText::_('JORDERINGDISABLED');
+								$disableClassName = 'inactive tip-top';
+							endif; ?>
+							<span class="sortable-handler <?php echo $disableClassName?>" title="<?php echo $disabledLabel?>" rel="tooltip">
+								<i class="icon-menu"></i>
+							</span>
+			
+						<?php else : ?>
+							<span class="sortable-handler inactive" >
+								<i class="icon-menu"></i>
+							</span>
+						<?php endif; ?>
+						<input type="text" style="display:none"  name="order[]" size="5"
+							value="<?php echo $orderkey + 1;?>" />
+						</td>
 						<td class="center hidden-phone">
 							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 						</td>
@@ -185,21 +230,7 @@ $sortFields = $this->getSortFields();
 									<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS_NOTE', $this->escape($item->alias), $this->escape($item->note));?>
 								<?php endif; ?>
 							</span>
-						</td>
-						<td class="order hidden-phone">
-							<?php if ($canChange) : ?>
-								<div class="btn-group pull-left">
-									<?php if ($saveOrder) : ?>
-										<?php echo $this->pagination->orderUpIcon($i, isset($this->ordering[$item->parent_id][$orderkey - 1]), 'categories.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, isset($this->ordering[$item->parent_id][$orderkey + 1]), 'categories.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?>
-									<?php endif; ?>
-								</div>
-									<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-									<?php if(!$disabled = $saveOrder) : echo "<span class=\"btn btn-micro disabled\" rel=\"tooltip\" title=\"".JText::_('JORDERINGDISABLED')."\"><i class=\"icon-ban-circle\"></i></span>"; endif;?><input type="text" class="width-20 pull-right" name="order[]" size="5" value="<?php echo $orderkey + 1;?>" <?php echo $disabled ?> class="text-area-order" />
-									<?php $originalOrders[] = $orderkey + 1; ?>
-							<?php else : ?>
-								<?php echo $orderkey + 1;?>
-							<?php endif; ?>
-						</td>
+						</td>						
 						<td class="small hidden-phone">
 							<?php echo $this->escape($item->access_level); ?>
 						</td>
