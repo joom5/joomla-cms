@@ -55,24 +55,28 @@ $sortFields = $this->getSortFields();
 					}
 				?>
 				<hr />
-				<div class="filter-select">
+				<div class="filter-select hidden-phone">
 					<h4 class="page-header"><?php echo JText::_('JSEARCH_FILTER_LABEL');?></h4>
-					<select name="filter_published" class="span12 small" onchange="this.form.submit()">
+					<label for="filter_published" class="element-invisible"><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></label>
+					<select name="filter_published" id="filter_published" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
 						<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true);?>
 					</select>
 					<hr class="hr-condensed" />
-					<select name="filter_category_id" class="span12 small" onchange="this.form.submit()">
+					<label for="filter_category_id" class="element-invisible"><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></label>
+					<select name="filter_category_id" id="filter_category_id" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></option>
 						<?php echo JHtml::_('select.options', JHtml::_('category.options', 'com_weblinks'), 'value', 'text', $this->state->get('filter.category_id'));?>
 					</select>
 					<hr class="hr-condensed" />
-			        <select name="filter_access" class="span12 small" onchange="this.form.submit()">
+					<label for="filter_access" class="element-invisible"><?php echo JText::_('JOPTION_SELECT_ACCESS');?></label>
+			        <select name="filter_access" id="filter_access" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_ACCESS');?></option>
 						<?php echo JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'));?>
 					</select>
 					<hr class="hr-condensed" />
-					<select name="filter_language" class="span12 small" onchange="this.form.submit()">
+					<label for="filter_language" class="element-invisible"><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></label>
+					<select name="filter_language" id="filter_language" class="span12 small" onchange="this.form.submit()">
 						<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
 						<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
 					</select>
@@ -84,6 +88,7 @@ $sortFields = $this->getSortFields();
 		<div class="span10">
 			<div id="filter-bar" class="btn-toolbar">
 				<div class="filter-search btn-group pull-left">
+					<label for="filter_search" class="element-invisible"><?php echo JText::_('COM_WEBLINKS_SEARCH_IN_TITLE');?></label>
 					<input type="text" name="filter_search" id="filter_search" placeholder="<?php echo JText::_('COM_WEBLINKS_SEARCH_IN_TITLE'); ?>" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" title="<?php echo JText::_('COM_WEBLINKS_SEARCH_IN_TITLE'); ?>" />
 				</div>
 				<div class="btn-group pull-left">
@@ -117,23 +122,26 @@ $sortFields = $this->getSortFields();
 						<th width="1%" class="hidden-phone">
 							<i class="icon-menu-2 hasTip" title="<?php echo JText::_('JGRID_HEADING_ORDERING'); ?>"></i>
 						</th>
-						<th width="1%">
+						<th width="1%" class="hidden-phone">
 							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
+						</th>
+						<th width="5%">
+							<?php echo JText::_('JSTATUS');?>
 						</th>
 						<th class="title">
 							<?php echo JText::_('JGLOBAL_TITLE');?>
 							
 						</th>						
-						<th width="5%">
+						<th width="5%" class="hidden-phone">
 							<?php echo JText::_('JGRID_HEADING_ACCESS');?>
 						</th>
-						<th width="5%">
+						<th width="5%" class="hidden-phone">
 							<?php echo JText::_('JGLOBAL_HITS');?>							
 						</th>
-						<th width="5%">
+						<th width="5%" class="hidden-phone">
 							<?php echo JText::_('JGRID_HEADING_LANGUAGE');?>							
 						</th>
-						<th width="1%" class="nowrap">
+						<th width="1%" class="nowrap hidden-phone">
 							<?php echo JText::_('JGRID_HEADING_ID');?>							
 						</th>
 					</tr>
@@ -174,11 +182,13 @@ $sortFields = $this->getSortFields();
 							</span>
 						<?php endif; ?>
 						</td>
-						<td class="center">
+						<td class="center hidden-phone">
 							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 						</td>
-						<td class="nowrap">
+						<td class="center hidden-phone">
 							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'weblinks.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+						</td>
+						<td class="nowrap">
 							<?php if ($item->checked_out) : ?>
 								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'weblinks.', $canCheckin); ?>
 							<?php endif; ?>
@@ -195,20 +205,20 @@ $sortFields = $this->getSortFields();
 								<?php echo $this->escape($item->category_title); ?>
 							</div>
 						</td>						
-						<td class="small">
+						<td class="small hidden-phone">
 							<?php echo $this->escape($item->access_level); ?>
 						</td>
-						<td class="center">
+						<td class="center hidden-phone">
 							<?php echo $item->hits; ?>
 						</td>
-						<td class="small nowrap">
+						<td class="small nowrap hidden-phone">
 							<?php if ($item->language=='*'):?>
 								<?php echo JText::alt('JALL', 'language'); ?>
 							<?php else:?>
 								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
 							<?php endif;?>
 						</td>
-						<td class="center">
+						<td class="center hidden-phone">
 							<?php echo (int) $item->id; ?>
 						</td>
 					</tr>
