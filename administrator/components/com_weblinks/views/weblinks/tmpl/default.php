@@ -19,8 +19,26 @@ $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
 $canOrder	= $user->authorise('core.edit.state', 'com_weblinks.category');
 $saveOrder	= $listOrder == 'a.ordering';
+if ($saveOrder)
+{
+	$saveOrderingUrl = 'index.php?option=com_weblinks&task=weblinks.saveOrderAjax&tmpl=component';
+	JHtml::_('sortablelist.sortable', 'weblinkList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+}
+$sortFields = $this->getSortFields();
 ?>
-
+<script type="text/javascript">
+	Joomla.orderTable = function() {
+		table = document.getElementById("sortTable");
+		direction = document.getElementById("directionTable");
+		order = table.options[table.selectedIndex].value;
+		if (order != '<?php echo $listOrder; ?>') {
+			dirn = 'asc';
+		} else {
+			dirn = direction.options[direction.selectedIndex].value;
+		}
+		Joomla.tableOrdering(order, dirn, '');
+	}
+</script>
 <form action="<?php echo JRoute::_('index.php?option=com_weblinks&view=weblinks'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="row-fluid">
 		<!-- Begin Sidebar -->
@@ -72,34 +90,51 @@ $saveOrder	= $listOrder == 'a.ordering';
 					<button class="btn" rel="tooltip" type="submit" title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>"><i class="icon-search"></i></button>
 					<button class="btn" rel="tooltip" type="button" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>" onclick="document.id('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
 				</div>
+				<div class="btn-group pull-right hidden-phone">
+					<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
+					<?php echo $this->pagination->getLimitBox(); ?>
+				</div>
+				<div class="btn-group pull-right hidden-phone">
+					<label for="directionTable" class="element-invisible"><?php echo JText::_('JFIELD_ORDERING_DESC');?></label>
+					<select name="directionTable" id="directionTable" class="input-small" onchange="Joomla.orderTable()">
+						<option value=""><?php echo JText::_('JFIELD_ORDERING_DESC');?></option>
+						<option value="asc" <?php if ($listDirn == 'asc') echo 'selected="selected"'; ?>><?php echo JText::_('JGLOBAL_ORDER_ASCENDING');?></option>
+						<option value="desc" <?php if ($listDirn == 'desc') echo 'selected="selected"'; ?>><?php echo JText::_('JGLOBAL_ORDER_DESCENDING');?></option>
+					</select>
+				</div>
+				<div class="btn-group pull-right">
+					<label for="sortTable" class="element-invisible"><?php echo JText::_('JGLOBAL_SORT_BY');?></label>
+					<select name="sortTable" id="sortTable" class="input-medium" onchange="Joomla.orderTable()">
+						<option value=""><?php echo JText::_('JGLOBAL_SORT_BY');?></option>
+						<?php echo JHtml::_('select.options', $sortFields, 'value', 'text', $listOrder);?>
+					</select>
+				</div>
 			</div>
 			<div class="clearfix"> </div>
-			<table class="table table-striped">
+			<table class="table table-striped" id="weblinkList">
 				<thead>
 					<tr>
+						<th width="1%" class="hidden-phone">
+							<i class="icon-menu-2 hasTip" title="<?php echo JText::_('JGRID_HEADING_ORDERING'); ?>"></i>
+						</th>
 						<th width="1%">
 							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 						</th>
 						<th class="title">
-							<?php echo JHtml::_('grid.sort',  'JGLOBAL_TITLE', 'a.title', $listDirn, $listOrder); ?>
-						</th>
-						<th width="15%">
-							<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ORDERING', 'a.ordering', $listDirn, $listOrder); ?>
-							<?php if ($canOrder && $saveOrder) :?>
-								<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'weblinks.saveorder'); ?>
-							<?php endif; ?>
+							<?php echo JText::_('JGLOBAL_TITLE');?>
+							
+						</th>						
+						<th width="5%">
+							<?php echo JText::_('JGRID_HEADING_ACCESS');?>
 						</th>
 						<th width="5%">
-							<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ACCESS', 'a.access', $listDirn, $listOrder); ?>
+							<?php echo JText::_('JGLOBAL_HITS');?>							
 						</th>
 						<th width="5%">
-							<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'a.hits', $listDirn, $listOrder); ?>
-						</th>
-						<th width="5%">
-							<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'a.language', $listDirn, $listOrder); ?>
+							<?php echo JText::_('JGRID_HEADING_LANGUAGE');?>							
 						</th>
 						<th width="1%" class="nowrap">
-							<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
+							<?php echo JText::_('JGRID_HEADING_ID');?>							
 						</th>
 					</tr>
 				</thead>
@@ -119,7 +154,26 @@ $saveOrder	= $listOrder == 'a.ordering';
 					$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out==$user->get('id') || $item->checked_out==0;
 					$canChange	= $user->authorise('core.edit.state',	'com_weblinks.category.'.$item->catid) && $canCheckin;
 					?>
-					<tr class="row<?php echo $i % 2; ?>">
+					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid?>">
+						<td class="order nowrap center hidden-phone">
+						<?php if ($canChange) :
+							$disableClassName = '';
+							$disabledLabel	  = '';
+							if (!$saveOrder) :
+								$disabledLabel    = JText::_('JORDERINGDISABLED');
+								$disableClassName = 'inactive tip-top';
+							endif; ?>
+							<span class="sortable-handler <?php echo $disableClassName?>" title="<?php echo $disabledLabel?>" rel="tooltip">
+								<i class="icon-menu"></i>
+							</span>
+							<input type="text" style="display:none"  name="order[]" size="5"
+							value="<?php echo $item->ordering;?>" class="width-20 text-area-order " />
+						<?php else : ?>
+							<span class="sortable-handler inactive" >
+								<i class="icon-menu"></i>
+							</span>
+						<?php endif; ?>
+						</td>
 						<td class="center">
 							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 						</td>
@@ -140,24 +194,7 @@ $saveOrder	= $listOrder == 'a.ordering';
 							<div class="small">
 								<?php echo $this->escape($item->category_title); ?>
 							</div>
-						</td>
-						<td class="order">
-							<?php if ($canChange) : ?>
-								<div class="input-prepend">
-									<?php if ($saveOrder) :?>
-										<?php if ($listDirn == 'asc') : ?>
-											<span class="add-on"><?php echo $this->pagination->orderUpIcon($i, ($item->catid == @$this->items[$i-1]->catid), 'weblinks.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span><span class="add-on"><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, ($item->catid == @$this->items[$i+1]->catid), 'weblinks.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
-										<?php elseif ($listDirn == 'desc') : ?>
-											<span class="add-on"><?php echo $this->pagination->orderUpIcon($i, ($item->catid == @$this->items[$i-1]->catid), 'weblinks.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span><span class="add-on"><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, ($item->catid == @$this->items[$i+1]->catid), 'weblinks.orderup', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
-										<?php endif; ?>
-									<?php endif; ?>
-									<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-									<?php if(!$disabled = $saveOrder) : echo "<span class=\"add-on tip\" title=\"".JText::_('JDISABLED')."\"><i class=\"icon-ban-circle\"></i></span>"; endif;?><input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="width-20 text-area-order" />
-								</div>
-							<?php else : ?>
-								<?php echo $item->ordering; ?>
-							<?php endif; ?>
-						</td>
+						</td>						
 						<td class="small">
 							<?php echo $this->escape($item->access_level); ?>
 						</td>
