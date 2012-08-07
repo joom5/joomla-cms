@@ -4,7 +4,7 @@
  */
 
 (function ($) {
-	$.JSortableList = function (tableWrapper, formId, saveOrderingUrl, sortDir, options) {
+	$.JSortableList = function (tableWrapper, formId, sortDir, saveOrderingUrl, options, nestedList) {
 		var root = this;
 		var disabledOrderingElements = '';
 		var sortableGroupId = '';
@@ -56,13 +56,15 @@
 				} else {
 					root.sortableRange = $('.' + ops.sortableClassName);
 				}
-				//disable sortable for other group's records
+				//Disable sortable for other group's records
 				root.disableOtherGroupSort(e, ui);
-				//hide order up, down icons...
-				//root.disableOrderingControl();
-				root.hideChidlrenNodes(ui.item.attr('item-id'));	
-				root.hideSameLevelChildrenNodes(ui.item.attr('level'));
-				$(tableWrapper).sortable('refresh');
+				
+				//Proceed nested list				
+				if(nestedList){
+					root.hideChidlrenNodes(ui.item.attr('item-id'));	
+					root.hideSameLevelChildrenNodes(ui.item.attr('level'));
+					$(tableWrapper).sortable('refresh');
+				}
 			},
 
 			stop:function (e, ui) {
@@ -76,10 +78,7 @@
 				
 
 				root.enableOtherGroupSort(e, ui);
-
-				//root.enableOrderingControl();
-
-				//root.rearrangeOrderingControl(root.sortableGroupId, ui);
+			
 				root.rearrangeOrderingValues(root.sortableGroupId, ui);
 				if (saveOrderingUrl) {
 					//clone and check all the checkboxes in sortable range to post
@@ -93,10 +92,13 @@
 					//remove cloned checkboxes
 					root.removeClonedCheckboxes();
 				}
-				root.disabledOrderingElements = '';				
-				root.showChildrenNodes(ui.item);
-				root.showSameLevelChildrenNodes();
-				$(tableWrapper).sortable('refresh');
+				root.disabledOrderingElements = '';
+				//Proceed nested list				
+				if(nestedList){
+					root.showChildrenNodes(ui.item);
+					root.showSameLevelChildrenNodes(ui.item);
+					$(tableWrapper).sortable('refresh');
+				}
 			}
 		});
 		
@@ -120,7 +122,10 @@
 			});
 		}
 		
-		this.showSameLevelChildrenNodes = function () {
+		this.showSameLevelChildrenNodes = function (item) {
+			prevItem = item.prev();
+			prevItemChildrenNodes = root.getChildrenNodes(prevItem.attr('item-id'));
+			prevItem.after(prevItemChildrenNodes);			
 			$('tr.child-nodes-tmp-hide').show().removeClass('child-nodes-tmp-hide');
 			root.sameLevelNodes = "";		
 		}

@@ -85,4 +85,23 @@ class WeblinksViewWeblinks extends JViewLegacy
 
 		JToolBarHelper::help('JHELP_COMPONENTS_WEBLINKS_LINKS');
 	}
+	
+	/**
+	 * Returns an array of fields the table can be sorted by
+	 *
+	 * @return  array  Array containing the field name to sort by as the key and display text as value
+	 *
+	 * @since   3.0
+	 */
+	protected function getSortFields()
+	{
+		return array(
+			'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),			
+			'a.title' => JText::_('JGLOBAL_TITLE'),			
+			'a.access' => JText::_('JGRID_HEADING_ACCESS'),
+			'a.hits' => JText::_('JGLOBAL_HITS'),
+			'a.language' => JText::_('JGRID_HEADING_LANGUAGE'),			
+			'a.id' => JText::_('JGRID_HEADING_ID')
+		);
+	}
 }
