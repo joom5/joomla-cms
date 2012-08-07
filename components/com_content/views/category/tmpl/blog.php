@@ -48,12 +48,14 @@ JHtml::_('behavior.caption');
 				echo $this->loadTemplate('item');
 			?>
 		</div>
+		<div class="clearfix"></div>
 		<hr class="divider-vertical" />
 		<?php
 			$leadingcount++;
 		?>
 		<?php endforeach; ?>
 	</div>
+	<div class="clearfix"></div>
 	<?php endif; ?>
 	<?php
 	$introcount=(count($this->intro_items));
