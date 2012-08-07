@@ -81,17 +81,29 @@ if ($user->authorise('core.manage', 'com_menus'))
 	foreach (ModMenuHelper::getMenus() as $menuType)
 	{
 		$alt = '*' .$menuType->sef. '*';
-		if ($menuType->home == 0)
+			if ($menuType->home == 0)
 		{
 			$titleicon = '';
 		}
-		elseif ($menuType->home > 1)
+		elseif ($menuType->home == 1 && $menuType->language == '*')
 		{
 			$titleicon = ' <i class="icon-home"></i>';
 		}
+		elseif ($menuType->home > 1)
+		{
+			$titleicon = ' <span>'.JHtml::_('image', 'mod_languages/icon-16-language.png', $menuType->home, array('title' => JText::_('MOD_MENU_HOME_MULTIPLE')), true).'</span>';
+		}
 		else
 		{
-			$titleicon = ' <i class="icon-home"></i>';
+			$image = JHtml::_('image', 'mod_languages/'.$menuType->image.'.gif', null, null, true, true);
+			if (!$image)
+			{
+				$titleicon = ' <span>'.JHtml::_('image', 'mod_languages/icon-16-language.png', $alt, array('title' => $menuType->title_native), true).'</span>';
+			}
+			else
+			{
+				$titleicon = ' <span>'.JHtml::_('image', 'mod_languages/'.$menuType->image.'.gif', $alt, array('title'=>$menuType->title_native), true).'</span>';
+			}
 		}
 		$menu->addChild(
 			new JMenuNode($menuType->title,	'index.php?option=com_menus&view=items&menutype='.$menuType->menutype, 'class:menu', null, null, $titleicon));
