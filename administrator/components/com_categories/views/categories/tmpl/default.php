@@ -24,7 +24,7 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 if ($saveOrder)
 {
 	$saveOrderingUrl = 'index.php?option=com_categories&task=categories.saveOrderAjax&tmpl=component';
-	JHtml::_('sortablelist.sortable', 'categoryList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+	JHtml::_('sortablelist.sortable', 'categoryList', 'adminForm', strtolower($listDirn), $saveOrderingUrl,false,true);
 }
 $sortFields = $this->getSortFields();
 ?>

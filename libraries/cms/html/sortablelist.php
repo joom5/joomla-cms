@@ -37,7 +37,7 @@ abstract class JHtmlSortablelist
 	 *
 	 * @since   3.0
 	 */
-	public static function sortable($tableId, $formId, $saveOrderingUrl, $sortDir = 'asc' , $proceedSaveOrderButton = true)
+	public static function sortable($tableId, $formId, $sortDir = 'asc', $saveOrderingUrl, $proceedSaveOrderButton = true, $nestedList = false)
 	{
 		// Only load once
 		if (isset(self::$loaded[__METHOD__]))
@@ -52,7 +52,7 @@ abstract class JHtmlSortablelist
 		JFactory::getDocument()->addScriptDeclaration("
 			(function ($){
 				$(document).ready(function (){
-					var sortableList = new $.JSortableList('#" . $tableId . " tbody','" . $formId . "','" . $sortDir . "' , '" . $saveOrderingUrl . "');
+					var sortableList = new $.JSortableList('#" . $tableId . " tbody','" . $formId . "','" . $sortDir . "' , '" . $saveOrderingUrl . "','','".$nestedList."');
 				});
 			})(jQuery);
 			"
