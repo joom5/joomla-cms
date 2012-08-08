@@ -1640,6 +1640,9 @@ table.adminlist tbody td.check-d {
 #submenu span.nolink.active {
   background: #ffffff;
   border-bottom: 1px solid #ffffff;
+}
+#submenu li.active a,
+#submenu span.nolink.active {
   color: #000;
 }
 .element-invisible {
