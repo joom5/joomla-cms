@@ -852,17 +852,10 @@ div.toolbar-box h3 {
   padding: 0;
   margin: 0;
 }
-div.toolbar-list {
+div.btn-toolbar {
   float: left;
   text-align: right;
   padding: 0;
-}
-div.toolbar-list li {
-  padding: 5px 1px 5px 4px;
-  text-align: center;
-  height: 52px;
-  list-style: none;
-  float: left;
 }
 div.toolbar-list li.spacer {
   width: 10px;
@@ -878,16 +871,17 @@ div.toolbar-list span {
   margin: 0 auto;
   display: block;
 }
-div.toolbar-list a {
+div.btn-toolbar div.btn-group button {
   display: block;
   float: left;
   white-space: nowrap;
   padding: 1px 5px;
   cursor: pointer;
   font-weight: bold;
+  text-align: center;
 }
-div.toolbar-list a:hover,
-div.toolbar-list a:focus {
+div.btn-toolbar button:hover,
+div.btn-toolbar button:focus {
   text-decoration: none;
 }
 /**
