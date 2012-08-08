@@ -2891,7 +2891,7 @@ ul.helpmenu li {
   margin: 0;
   padding: 0;
 }
-#submenu a,
+#submenu li,
 #submenu span.nolink {
   float: left;
   font-weight: bold;
@@ -2909,9 +2909,15 @@ ul.helpmenu li {
 #submenu span.nolink {
   color: #999;
 }
-#submenu a.active,
+#submenu li.active,
 #submenu span.nolink.active {
   cursor: default;
+  text-decoration: none;
+}
+#submenu li.active a,
+#submenu span.nolink.active,
+#submenu li a:hover,
+#submenu li a:focus{
   text-decoration: none;
 }
 /* -- CUSTOM LANG STRINGS STYLES  ----------- */
