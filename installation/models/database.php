@@ -136,7 +136,12 @@ class InstallationModelDatabase extends JModelLegacy
 	public function createDatabase($options)
 	{
 		// Disable autoselect database before it's created
-		$options['db_select'] = 0;
+		$tmpSelect = true;
+		if (isset($options['db_select']))
+		{
+			$tmpSelect = $options['db_select'];
+		}
+		$options['db_select'] = false;
 
 		if (!$db = $this->initialise($options))
 		{
@@ -217,8 +222,8 @@ class InstallationModelDatabase extends JModelLegacy
 		}
 		$options = array_merge(array('db_created'=>1), $options);
 
-		// Enable autoselect database after database creation
-		$options['db_select'] = 1;
+		// Restore autoselect value after database creation
+		$options['db_select'] = $tmpSelect;
 
 		$session = JFactory::getSession();
 		$session->set('setup.options', $options);
