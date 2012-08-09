@@ -63,11 +63,13 @@ class InstallationController extends JControllerLegacy
 			switch ($vName)
 			{
 				case 'preinstall':
+					$checkOptions = false;
 					if ($sufficient) {
 						$this->setRedirect('index.php');
 					}
 					break;
 				default:
+					$checkOptions = true;
 					if (!$sufficient) {
 						$this->setRedirect('index.php?view=preinstall');
 					}
@@ -75,7 +77,7 @@ class InstallationController extends JControllerLegacy
 			}
 
 			$options = $model->getOptions();
-			if ($vName != $default_view && empty($options))
+			if ($vName != $default_view && ($checkOptions && empty($options)))
 			{
 				$this->setRedirect('index.php');
 			}
