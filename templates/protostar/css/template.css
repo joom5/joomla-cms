@@ -5369,6 +5369,9 @@ body.site {
   padding: 20px;
   background-color: #f4f6f7;
 }
+body.site.fluid {
+  background-color: #ffffff;
+}
 .thumbnail {
   margin-bottom: 9px;
 }

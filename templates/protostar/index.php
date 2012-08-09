@@ -118,11 +118,11 @@ else
 	?>
 </head>
 
-<body class="site <?php echo $option . " view-" . $view . " layout-" . $layout . " task-" . $task . " itemid-" . $itemid . " ";?>">
+<body class="site <?php echo $option . " view-" . $view . " layout-" . $layout . " task-" . $task . " itemid-" . $itemid . " ";?> <?php if ($this->params->get('fluidContainer')) { echo "fluid"; } ?>">
 
 	<!-- Body -->
 	<div class="body">
-		<div class="container">
+		<div class="container<?php if ($this->params->get('fluidContainer')) { echo "-fluid"; } ?>">
 			<!-- Header -->
 			<div class="header">
 				<div class="header-inner">
@@ -174,7 +174,7 @@ else
 	</div>
 	<!-- Footer -->
 	<div class="footer">
-		<div class="container">
+		<div class="container<?php if ($this->params->get('fluidContainer')) { echo "-fluid"; } ?>">
 			<hr />
 			<jdoc:include type="modules" name="footer" style="none" />
 			<p class="pull-right"><a href="#top" id="back-top">Back to top</a></p>
