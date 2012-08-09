@@ -712,11 +712,14 @@ p.warning {
   position: relative;
   top: -48px;
 }
-#module-status span {
+#module-status div.btn-group {
   display: block;
   float: left;
-  padding: 4px 20px 0 22px;
+  padding: 4px 10px 0 10px;
   font-size: 1.2em;
+}
+#module-status div.divider {
+  display: none;
 }
 #module-status .unread-messages a {
   font-weight: bold;
