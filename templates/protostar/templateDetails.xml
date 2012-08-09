@@ -66,7 +66,10 @@
 				value="0">JNO</option>
 			<option
 				value="1">JYES</option>
-		</field>
+			</field>
+			<field name="googleFontName" class="" type="text" default="Open+Sans"
+  				label="TPL_PROTOSTAR_FONT_NAME_LABEL"
+  				description="TPL_PROTOSTAR_FONT_NAME_DESC" />
 		</fieldset>
 	  </fields>
   </config>

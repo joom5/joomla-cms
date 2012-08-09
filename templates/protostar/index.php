@@ -78,7 +78,7 @@ else
 	if ($this->params->get('googleFont'))
 	{
 	?>
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=<?php echo $this->params->get('googleFontName');?>' rel='stylesheet' type='text/css'>
 	<?php
 	}
 	?>
