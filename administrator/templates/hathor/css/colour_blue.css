@@ -69,6 +69,22 @@ a:visited {
 #element-box.login {
   border-top: 1px solid #738498;
 }
+/**
+ * Status layout
+ */
+#module-status .viewsite {
+  background: url(../images/menu/icon-16-viewsite.png) 3px 3px no-repeat;
+}
+#module-status .unread-messages,
+#module-status .no-unread-messages {
+  background: url(../images/menu/icon-16-messages.png) 3px 3px no-repeat;
+}
+#module-status .multilanguage {
+  background: url(../images/menu/icon-16-language.png) 3px 3px no-repeat;
+}
+#module-status .logout {
+  background: url(../images/menu/icon-16-logout.png) 3px 3px no-repeat;
+}
 /*
  * Various Styles
  */
