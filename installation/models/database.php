@@ -121,7 +121,7 @@ class InstallationModelDatabase extends JModelLegacy
 		// Get a database object.
 		try
 		{
-			return InstallationHelperDatabase::getDbo($options->db_type, $options->db_host, $options->db_user, $options->db_pass, $options->db_name, $options->db_prefix);
+			return InstallationHelperDatabase::getDbo($options->db_type, $options->db_host, $options->db_user, $options->db_pass, $options->db_name, $options->db_prefix, $options->db_select);
 		}
 		catch (RuntimeException $e)
 		{
@@ -135,6 +135,9 @@ class InstallationModelDatabase extends JModelLegacy
 	 */
 	public function createDatabase($options)
 	{
+		// Disable autoselect database before it's created
+		$options['db_select'] = 0;
+
 		if (!$db = $this->initialise($options))
 		{
 			return false;
@@ -213,6 +216,10 @@ class InstallationModelDatabase extends JModelLegacy
 			}
 		}
 		$options = array_merge(array('db_created'=>1), $options);
+
+		// Enable autoselect database after database creation
+		$options['db_select'] = 1;
+
 		$session = JFactory::getSession();
 		$session->set('setup.options', $options);
 
