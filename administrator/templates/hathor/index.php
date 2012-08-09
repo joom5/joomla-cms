@@ -15,9 +15,6 @@ $lang  = JFactory::getLanguage();
 $input = $app->input;
 $user  = JFactory::getUser();
 
-// Add Stylesheets
-$doc->addStyleSheet('templates/' .$this->template. '/css/template.css');
-
 // If Right-to-Left
 if ($this->direction == 'rtl') :
 	$doc->addStyleSheet('../media/jui/css/bootstrap-rtl.css');
