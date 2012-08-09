@@ -73,7 +73,15 @@ else
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+	<?php
+	// Use of Google Font
+	if ($this->params->get('googleFont'))
+	{
+	?>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+	<?php
+	}
+	?>
 	<script src="<?php echo $this->baseurl; ?>/media/jui/js/jquery.js"></script>
 	<script src="<?php echo $this->baseurl; ?>/media/jui/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
