@@ -59,6 +59,14 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 		<!-- Header -->
 		<div class="header">
 			<img src="<?php echo $this->baseurl ?>/template/images/joomla.png" alt="Joomla" />
+			<hr />
+			<h5>
+				<?php
+				$joomla = '<a href="http://www.joomla.org">Joomla!<sup>&#174;</sup></a>';
+				$license = '<a data-toggle="modal" href="#licenseModal">' . JText::_('INSTL_GNU_GPL_LICENSE') . '</a>';
+				echo JText::sprintf('JGLOBAL_ISFREESOFTWARE', $joomla, $license); 
+				?>
+			</h5>
 		</div>
 		<!-- Container -->
 		<div class="container">
@@ -67,12 +75,6 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 				<jdoc:include type="installation" />
 			</div>
 			<hr />
-			<div class="footer">
-				<p><?php
-				$joomla = '<a href="http://www.joomla.org">Joomla!&#174;</a>';
-				$license = '<a data-toggle="modal" href="#licenseModal">' . JText::_('INSTL_GNU_GPL_LICENSE') . '</a>';
-				echo JText::sprintf('JGLOBAL_ISFREESOFTWARE', $joomla, $license); ?></p>
-			</div>
 		</div>
 		<div id="licenseModal" class="modal fade">
 			<div class="modal-header">
