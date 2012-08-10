@@ -44,28 +44,17 @@ class JToolbarButtonPopup extends JToolbarButton
 	 */
 	public function fetchButton($type = 'Popup', $name = '', $text = '', $url = '', $width = 640, $height = 480, $top = 0, $left = 0, $onClose = '')
 	{
+		JHtml::script('jui/cms.js', false, true);
 
 		$text = JText::_($text);
 		$class = 'cog';
 		$doTask = $this->_getCommand($name, $url, $width, $height, $top, $left);
 
 		$html = "<button class=\"btn\" data-toggle=\"collapse\" data-target=\"#modal-" . $name . "\" rel=\"{onClose: function() {" . $onClose
-			. "}}\">\n";
+			. "}}\" onClick=\"setcollapse('$url', '$name', '$height');\">\n";
 		$html .= "<i class=\"icon-$class\">\n";
 		$html .= "</i>\n";
 		$html .= "$text\n";
-
-		$iframe = "<div class=\"collapse fade\" id=\"modal-" . $name . "\">";
-		$iframe .= "<iframe class=\"iframe\" src=\"$url\" height=\"$height\" width=\"100%\"></iframe>";
-		$iframe .= "</div>";
-
-		$html .= "<script>\n";
-		$html .= "
-			!function ($) {
-				$('div.container-collapse').replaceWith('$iframe');
-			}(window.jQuery)
-			";
-		$html .= "</script>\n";
 
 		$html .= "</button>\n";
 

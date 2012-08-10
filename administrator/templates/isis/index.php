@@ -185,7 +185,7 @@ else
 	<div class="subhead-collapse">
 		<div class="subhead">
 			<div class="container-fluid">
-				<div class="container-collapse"></div>
+				<div id="container-collapse" class="container-collapse"></div>
 				<div class="row-fluid">
 					<div class="span12">
 						<jdoc:include type="modules" name="toolbar" style="no" />
