@@ -64,7 +64,7 @@ JText::script('INSTL_FTP_SETTINGS_CORRECT');
 				<?php
 				$joomla = '<a href="http://www.joomla.org">Joomla!<sup>&#174;</sup></a>';
 				$license = '<a data-toggle="modal" href="#licenseModal">' . JText::_('INSTL_GNU_GPL_LICENSE') . '</a>';
-				echo JText::sprintf('JGLOBAL_ISFREESOFTWARE', $joomla, $license); 
+				echo JText::sprintf('JGLOBAL_ISFREESOFTWARE', $joomla, $license);
 				?>
 			</h5>
 		</div>

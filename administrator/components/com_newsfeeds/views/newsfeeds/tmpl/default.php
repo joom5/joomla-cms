@@ -160,11 +160,11 @@ $sortFields = $this->getSortFields();
 				</tfoot>
 				<tbody>
 				<?php foreach ($this->items as $i => $item) :
-					$ordering	= ($listOrder == 'a.ordering');
-					$canCreate	= $user->authorise('core.create',		'com_newsfeeds.category.'.$item->catid);
-					$canEdit	= $user->authorise('core.edit',			'com_newsfeeds.category.'.$item->catid);
-					$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out==$user->get('id') || $item->checked_out==0;
-					$canChange	= $user->authorise('core.edit.state',	'com_newsfeeds.category.'.$item->catid) && $canCheckin;
+					$ordering   = ($listOrder == 'a.ordering');
+					$canCreate  = $user->authorise('core.create',     'com_newsfeeds.category.' . $item->catid);
+					$canEdit    = $user->authorise('core.edit',       'com_newsfeeds.category.' . $item->catid);
+					$canCheckin = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
+					$canChange  = $user->authorise('core.edit.state', 'com_newsfeeds.category.' . $item->catid) && $canCheckin;
 					?>
 					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid?>">
 						<td class="order nowrap center hidden-phone">
@@ -255,7 +255,7 @@ $sortFields = $this->getSortFields();
 							<?php echo (int) $item->cache_time; ?>
 						</td>
 						<td class="small hidden-phone">
-							<?php if ($item->language=='*'):?>
+							<?php if ($item->language == '*'):?>
 								<?php echo JText::alt('JALL', 'language'); ?>
 							<?php else:?>
 								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>

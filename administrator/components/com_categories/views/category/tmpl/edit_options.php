@@ -67,7 +67,7 @@ foreach ($fieldSets as $name => $fieldSet) :
 			</div>
 		<?php endforeach; ?>
 
-		<?php if ($name=='basic'):?>
+		<?php if ($name == 'basic'):?>
 			<div class="control-group">
 				<div class="control-label">
 					<?php echo $this->form->getLabel('note'); ?>

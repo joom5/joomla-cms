@@ -172,21 +172,24 @@ $sortFields = $this->getSortFields();
 				<?php
 				$originalOrders = array();
 				foreach ($this->items as $i => $item) :
-					$orderkey = array_search($item->id, $this->ordering[$item->parent_id]);
-					$canCreate	= $user->authorise('core.create',		'com_menus');
-					$canEdit	= $user->authorise('core.edit',			'com_menus');
-					$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out==$user->get('id')|| $item->checked_out==0;
-					$canChange	= $user->authorise('core.edit.state',	'com_menus') && $canCheckin;
+					$orderkey   = array_search($item->id, $this->ordering[$item->parent_id]);
+					$canCreate  = $user->authorise('core.create',     'com_menus');
+					$canEdit    = $user->authorise('core.edit',       'com_menus');
+					$canCheckin = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $user->get('id')|| $item->checked_out == 0;
+					$canChange  = $user->authorise('core.edit.state', 'com_menus') && $canCheckin;
 					//get the parents of item for sorting
 					if($item->level > 1){
 						$parentsStr = "";
 						$_currentParentId = $item->parent_id;
 						$parentsStr = " ".$_currentParentId;
-						for ($i = 0; $i < $item->level; $i++){
-								foreach ($this->ordering as $k=>$v){
+						for ($i = 0; $i < $item->level; $i++)
+						{
+								foreach ($this->ordering as $k => $v)
+								{
 									$v = implode("-", $v);
 									$v = "-".$v."-";
-									if(strpos($v,"-".$_currentParentId."-") !== false){
+									if (strpos($v, "-" . $_currentParentId . "-") !== false)
+									{
 										$parentsStr .= " ".$k;
 										$_currentParentId = $k;
 										break;
@@ -224,7 +227,7 @@ $sortFields = $this->getSortFields();
 							<?php echo JHtml::_('MenusHtml.Menus.state', $item->published, $i, $canChange, 'cb'); ?>
 						</td>
 						<td>
-							<?php echo str_repeat('<span class="gi">|&mdash;</span>', $item->level-1) ?>
+							<?php echo str_repeat('<span class="gi">|&mdash;</span>', $item->level - 1) ?>
 							<?php if ($item->checked_out) : ?>
 								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'items.', $canCheckin); ?>
 							<?php endif; ?>
@@ -235,32 +238,32 @@ $sortFields = $this->getSortFields();
 								<?php echo $this->escape($item->title); ?>
 							<?php endif; ?>
 							<span class="small">
-							<?php if ($item->type !='url') : ?>
+							<?php if ($item->type != 'url') : ?>
 								<?php if (empty($item->note)) : ?>
 									<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
 								<?php else : ?>
 									<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS_NOTE', $this->escape($item->alias), $this->escape($item->note));?>
 								<?php endif; ?>
-							<?php elseif($item->type =='url' && $item->note) : ?>
+							<?php elseif($item->type == 'url' && $item->note) : ?>
 								<?php echo JText::sprintf('JGLOBAL_LIST_NOTE', $this->escape($item->note));?>
 							<?php endif; ?>
 							</span>
 							<div class="small" title="<?php echo $this->escape($item->path);?>">
-								<?php echo str_repeat('<span class="gtr">&mdash;</span>', $item->level-1) ?>
+								<?php echo str_repeat('<span class="gtr">&mdash;</span>', $item->level - 1) ?>
 								<span title="<?php echo isset($item->item_type_desc) ? htmlspecialchars($this->escape($item->item_type_desc), ENT_COMPAT, 'UTF-8') : ''; ?>">
 									<?php echo $this->escape($item->item_type); ?></span>
 								</div>
 						</td>
 						<td class="center hidden-phone">
 							<?php if ($item->type == 'component') : ?>
-								<?php if ($item->language=='*' || $item->home=='0'):?>
+								<?php if ($item->language == '*' || $item->home == '0'):?>
 									<?php echo JHtml::_('jgrid.isdefault', $item->home, $i, 'items.', ($item->language != '*' || !$item->home) && $canChange);?>
 								<?php elseif ($canChange):?>
 									<a href="<?php echo JRoute::_('index.php?option=com_menus&task=items.unsetDefault&cid[]='.$item->id.'&'.JSession::getFormToken().'=1');?>">
-										<?php echo JHtml::_('image', 'mod_languages/'.$item->image.'.gif', $item->language_title, array('title'=>JText::sprintf('COM_MENUS_GRID_UNSET_LANGUAGE', $item->language_title)), true);?>
+										<?php echo JHtml::_('image', 'mod_languages/' . $item->image . '.gif', $item->language_title, array('title' => JText::sprintf('COM_MENUS_GRID_UNSET_LANGUAGE', $item->language_title)), true);?>
 									</a>
 								<?php else:?>
-									<?php echo JHtml::_('image', 'mod_languages/'.$item->image.'.gif', $item->language_title, array('title'=>$item->language_title), true);?>
+									<?php echo JHtml::_('image', 'mod_languages/' . $item->image . '.gif', $item->language_title, array('title' => $item->language_title), true);?>
 								<?php endif;?>
 							<?php endif; ?>
 						</td>
@@ -275,9 +278,9 @@ $sortFields = $this->getSortFields();
 						</td>
 						<?php endif;?>
 						<td class="small hidden-phone">
-							<?php if ($item->language==''):?>
+							<?php if ($item->language == ''):?>
 								<?php echo JText::_('JDEFAULT'); ?>
-							<?php elseif ($item->language=='*'):?>
+							<?php elseif ($item->language == '*'):?>
 								<?php echo JText::alt('JALL', 'language'); ?>
 							<?php else:?>
 								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>

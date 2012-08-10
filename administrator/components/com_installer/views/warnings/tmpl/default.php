@@ -35,7 +35,7 @@ defined('_JEXEC') or die;
 	if (!count($this->messages)) {
 		echo '<div class="alert alert-info"><a class="close" data-dismiss="alert" href="#">&times;</a>'. JText::_('COM_INSTALLER_MSG_WARNINGS_NONE').'</div>';
 	} else {
-		echo JHtml::_('sliders.start', 'warning-sliders', array('useCookie'=>1));
+		echo JHtml::_('sliders.start', 'warning-sliders', array('useCookie' => 1));
 		foreach($this->messages as $message) {
 			echo JHtml::_('sliders.panel', $message['message'], str_replace(' ', '', $message['message']));
 			echo '<div style="padding: 5px;" >'.$message['description'].'</div>';

@@ -96,7 +96,7 @@ JHtml::_('behavior.modal');
 												<?php echo $field->input; ?>
 											</div>
 										</div>
-										<?php else : $hidden_fields.= $field->input; ?>
+										<?php else : $hidden_fields .= $field->input; ?>
 										<?php endif; ?>
 										<?php endforeach; ?>
 									<?php echo $hidden_fields; ?>
@@ -110,7 +110,7 @@ JHtml::_('behavior.modal');
 								<?php echo $this->form->getInput('title'); ?>
 							</div>
 						</div>
-						<?php if ($this->item->type =='url'): ?>
+						<?php if ($this->item->type == 'url'): ?>
 							<?php $this->form->setFieldAttribute('link', 'readonly', 'false');?>
 							<div class="control-group">
 								<div class="control-label">
@@ -130,7 +130,7 @@ JHtml::_('behavior.modal');
 							</div>
 						<?php endif; ?>
 
-						<?php if ($this->item->type !='url'): ?>
+						<?php if ($this->item->type != 'url'): ?>
 							<div class="control-group">
 								<div class="control-label">
 									<?php echo $this->form->getLabel('alias'); ?>
@@ -141,7 +141,7 @@ JHtml::_('behavior.modal');
 							</div>
 						<?php endif; ?>
 
-						<?php if ($this->item->type !=='url'): ?>
+						<?php if ($this->item->type !== 'url'): ?>
 							<div class="control-group">
 								<div class="control-label">
 									<?php echo $this->form->getLabel('link'); ?>

@@ -30,13 +30,13 @@ $canDo = TemplatesHelper::getActions();
 		<ul class="nav nav-tabs">
 		  <li class="active"><a href="#details" data-toggle="tab"><?php echo JText::_('JDETAILS');?></a></li>
 		  <li><a href="#options" data-toggle="tab"><?php echo JText::_('JOPTIONS');?></a></li>
-		  <?php if ($user->authorise('core.edit', 'com_menu') && $this->item->client_id==0):?>
+		  <?php if ($user->authorise('core.edit', 'com_menu') && $this->item->client_id == 0):?>
 		  	<?php if ($canDo->get('core.edit.state')) : ?>
 		  		<li><a href="#assignment" data-toggle="tab"><?php echo JText::_('COM_TEMPLATES_MENUS_ASSIGNMENT');?></a></li>
 		  	<?php endif; ?>
 		  <?php endif;?>
 		</ul>
-		
+
 		<div class="tab-content">
 			<div class="tab-pane active" id="details">
 				<div class="control-group">
@@ -101,7 +101,7 @@ $canDo = TemplatesHelper::getActions();
 				<?php //get the menu parameters that are automatically set but may be modified.
 					echo $this->loadTemplate('options'); ?>
 			</div>
-			<?php if ($user->authorise('core.edit', 'com_menu') && $this->item->client_id==0):?>
+			<?php if ($user->authorise('core.edit', 'com_menu') && $this->item->client_id == 0):?>
 				<?php if ($canDo->get('core.edit.state')) : ?>
 					<div class="tab-pane" id="assignment">
 						<?php echo $this->loadTemplate('assignment'); ?>

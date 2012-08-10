@@ -234,7 +234,7 @@ $sortFields = $this->getSortFields();
 									JHtml::_('dropdown.edit', $item->id, 'article.', 'index.php?option=com_content&return=featured');
 									JHtml::_('dropdown.divider');
 									if ($item->state) :
-										JHtml::_('dropdown.unpublish', 'cb' . $i, 'articles.' );
+										JHtml::_('dropdown.unpublish', 'cb' . $i, 'articles.');
 									else :
 										JHtml::_('dropdown.publish', 'cb' . $i, 'articles.');
 									endif;
@@ -270,7 +270,7 @@ $sortFields = $this->getSortFields();
 							<?php echo $this->escape($item->author_name); ?>
 						</td>
 						<td class="small hidden-phone">
-							<?php if ($item->language=='*'):?>
+							<?php if ($item->language == '*'):?>
 								<?php echo JText::alt('JALL', 'language'); ?>
 							<?php else:?>
 								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>

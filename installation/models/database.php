@@ -235,7 +235,7 @@ class InstallationModelDatabase extends JModelLegacy
 				break;
 			}
 		}
-		$options = array_merge(array('db_created'=>1), $options);
+		$options = array_merge(array('db_created' => 1), $options);
 
 		// Restore autoselect value after database creation
 		$options['db_select'] = $tmpSelect;

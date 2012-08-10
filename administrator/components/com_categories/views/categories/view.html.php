@@ -120,7 +120,8 @@ class CategoriesViewCategories extends JViewLegacy
 			JToolbarHelper::addNew('category.add');
 		}
 
-		if ($canDo->get('core.edit' ) || $canDo->get('core.edit.own')) {
+		if ($canDo->get('core.edit') || $canDo->get('core.edit.own'))
+		{
 			JToolbarHelper::editList('category.edit');
 		}
 

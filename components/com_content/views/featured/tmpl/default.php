@@ -17,7 +17,7 @@ JHtml::_('behavior.caption');
 // It will be a separate class if the user starts it with a space
 ?>
 <div class="blog-featured<?php echo $this->pageclass_sfx;?>">
-<?php if ( $this->params->get('show_page_heading')!=0) : ?>
+<?php if ($this->params->get('show_page_heading') != 0) : ?>
 <div class="page-header">
 	<h1>
 	<?php echo $this->escape($this->params->get('page_heading')); ?>
@@ -52,15 +52,15 @@ JHtml::_('behavior.caption');
 	<?php foreach ($this->intro_items as $key => &$item) : ?>
 
 		<?php
-		$key= ($key-$leadingcount)+1;
-		$rowcount=(((int) $key-1) % (int) $this->columns) + 1;
+		$key = ($key - $leadingcount) + 1;
+		$rowcount = (((int) $key - 1) % (int) $this->columns) + 1;
 		$row = $counter / $this->columns;
 
 		if ($rowcount == 1) : ?>
 
 		<div class="items-row cols-<?php echo (int) $this->columns;?> <?php echo 'row-'.$row; ?> row-fluid">
 		<?php endif; ?>
-			<div class="item column-<?php echo $rowcount;?><?php echo $item->state == 0 ? ' system-unpublished"' : null; ?> span<?php echo round((12/$this->columns));?>">
+			<div class="item column-<?php echo $rowcount;?><?php echo $item->state == 0 ? ' system-unpublished"' : null; ?> span<?php echo round((12 / $this->columns));?>">
 			<?php
 					$this->item = &$item;
 					echo $this->loadTemplate('item');
@@ -68,7 +68,7 @@ JHtml::_('behavior.caption');
 			</div>
 			<?php $counter++; ?>
 
-			<?php if (($rowcount == $this->columns) or ($counter ==$introcount)): ?>
+			<?php if (($rowcount == $this->columns) or ($counter == $introcount)): ?>
 
 		</div>
 		<hr class="divider-vertical" />

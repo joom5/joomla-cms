@@ -12,15 +12,15 @@ defined('_JEXEC') or die;
 
 <div class="row-striped">
 	<?php if (count($list)) : ?>
-		<?php foreach ($list as $i=>$item) : ?>
+		<?php foreach ($list as $i => $item) : ?>
 			<div class="row-fluid">
 				<div class="span9">
 					<h5>
-						<?php echo JHtml::_('jgrid.published', $item->state, $i, '', false); ?> 
+						<?php echo JHtml::_('jgrid.published', $item->state, $i, '', false); ?>
 						<?php if ($item->checked_out) : ?>
 								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time); ?>
 						<?php endif; ?>
-		
+
 						<?php if ($item->link) :?>
 							<a href="<?php echo $item->link; ?>">
 								<?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8');?></a>

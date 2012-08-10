@@ -71,7 +71,7 @@ class CategoriesControllerCategories extends JControllerAdmin
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Get the arrays from the Request
-		$order	= JRequest::getVar('order',	null, 'post', 'array');
+		$order = JRequest::getVar('order',	null, 'post', 'array');
 		$originalOrder = explode(',', $this->input->getString('original_order_values'));
 
 		// Make sure something has changed
@@ -83,7 +83,7 @@ class CategoriesControllerCategories extends JControllerAdmin
 			return true;
 		}
 	}
-	
+
 	/**
 	 * Method to save the submitted ordering values for records via AJAX.
 	 *
@@ -97,22 +97,22 @@ class CategoriesControllerCategories extends JControllerAdmin
 
 		// Get the arrays from the Request
 		$pks	= JRequest::getVar('cid',	null, 'post', 'array');
-		$order	= JRequest::getVar('order',	null, 'post', 'array');		
+		$order	= JRequest::getVar('order',	null, 'post', 'array');
 		$originalOrder = explode(',', JRequest::getString('original_order_values'));
 
 		// Make sure something has changed
 		if (!($order === $originalOrder)) {
 			// Get the model
-			$model = $this->getModel();	
+			$model = $this->getModel();
 			// Save the ordering
-			$return = $model->saveorder($pks, $order);	
+			$return = $model->saveorder($pks, $order);
 			if ($return)
 			{
 				echo "1";
 			}
-		} 
+		}
 		// Close the application
 		JFactory::getApplication()->close();
-		
+
 	}
 }

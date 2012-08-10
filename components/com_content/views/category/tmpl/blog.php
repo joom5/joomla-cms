@@ -58,8 +58,8 @@ JHtml::_('behavior.caption');
 	<div class="clearfix"></div>
 	<?php endif; ?>
 	<?php
-	$introcount=(count($this->intro_items));
-	$counter=0;
+	$introcount = (count($this->intro_items));
+	$counter = 0;
 ?>
 	<?php if (!empty($this->intro_items)) : ?>
 	<?php foreach ($this->intro_items as $key => &$item) : ?>
@@ -68,17 +68,17 @@ JHtml::_('behavior.caption');
 		$rowcount = (((int) $key - 1) % (int) $this->columns) + 1;
 		$row = $counter / $this->columns;
 
-		if ($rowcount==1) : ?>
+		if ($rowcount == 1) : ?>
 	<div class="items-row cols-<?php echo (int) $this->columns;?> <?php echo 'row-'.$row; ?> row-fluid">
 		<?php endif; ?>
-		<div class="item column-<?php echo $rowcount;?><?php echo $item->state == 0 ? ' system-unpublished' : null; ?> span<?php echo round((12/$this->columns));?>">
+		<div class="item column-<?php echo $rowcount;?><?php echo $item->state == 0 ? ' system-unpublished' : null; ?> span<?php echo round((12 / $this->columns));?>">
 			<?php
 			$this->item = &$item;
 			echo $this->loadTemplate('item');
 		?>
 		</div>
 		<?php $counter++; ?>
-		<?php if (($rowcount == $this->columns) or ($counter ==$introcount)): ?>
+		<?php if (($rowcount == $this->columns) or ($counter == $introcount)): ?>
 
 	</div>
 	<hr class="divider-vertical" />

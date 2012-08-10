@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 ?>
 <div class="row-striped">
 	<?php if (count($list)) : ?>
-		<?php foreach ($list as $i=>$item) :
+		<?php foreach ($list as $i => $item) :
 			// Calculate popular items
 			$hits = (int) $item->hits;
 

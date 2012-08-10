@@ -272,7 +272,7 @@ $sortFields = $this->getSortFields();
 							<?php echo $this->escape($item->author_name); ?>
 						</td>
 						<td class="small hidden-phone">
-							<?php if ($item->language=='*'):?>
+							<?php if ($item->language == '*'):?>
 								<?php echo JText::alt('JALL', 'language'); ?>
 							<?php else:?>
 								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>

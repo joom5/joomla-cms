@@ -64,7 +64,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 				<?php if (in_array($article->access, $this->user->getAuthorisedViewLevels())) : ?>
 					<?php if ($this->params->get('list_show_hits', 1)) : ?>
 					<span class="list-hits badge badge-info pull-right">
-						<?php echo $article->hits; ?> 
+						<?php echo $article->hits; ?>
 					</span>
 					<?php endif; ?>
 					<?php if ($article->params->get('access-edit')) : ?>
@@ -79,16 +79,16 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 						<?php if ($this->params->get('list_show_author', 1)) : ?>
 						<small class="list-author">
 							<?php if(!empty($article->author) || !empty($article->created_by_alias)) : ?>
-								<?php $author =  $article->author ?>
+								<?php $author = $article->author ?>
 								<?php $author = ($article->created_by_alias ? $article->created_by_alias : $author);?>
-	
+
 								<?php if (!empty($article->contactid ) &&  $this->params->get('link_author') == true):?>
 									<?php echo JHtml::_(
 											'link',
 											JRoute::_('index.php?option=com_contact&view=contact&id='.$article->contactid),
 											$author
 									); ?>
-	
+
 								<?php else :?>
 									<?php echo JText::sprintf('COM_CONTENT_WRITTEN_BY', $author); ?>
 								<?php endif; ?>
@@ -99,8 +99,11 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 
 					<?php if ($this->params->get('list_show_date')) : ?>
 					<span class="list-date small pull-right">
-						<?php echo JHtml::_('date', $article->displayDate, $this->escape(
-						$this->params->get('date_format', JText::_('DATE_FORMAT_LC3')))); ?>
+						<?php
+						echo JHtml::_(
+							'date', $article->displayDate,
+							$this->escape($this->params->get('date_format', JText::_('DATE_FORMAT_LC3')))
+						); ?>
 					</span>
 					<?php endif; ?>
 
@@ -117,7 +120,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 							$fullURL->setVar('return', base64_encode($returnURL));
 						?>
 						<a href="<?php echo $fullURL; ?>" class="register">
-							<?php echo JText::_( 'COM_CONTENT_REGISTER_TO_READ_MORE' ); ?></a>
+							<?php echo JText::_('COM_CONTENT_REGISTER_TO_READ_MORE'); ?></a>
 					</span>
 				<?php endif; ?>
 				</li>

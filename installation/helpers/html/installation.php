@@ -53,7 +53,7 @@ class JHtmlInstallation
 		$num = self::getNumber($id, $tabs);
 		$view = self::getNumber(JRequest::getWord('view'), $tabs);
 		$tab = '<span class="badge">' . $num . '</span> ' . JText::_('INSTL_STEP_' . strtoupper($id) . '_LABEL');
-		if ($view+1 == $num)
+		if ($view + 1 == $num)
 		{
 			$tab = '<a href="#" onclick="Install.submitform();">' . $tab . '</a>';
 		}

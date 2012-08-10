@@ -59,7 +59,7 @@ class plgContentVote extends JPlugin
 				$img .= $starImageOff;
 			}
 			$html .= '<span class="content_rating">';
-			$html .= JText::sprintf( $img );
+			$html .= JText::sprintf($img);
 
 			if ($view == 'article' && $row->state == 1)
 			{
@@ -75,7 +75,7 @@ class plgContentVote extends JPlugin
 				$html .= '<input type="radio" title="'.JText::sprintf('PLG_VOTE_VOTE', '4').'" name="user_rating" value="4" /> ';
 				$html .= '<input type="radio" title="'.JText::sprintf('PLG_VOTE_VOTE', '5').'" name="user_rating" value="5" checked="checked" /> ';
 //				$html .= JText::_( 'PLG_VOTE_BEST' );
-				$html .= '&#160;<input class="btn btn-mini" type="submit" name="submit_vote" value="'. JText::_( 'PLG_VOTE_RATE' ) .'" />';
+				$html .= '&#160;<input class="btn btn-mini" type="submit" name="submit_vote" value="' . JText::_('PLG_VOTE_RATE') . '" />';
 				$html .= '<input type="hidden" name="task" value="article.vote" />';
 				$html .= '<input type="hidden" name="hitcount" value="0" />';
 				$html .= '<input type="hidden" name="url" value="'.  $uri->toString() .'" />';

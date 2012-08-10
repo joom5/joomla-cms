@@ -257,11 +257,11 @@ $sortFields = $this->getSortFields();
 						</td>
 						<td class="center small hidden-phone">
 							<?php echo $item->clicks;?> -
-							<?php echo sprintf('%.2f%%', $item->impmade ? 100 * $item->clicks/$item->impmade : 0);?>
+							<?php echo sprintf('%.2f%%', $item->impmade ? 100 * $item->clicks / $item->impmade : 0);?>
 						</td>
 
 						<td class="small nowrap hidden-phone">
-							<?php if ($item->language=='*'):?>
+							<?php if ($item->language == '*'):?>
 								<?php echo JText::alt('JALL', 'language'); ?>
 							<?php else:?>
 								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>

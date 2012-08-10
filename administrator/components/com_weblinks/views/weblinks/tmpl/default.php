@@ -130,19 +130,19 @@ $sortFields = $this->getSortFields();
 						</th>
 						<th class="title">
 							<?php echo JText::_('JGLOBAL_TITLE');?>
-							
-						</th>						
+
+						</th>
 						<th width="5%" class="hidden-phone">
 							<?php echo JText::_('JGRID_HEADING_ACCESS');?>
 						</th>
 						<th width="5%" class="hidden-phone">
-							<?php echo JText::_('JGLOBAL_HITS');?>							
+							<?php echo JText::_('JGLOBAL_HITS');?>
 						</th>
 						<th width="5%" class="hidden-phone">
-							<?php echo JText::_('JGRID_HEADING_LANGUAGE');?>							
+							<?php echo JText::_('JGRID_HEADING_LANGUAGE');?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
-							<?php echo JText::_('JGRID_HEADING_ID');?>							
+							<?php echo JText::_('JGRID_HEADING_ID');?>
 						</th>
 					</tr>
 				</thead>
@@ -157,10 +157,10 @@ $sortFields = $this->getSortFields();
 				<?php foreach ($this->items as $i => $item) :
 					$ordering	= ($listOrder == 'a.ordering');
 					$item->cat_link	= JRoute::_('index.php?option=com_categories&extension=com_weblinks&task=edit&type=other&cid[]='. $item->catid);
-					$canCreate	= $user->authorise('core.create',		'com_weblinks.category.'.$item->catid);
-					$canEdit	= $user->authorise('core.edit',			'com_weblinks.category.'.$item->catid);
-					$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out==$user->get('id') || $item->checked_out==0;
-					$canChange	= $user->authorise('core.edit.state',	'com_weblinks.category.'.$item->catid) && $canCheckin;
+					$canCreate	= $user->authorise('core.create',     'com_weblinks.category.'.$item->catid);
+					$canEdit	= $user->authorise('core.edit',       'com_weblinks.category.'.$item->catid);
+					$canCheckin	= $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
+					$canChange	= $user->authorise('core.edit.state', 'com_weblinks.category.'.$item->catid) && $canCheckin;
 					?>
 					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid?>">
 						<td class="order nowrap center hidden-phone">
@@ -204,7 +204,7 @@ $sortFields = $this->getSortFields();
 							<div class="small">
 								<?php echo $this->escape($item->category_title); ?>
 							</div>
-						</td>						
+						</td>
 						<td class="small hidden-phone">
 							<?php echo $this->escape($item->access_level); ?>
 						</td>
@@ -212,7 +212,7 @@ $sortFields = $this->getSortFields();
 							<?php echo $item->hits; ?>
 						</td>
 						<td class="small nowrap hidden-phone">
-							<?php if ($item->language=='*'):?>
+							<?php if ($item->language == '*'):?>
 								<?php echo JText::alt('JALL', 'language'); ?>
 							<?php else:?>
 								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
@@ -225,10 +225,10 @@ $sortFields = $this->getSortFields();
 					<?php endforeach; ?>
 				</tbody>
 			</table>
-		
+
 			<?php //Load the batch processing form. ?>
 			<?php echo $this->loadTemplate('batch'); ?>
-		
+
 			<div>
 				<input type="hidden" name="task" value="" />
 				<input type="hidden" name="boxchecked" value="0" />

@@ -69,7 +69,7 @@ endif;
 			<li><a href="#language" data-toggle="tab"><?php echo JText::_('JFIELD_LANGUAGE_LABEL') ?></a></li>
 			<li><a href="#metadata" data-toggle="tab"><?php echo JText::_('COM_CONTENT_METADATA') ?></a></li>
 		</ul>
-		
+
 		<div class="tab-content">
 			<div class="tab-pane active" id="editor">
 				<div class="control-group">
@@ -77,7 +77,7 @@ endif;
 								<?php echo $this->form->getInput('title'); ?>
 							</div>
 						</div>
-				
+
 						<?php if (is_null($this->item->id)):?>
 							<div class="control-group">
 								<div class="control-label">
@@ -88,9 +88,9 @@ endif;
 								</div>
 							</div>
 						<?php endif; ?>
-				
-							
-				
+
+
+
 							<?php echo $this->form->getInput('articletext'); ?>
 			</div>
 			<?php if ($params->get('show_urls_images_frontend')  ): ?>
@@ -317,7 +317,7 @@ endif;
 						<?php echo $this->form->getInput('metakey'); ?>
 					</div>
 				</div>
-				
+
 				<input type="hidden" name="task" value="" />
 				<input type="hidden" name="return" value="<?php echo $this->return_page;?>" />
 				<?php if($this->params->get('enable_category', 0) == 1) :?>
@@ -325,7 +325,7 @@ endif;
 				<?php endif;?>
 			</div>
 		</div>
-		<?php echo JHtml::_( 'form.token' ); ?>
+		<?php echo JHtml::_('form.token'); ?>
 	</fieldset>
 </form>
 </div>

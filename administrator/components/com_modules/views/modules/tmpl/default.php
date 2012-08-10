@@ -184,11 +184,11 @@ $sortFields = $this->getSortFields();
 				</tfoot>
 				<tbody>
 				<?php foreach ($this->items as $i => $item) :
-					$ordering	= ($listOrder == 'ordering');
-					$canCreate	= $user->authorise('core.create',		'com_modules');
-					$canEdit	= $user->authorise('core.edit',			'com_modules');
-					$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out==$user->get('id')|| $item->checked_out==0;
-					$canChange	= $user->authorise('core.edit.state',	'com_modules') && $canCheckin;
+					$ordering   = ($listOrder == 'ordering');
+					$canCreate  = $user->authorise('core.create',     'com_modules');
+					$canEdit    = $user->authorise('core.edit',       'com_modules');
+					$canCheckin = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $user->get('id')|| $item->checked_out == 0;
+					$canChange  = $user->authorise('core.edit.state', 'com_modules') && $canCheckin;
 				?>
 					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->position?>">
 						<td class="order nowrap center hidden-phone">
@@ -284,9 +284,9 @@ $sortFields = $this->getSortFields();
 							<?php echo $this->escape($item->access_level); ?>
 						</td>
 						<td class="small hidden-phone">
-							<?php if ($item->language==''):?>
+							<?php if ($item->language == ''):?>
 								<?php echo JText::_('JDEFAULT'); ?>
-							<?php elseif ($item->language=='*'):?>
+							<?php elseif ($item->language == '*'):?>
 								<?php echo JText::alt('JALL', 'language'); ?>
 							<?php else:?>
 								<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>

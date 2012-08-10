@@ -31,7 +31,7 @@ class JHtmlIcon
 			$text = JText::_('JNEW').'&#160;';
 		}
 
-		$button =  JHtml::_('link', JRoute::_($url), $text, 'class="btn btn-primary"');
+		$button = JHtml::_('link', JRoute::_($url), $text, 'class="btn btn-primary"');
 
 		$output = '<span class="hasTip" title="'.JText::_('COM_CONTENT_CREATE_ARTICLE').'">'.$button.'</span>';
 		return $output;
@@ -49,7 +49,7 @@ class JHtmlIcon
 		$status = 'width=400,height=350,menubar=yes,resizable=yes';
 
 		if ($params->get('show_icons')) {
-			$text ='<i class="icon-envelope"></i> '.JText::_('JGLOBAL_EMAIL');
+			$text = '<i class="icon-envelope"></i> ' . JText::_('JGLOBAL_EMAIL');
 		} else {
 			$text = JText::_('JGLOBAL_EMAIL');
 		}

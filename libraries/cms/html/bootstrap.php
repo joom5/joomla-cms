@@ -65,9 +65,10 @@ abstract class JHtmlBootstrap
 			$options = self::_getJSObject($opt);
 
 			// Attach tooltips to document
-			JFactory::getDocument()->addScriptDeclaration("(function($){
-                                    $('#$selector').tooltip($options);
-                                })(jQuery);"
+			JFactory::getDocument()->addScriptDeclaration(
+				"(function($){
+					$('#$selector').tooltip($options);
+					})(jQuery);"
 			);
 
 			// Set static array
@@ -125,9 +126,10 @@ abstract class JHtmlBootstrap
 			$options = self::_getJSObject($opt);
 
 			// Attach accordion to document
-			JFactory::getDocument()->addScriptDeclaration("(function($){
-                                    $('#$selector').collapse($options);
-                                })(jQuery);"
+			JFactory::getDocument()->addScriptDeclaration(
+				"(function($){
+					$('#$selector').collapse($options);
+				})(jQuery);"
 			);
 
 			// Set static array
@@ -213,12 +215,13 @@ abstract class JHtmlBootstrap
 			$options = self::_getJSObject($opt);
 
 			// Attach tooltips to document
-			JFactory::getDocument()->addScriptDeclaration("(function($){
-                                    $('#$selector a').click(function (e) {
-                                        e.preventDefault();
-                                        $(this).tab('show');
-                                    });
-                                })(jQuery);"
+			JFactory::getDocument()->addScriptDeclaration(
+				"(function($){
+					$('#$selector a').click(function (e) {
+						e.preventDefault();
+						$(this).tab('show');
+					});
+				})(jQuery);"
 			);
 
 			// Set static array

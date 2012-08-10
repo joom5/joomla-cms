@@ -30,7 +30,7 @@ defined('_JEXEC') or die;
 				</div>
 			</div>
 			<?php else :?>
-			<?php $hidden_fields.= $field->input; ?>
+			<?php $hidden_fields .= $field->input; ?>
 			<?php endif; ?>
 		<?php endforeach; ?>
 		<?php echo $hidden_fields; ?>

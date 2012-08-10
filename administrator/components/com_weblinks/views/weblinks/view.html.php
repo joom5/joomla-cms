@@ -93,7 +93,7 @@ class WeblinksViewWeblinks extends JViewLegacy
 
 		JToolbarHelper::help('JHELP_COMPONENTS_WEBLINKS_LINKS');
 	}
-	
+
 	/**
 	 * Returns an array of fields the table can be sorted by
 	 *
@@ -105,11 +105,11 @@ class WeblinksViewWeblinks extends JViewLegacy
 	{
 		return array(
 			'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
-			'a.state' => JText::_('JSTATUS'),				
-			'a.title' => JText::_('JGLOBAL_TITLE'),			
+			'a.state' => JText::_('JSTATUS'),
+			'a.title' => JText::_('JGLOBAL_TITLE'),
 			'a.access' => JText::_('JGRID_HEADING_ACCESS'),
 			'a.hits' => JText::_('JGLOBAL_HITS'),
-			'a.language' => JText::_('JGRID_HEADING_LANGUAGE'),			
+			'a.language' => JText::_('JGRID_HEADING_LANGUAGE'),
 			'a.id' => JText::_('JGRID_HEADING_ID')
 		);
 	}
