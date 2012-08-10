@@ -351,7 +351,7 @@ class InstallationControllerSetup extends JControllerLegacy
 		$body[] = array(JText::_('INSTL_DATABASE_NAME_LABEL'), $options['db_name']);
 		$body[] = array(JText::_('INSTL_DATABASE_PREFIX_LABEL'), $options['db_prefix']);
 
-		if ($options['ftp_enable']) {
+		if (isset($options['ftp_enable']) && $options['ftp_enable']) {
 			$body[] = $this->emailTitle(JText::_('INSTL_FTP'));
 			$body[] = array(JText::_('INSTL_FTP_USER_LABEL'), $options['ftp_user']);
 			if ($options['summary_email_passwords']) {
