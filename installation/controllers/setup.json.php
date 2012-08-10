@@ -378,7 +378,7 @@ class InstallationControllerSetup extends JControllerLegacy
 
 		$mail = JFactory::getMailer();
 		$mail->addRecipient($email);
-		$mail->addReplyTo(array($email, $name));
+		$mail->addReplyTo($email, $name);
 		$mail->setSender(array($email, $name));
 		$mail->setSubject($subject);
 		$mail->setBody($body);
