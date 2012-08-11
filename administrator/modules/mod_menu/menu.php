@@ -156,12 +156,18 @@ class JAdminCssMenu extends JObject
 				$dropdownCaret = ' <span class="caret"></span>';
 		}
 
+		/*
+		 * Build the icon
+		 */
+
+		$iconTag = ($this->getIconClass($this->_current->class) != null) ? "<i class=\"".$this->getIconClass($this->_current->class)."\"></i>" : "<i class=\"icon-question-sign\"></i>";
+
 		if ($this->_current->link != null && $this->_current->target != null) {
-			echo "<a".$linkClass." ".$dataToggle." href=\"".$this->_current->link."\" target=\"".$this->_current->target."\" >".$this->_current->title.$dropdownCaret."</a>";
+			echo "<a".$linkClass." ".$dataToggle." href=\"".$this->_current->link."\" target=\"".$this->_current->target."\" >".$iconTag.$this->_current->title.$dropdownCaret."</a>";
 		} elseif ($this->_current->link != null && $this->_current->target == null) {
-			echo "<a".$linkClass." ".$dataToggle." href=\"".$this->_current->link."\">".$this->_current->title.$dropdownCaret."</a>";
+			echo "<a".$linkClass." ".$dataToggle." href=\"".$this->_current->link."\">".$iconTag.$this->_current->title.$dropdownCaret."</a>";
 		} elseif ($this->_current->title != null) {
-			echo "<a".$linkClass." ".$dataToggle.">".$this->_current->title.$dropdownCaret."</a>";
+			echo "<a".$linkClass." ".$dataToggle.">".$iconTag.$this->_current->title.$dropdownCaret."</a>";
 		} else {
 			echo "<span></span>";
 		}
@@ -216,7 +222,7 @@ class JAdminCssMenu extends JObject
 			if (substr($identifier, 0, 6) == 'class:') {
 				// We were passed a class name
 				$class = substr($identifier, 6);
-				$classes[$identifier] = "icon-16-$class";
+				$classes[$identifier] = "navicon-16-$class";
 			} else {
 				if ($identifier == null) {
 					return null;
@@ -225,11 +231,11 @@ class JAdminCssMenu extends JObject
 				$class = preg_replace('#\.[^.]*$#', '', basename($identifier));
 				$class = preg_replace('#\.\.[^A-Za-z0-9\.\_\- ]#', '', $class);
 
-				$this->_css  .= "\n.icon-16-$class {\n" .
+				$this->_css  .= "\n.navicon-16-$class {\n" .
 						"\tbackground: url($identifier) no-repeat;\n" .
 						"}\n";
 
-				$classes[$identifier] = "icon-16-$class";
+				$classes[$identifier] = "navicon-16-$class";
 			}
 		}
 		return $classes[$identifier];

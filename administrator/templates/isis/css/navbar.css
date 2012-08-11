@@ -1,0 +1,123 @@
+/* ADDITIONAL NAV-BAR LEVEL */
+
+.dropdown-menu .sub-menu {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    margin-top: -5px;
+}
+
+.dropdown-menu li:hover .sub-menu {
+    visibility: visible;
+    display: block;
+}
+
+.navbar .sub-menu:before {
+    border-bottom: 7px solid transparent;
+    border-left: none;
+    border-right: 7px solid rgba(0, 0, 0, 0.2);
+    border-top: 7px solid transparent;
+    left: -7px;
+    top: 10px;
+}
+.navbar .sub-menu:after {
+    border-top: 6px solid transparent;
+    border-left: none;
+    border-right: 6px solid #fff;
+    border-bottom: 6px solid transparent;
+    left: 10px;
+    top: 11px;
+    left: -6px;
+}
+
+.nav li.disabled {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+/* -- ICON STYLES ----------------------------- */
+
+[class^="navicon-"],
+[class*=" navicon-"] {
+  background-position: 0px 0px !important;
+  background-repeat: no-repeat;
+  background-size:16px 16px;
+  padding-left:16px !important;
+  margin-left:-8px;
+  margin-right:8px;
+
+}
+
+.navicon-16-alert            { background-image: url(../images/menu/icon-16-alert.png);  }
+.navicon-16-archive          { background-image: url(../images/menu/icon-16-archive.png);  }
+.navicon-16-article          { background-image: url(../images/menu/icon-16-article.png);  }
+.navicon-16-banners          { background-image: url(../images/menu/icon-16-banner.png); }
+.navicon-16-banners-clients      { background-image: url(../images/menu/icon-16-banner-client.png);  }
+.navicon-16-banners-tracks       { background-image: url(../images/menu/icon-16-banner-tracks.png);  }
+.navicon-16-banners-cat        { background-image: url(../images/menu/icon-16-banner-categories.png);  }
+.navicon-16-category         { background-image: url(../images/menu/icon-16-category.png); }
+.navicon-16-checkin          { background-image: url(../images/menu/icon-16-checkin.png);  }
+.navicon-16-clear            { background-image: url(../images/menu/icon-16-clear.png);  }
+.navicon-16-component          { background-image: url(../images/menu/icon-16-component.png);  }
+.navicon-16-config           { background-image: url(../images/menu/icon-16-config.png); }
+.navicon-16-content          { background-image: url(../images/menu/icon-16-content.png);  }
+.navicon-16-contact          { background-image: url(../images/menu/icon-16-contacts.png); }
+.navicon-16-contact-cat        { background-image: url(../images/menu/icon-16-contacts-categories.png);  }
+.navicon-16-cpanel           { background-image: url(../images/menu/icon-16-cpanel.png); }
+.navicon-16-default          { background-image: url(../images/menu/icon-16-default.png);  }
+.navicon-16-featured         { background-image: url(../images/menu/icon-16-featured.png); }
+.navicon-16-groups           { background-image: url(../images/menu/icon-16-groups.png); }
+.navicon-16-help           { background-image: url(../images/menu/icon-16-help.png); }
+.navicon-16-help-this          { background-image: url(../images/menu/icon-16-help-this.png);  }
+.navicon-16-help-forum         { background-image: url(../images/menu/icon-16-help-forum.png); }
+.navicon-16-help-docs          { background-image: url(../images/menu/icon-16-help-docs.png);  }
+.navicon-16-help-jed         { background-image: url(../images/menu/icon-16-help-jed.png); }
+.navicon-16-help-jrd         { background-image: url(../images/menu/icon-16-help-jrd.png); }
+.navicon-16-help-trans         { background-image: url(../images/menu/icon-16-help-trans.png); }
+.navicon-16-help-community       { background-image: url(../images/menu/icon-16-help-community.png); }
+.navicon-16-help-security        { background-image: url(../images/menu/icon-16-help-security.png);  }
+.navicon-16-help-dev         { background-image: url(../images/menu/icon-16-help-dev.png); }
+.navicon-16-help-shop          { background-image: url(../images/menu/icon-16-help-shop.png);  }
+.navicon-16-info           { background-image: url(../images/menu/icon-16-info.png); }
+.navicon-16-install          { background-image: url(../images/menu/icon-16-install.png);  }
+.navicon-16-joomlaupdate       { background-image: url(../images/menu/icon-16-install.png);  }
+.navicon-16-language         { background-image: url(../images/menu/icon-16-language.png); }
+.navicon-16-levels           { background-image: url(../images/menu/icon-16-levels.png); }
+.navicon-16-logout           { background-image: url(../images/menu/icon-16-logout.png); }
+.navicon-16-maintenance        { background-image: url(../images/menu/icon-16-maintenance.png);  }
+.navicon-16-massmail         { background-image: url(../images/menu/icon-16-massmail.png); }
+.navicon-16-media            { background-image: url(../images/menu/icon-16-media.png);  }
+.navicon-16-menu           { background-image: url(../images/menu/icon-16-menu.png); }
+.navicon-16-menumgr          { background-image: url(../images/menu/icon-16-menumgr.png);  }
+.navicon-16-messages         { background-image: url(../images/menu/icon-16-messaging.png);  }
+.navicon-16-messages-add       { background-image: url(../images/menu/icon-16-new-privatemessage.png); }
+.navicon-16-messages-read        { background-image: url(../images/menu/icon-16-messages.png); }
+.navicon-16-module           { background-image: url(../images/menu/icon-16-module.png); }
+.navicon-16-newarticle         { background-image: url(../images/menu/icon-16-newarticle.png); }
+.navicon-16-newcategory        { background-image: url(../images/menu/icon-16-newcategory.png);  }
+.navicon-16-newgroup         { background-image: url(../images/menu/icon-16-newgroup.png); }
+.navicon-16-newlevel         { background-image: url(../images/menu/icon-16-newlevel.png); }
+.navicon-16-newuser          { background-image: url(../images/menu/icon-16-newuser.png);  }
+.navicon-16-nopreview          { background-image: url(../images/menu/icon-16-nopreview.png);  }
+.navicon-16-plugin           { background-image: url(../images/menu/icon-16-plugin.png); }
+.navicon-16-profile          { background-image: url(../images/menu/icon-16-user.png); }
+.navicon-16-preview          { background-image: url(../images/menu/icon-16-preview.png);  }
+.navicon-16-purge            { background-image: url(../images/menu/icon-16-purge.png);  }
+.navicon-16-readmess         { background-image: url(../images/menu/icon-16-readmess.png); }
+.navicon-16-redirect         { background-image: url(../images/menu/icon-16-redirect.png); }
+.navicon-16-search           { background-image: url(../images/menu/icon-16-search.png); }
+.navicon-16-finder           { background-image: url(../images/menu/icon-16-search.png); }
+.navicon-16-section          { background-image: url(../images/menu/icon-16-section.png);  }
+.navicon-16-static           { background-image: url(../images/menu/icon-16-static.png); }
+.navicon-16-stats            { background-image: url(../images/menu/icon-16-stats.png);  }
+.navicon-16-themes           { background-image: url(../images/menu/icon-16-themes.png); }
+.navicon-16-trash            { background-image: url(../images/menu/icon-16-trash.png);  }
+.navicon-16-user           { background-image: url(../images/menu/icon-16-user.png); }
+.navicon-16-user-note          { background-image: url(../images/menu/icon-16-user-note.png);  }
+.navicon-16-back-user          { background-image: url(../images/menu/icon-16-back-user.png);  }
+.navicon-16-writemess          { background-image: url(../images/menu/icon-16-writemess.png);  }
+.navicon-16-newsfeeds          { background-image: url(../images/menu/icon-16-newsfeeds.png);  }
+.navicon-16-newsfeeds-cat        { background-image: url(../images/menu/icon-16-newsfeeds-cat.png);  }
+.navicon-16-weblinks         { background-image: url(../images/menu/icon-16-links.png);  }
+.navicon-16-weblinks-cat       { background-image: url(../images/menu/icon-16-links-cat.png);  }
