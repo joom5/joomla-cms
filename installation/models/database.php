@@ -98,8 +98,8 @@ class InstallationModelDatabase extends JModelLegacy
 			return false;
 		}
 
-		// Ensure that a hostname and user name/password were input.
-		if (empty($options->db_host) || empty($options->db_user) || empty($options->db_pass))
+		// Ensure that a hostname and user name were input.
+		if (empty($options->db_host) || empty($options->db_user))
 		{
 			$this->setError(JText::_('INSTL_DATABASE_INVALID_DB_DETAILS'));
 			return false;
